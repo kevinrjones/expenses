@@ -1,0 +1,11 @@
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\bin\Debug\netcoreapp2.0\Expenses.API.deps.json
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\bin\Debug\netcoreapp2.0\Expenses.API.runtimeconfig.json
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\bin\Debug\netcoreapp2.0\Expenses.API.runtimeconfig.dev.json
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\bin\Debug\netcoreapp2.0\Expenses.API.dll
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\bin\Debug\netcoreapp2.0\Expenses.API.pdb
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\obj\Debug\netcoreapp2.0\Expenses.API.csprojResolveAssemblyReference.cache
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\obj\Debug\netcoreapp2.0\Expenses.API.csproj.CoreCompileInputs.cache
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\obj\Debug\netcoreapp2.0\Expenses.API.AssemblyInfoInputs.cache
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\obj\Debug\netcoreapp2.0\Expenses.API.AssemblyInfo.cs
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\obj\Debug\netcoreapp2.0\Expenses.API.dll
+C:\home\kevinj\projects\Expenses.Mvc\Expenses.API\obj\Debug\netcoreapp2.0\Expenses.API.pdb
