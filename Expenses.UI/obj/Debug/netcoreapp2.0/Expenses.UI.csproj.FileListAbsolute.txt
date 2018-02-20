@@ -1,1 +1,0 @@
-C:\home\kevinj\projects\Expenses.Mvc\Expenses.UI\obj\Debug\netcoreapp2.0\Expenses.UI.csprojResolveAssemblyReference.cache
