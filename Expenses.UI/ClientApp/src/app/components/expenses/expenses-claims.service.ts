@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { ExpenseClaim } from '../../models/expense-claim';
+import { ExpenseClaim } from './models/expense-claim';
 import { AppConfig } from '../../shared/projectConfigShared';
 import { ProjectConfig } from '../../shared/projectConfig';
 
@@ -11,7 +11,7 @@ import { ProjectConfig } from '../../shared/projectConfig';
 export class ExpenseClaimsService {
 
   url: string;
-  expenseClaims: ExpenseClaim
+  expenseClaims: ExpenseClaim;
 
   constructor(private _http: HttpClient,
     @Inject(AppConfig) config: ProjectConfig) {

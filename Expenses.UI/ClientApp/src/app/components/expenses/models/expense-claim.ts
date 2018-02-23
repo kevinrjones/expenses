@@ -1,12 +1,12 @@
 export class ExpenseItem {
     constructor(item?: Partial<ExpenseItem>) {
-        Object.assign(this, item)
+        Object.assign(this, item);
     }
     public id: number;
     public description: string;
 
     get Id(): number {
-        return this.id
+        return this.id;
     }
 
     get Description(): string {
@@ -17,22 +17,22 @@ export class ExpenseItem {
 export class ExpenseClaim {
 
     constructor(item?: Partial<ExpenseClaim>) {
-        Object.assign(this, item)
+        Object.assign(this, item);
     }
 
     public id: number;
     public description: string;
-    public expenseItems: Array<ExpenseItem>
+    public expenseItems: Array<ExpenseItem>;
 
     get Id(): number {
-        return this.id
+        return this.id;
     }
 
     get Description(): string {
-        return this.description
+        return this.description;
     }
 
     get ExpenseItems(): Array<ExpenseItem> {
-        return this.expenseItems
+        return this.expenseItems;
     }
 }

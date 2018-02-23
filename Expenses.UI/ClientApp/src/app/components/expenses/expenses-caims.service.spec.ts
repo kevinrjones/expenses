@@ -4,8 +4,8 @@ import { ExpenseClaimsService } from './expenses-claims.service';
 
 import { ResponseOptions } from '@angular/http';
 import { HttpRequest, HttpParams } from '@angular/common/http';
-import { ExpenseClaim } from '../../models/expense-claim';
 import { AppConfig } from '../../shared/projectConfigShared';
+import { ExpenseClaim } from './models/expense-claim';
 
 describe('ExpenseClaimsService', () => {
   beforeEach(() => {
@@ -37,7 +37,7 @@ describe('ExpenseClaimsService', () => {
       backend.expectOne((req: HttpRequest<any>) => {
 
         return req.url === '/api/expenses'
-          && req.method === 'GET'
+          && req.method === 'GET';
       }, `GET Claims`);
 
     })));
@@ -51,7 +51,7 @@ describe('ExpenseClaimsService', () => {
         method: 'GET'
       });
 
-      expect(req.request.method).toBe("GET");
+      expect(req.request.method).toBe('GET');
     })
   ));
 
@@ -61,8 +61,8 @@ describe('ExpenseClaimsService', () => {
 
       const req = backend.expectOne({});
 
-      expect(req.request.method).toBe("GET");
-      expect(req.request.url).toBe("/api/expenses");
+      expect(req.request.method).toBe('GET');
+      expect(req.request.url).toBe('/api/expenses');
     })
   ));
 
@@ -75,8 +75,8 @@ describe('ExpenseClaimsService', () => {
         { description: 'Title4' }
       ];
 
-      expenseClaimsService.claims().subscribe((data: Array<ExpenseClaim>) => {
-        expect(data.length).toBe(4)
+      expenseClaimsService.claims().subscribe((claims: Array<ExpenseClaim>) => {
+        expect(claims.length).toBe(4);
       });
 
       backend.expectOne({

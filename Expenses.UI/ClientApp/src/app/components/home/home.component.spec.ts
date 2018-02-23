@@ -3,11 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { PageNotFoundComponent } from '../../components/page-not-found/page-not-found.component';
 import { HomeComponent } from './home.component';
-import { ExpenseClaimsComponent } from '../expense-claims/expense-claims.component';
 
 import { appRoutes } from '../../app.routes'
 import { AppConfig } from '../../shared/projectConfigShared';
-import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
+import { ExpenseClaimsComponent } from '../expenses/expense-claims/expense-claims.component';
+import { ExpenseDetailsComponent } from '../expenses/expense-details/expense-details.component';
 
 
 describe('HomeComponent', () => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ExpenseClaimsService } from './expenses-claims.service';
-import { ExpenseClaim } from '../../models/expense-claim';
+import { ExpenseClaimsService } from '../expenses-claims.service';
+import { ExpenseClaim } from '../models/expense-claim';
 import 'rxjs/add/operator/map'
 
 @Component({
@@ -15,13 +15,13 @@ export class ExpenseClaimsComponent implements OnInit {
   // todo: add logger
   constructor(private expensesService: ExpenseClaimsService) { }
 
-  // todo: add toast  
+  // todo: add toast
   ngOnInit() {
-    
+
     this.expensesService.claims()
       .subscribe(
         (claims: Array<ExpenseClaim>) => {
-          this.claims = claims.map(c => new ExpenseClaim(c))
+          this.claims = claims.map(c => new ExpenseClaim(c));
         },
         (error) => console.error(error)
       )

@@ -6,15 +6,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { ExpenseClaimsComponent } from './expense-claims.component';
-import { PageNotFoundComponent } from '../../components/page-not-found/page-not-found.component';
-import { HomeComponent } from '../../components/home/home.component';
-import { appRoutes } from '../../app.routes';
-import { AppConfig } from '../../shared/projectConfigShared';
-import { ExpenseClaimsService } from './expenses-claims.service';
-import { ExpenseClaim } from '../../models/expense-claim';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
+import { ExpenseClaim } from '../models/expense-claim';
+import { ExpenseClaimsService } from '../expenses-claims.service';
+import { HomeComponent } from '../../home/home.component';
+import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
+import { appRoutes } from '../../../app.routes';
+import { AppConfig } from '../../../shared/projectConfigShared';
 
 
 describe('ExpenseClaimsComponent', () => {
@@ -37,10 +37,6 @@ describe('ExpenseClaimsComponent', () => {
         {
           provide: ExpenseClaimsService,
           useValue: expenseClaimsServiceStub
-        },
-        {
-          provide: 'app.config',
-          useValue: {}
         },
         {
           provide: AppConfig,
