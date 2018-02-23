@@ -7,6 +7,7 @@ import { ExpenseClaimsComponent } from '../expense-claims/expense-claims.compone
 
 import { appRoutes } from '../../app.routes'
 import { AppConfig } from '../../shared/projectConfigShared';
+import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
 
 
 describe('HomeComponent', () => {
@@ -17,7 +18,8 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent,
         PageNotFoundComponent,
-      ExpenseClaimsComponent],
+        ExpenseClaimsComponent,
+        ExpenseDetailsComponent],
       imports: [RouterTestingModule.withRoutes(appRoutes)
       ]
     })

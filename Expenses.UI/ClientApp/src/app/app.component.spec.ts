@@ -5,6 +5,7 @@ import { appRoutes } from './app.routes'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { ExpenseClaimsComponent } from './components/expense-claims/expense-claims.component';
+import { ExpenseDetailsComponent } from './components/expense-details/expense-details.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -14,7 +15,8 @@ describe('AppComponent', () => {
         AppComponent,
         PageNotFoundComponent,
         HomeComponent,
-        ExpenseClaimsComponent
+        ExpenseClaimsComponent,
+        ExpenseDetailsComponent
       ],
     }).compileComponents();
   }));

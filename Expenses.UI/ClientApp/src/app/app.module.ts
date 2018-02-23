@@ -11,13 +11,15 @@ import { ExpenseClaimsService } from './components/expense-claims/expenses-claim
 import { ExpenseClaimsComponent } from './components/expense-claims/expense-claims.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfig, PROJECT_CONFIG } from './shared/projectConfigShared';
+import { ExpenseDetailsComponent } from './components/expense-details/expense-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
-    ExpenseClaimsComponent
+    ExpenseClaimsComponent,
+    ExpenseDetailsComponent
   ],
   imports: [
     HttpClientModule,

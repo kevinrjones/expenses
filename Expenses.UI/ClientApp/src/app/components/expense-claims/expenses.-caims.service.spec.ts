@@ -14,8 +14,8 @@ describe('ExpenseClaimsService', () => {
         {
           provide: AppConfig,
           useValue: {
-            expensesUrl: "/expenses",
-            rootUrl: "/api"
+            expensesUrl: '/expenses',
+            rootUrl: '/api'
           }
         }],
       imports: [HttpClientTestingModule]
