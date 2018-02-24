@@ -11,7 +11,7 @@
         <th scope='col'>Paid</th>
       </thead>
       <tbody>
-        <tr *ngFor='let claim of claims'>
+        <tr *ngFor='let claim of summary.claims'>
           <td>{{claim.DisplayDate}}</td>
           <td>
             <a href='#' routerLink="/expenses/{{claim.Id}}">{{claim.Description}}</a>

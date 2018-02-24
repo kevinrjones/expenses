@@ -6,19 +6,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ExpenseClaim } from './models/expense-claim';
 import { AppConfig } from '../../shared/projectConfigShared';
 import { ProjectConfig } from '../../shared/projectConfig';
+import { ExpensesSummary } from './models/expenses-summary';
 
 @Injectable()
 export class ExpenseClaimsService {
 
   url: string;
-  expenseClaims: ExpenseClaim;
 
   constructor(private _http: HttpClient,
     @Inject(AppConfig) config: ProjectConfig) {
     this.url = `${config.rootUrl}${config.expensesUrl}`;
   }
 
-  public claims(): Observable<Array<ExpenseClaim>> {
-    return this._http.get<Array<ExpenseClaim>>(this.url, {});
+  public claims(): Observable<ExpensesSummary> {
+    return this._http.get<ExpensesSummary>(this.url, {});
   }
 }

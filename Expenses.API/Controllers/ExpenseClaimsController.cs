@@ -13,28 +13,31 @@ namespace Expenses.API.Controllers
     public class ExpenseClaimsController : Controller
     {
         [HttpGet]
-        public IEnumerable<ExpenseClaim> Get()
+        public ExpensesSummary Get()
         {
-            return new List<ExpenseClaim>
+            return new ExpensesSummary
             {
-                new ExpenseClaim()
-                {
-                    Id = 1,
-                    Description = "Kevin Expenses 1",
-                    Total = 100.0m,
-                    DueDate = new DateTime(2017,1,2).ToUniversalTime().ToShortDateString(),
-                    Paid = true,
-                    Currency = "£"
-                },
-                new ExpenseClaim()
-                {
-                    Id = 2,
-                    Description = "Kevin Expenses 2",
-                    Total = 100.0m,
-                    DueDate = new DateTime(2017,2,3).ToUniversalTime().ToShortDateString(),
-                    Paid = true,
-                    Currency = "$"
-                }
+                Claims = new List<ExpenseClaim>
+                    {
+                        new ExpenseClaim()
+                        {
+                            Id = 1,
+                            Description = "Kevin Expenses 1",
+                            Total = 100.0m,
+                            DueDate = new DateTime(2017,1,2).ToUniversalTime().ToShortDateString(),
+                            Paid = true,
+                            Currency = "£"
+                        },
+                        new ExpenseClaim()
+                        {
+                            Id = 2,
+                            Description = "Kevin Expenses 2",
+                            Total = 100.0m,
+                            DueDate = new DateTime(2017,2,3).ToUniversalTime().ToShortDateString(),
+                            Paid = true,
+                            Currency = "$"
+                        }
+                    }
             };
         }
     }

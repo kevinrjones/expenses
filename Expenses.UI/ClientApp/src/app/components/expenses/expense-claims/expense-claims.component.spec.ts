@@ -15,6 +15,7 @@ import { HomeComponent } from '../../home/home.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { appRoutes } from '../../../app.routes';
 import { AppConfig } from '../../../shared/projectConfigShared';
+import { ExpensesSummary } from '../models/expenses-summary';
 
 
 describe('ExpenseClaimsComponent', () => {
@@ -23,12 +24,16 @@ describe('ExpenseClaimsComponent', () => {
   let expenseClaimsService;
   let expenseServiceSpy: jasmine.Spy;
 
+  const claims = new Array<ExpenseClaim>(
+    new ExpenseClaim({description: 'A Description', id : 1}),
+    new ExpenseClaim());
+
+    const summary = new ExpensesSummary({totalClaimed: 100, totalPaid: 100, claims: claims});
+
   beforeEach(async(() => {
     const expenseClaimsServiceStub = {
-      claims(): Observable<Array<ExpenseClaim>> {
-        return Observable.of(new Array<ExpenseClaim>(
-          new ExpenseClaim({description: 'A Description', id : 1}),
-          new ExpenseClaim()));
+      claims(): Observable<ExpensesSummary> {
+        return Observable.of(summary);
       }
     };
 
