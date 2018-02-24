@@ -24,7 +24,10 @@ export class ExpenseClaimsComponent implements OnInit {
           this.claims = claims.map(c => new ExpenseClaim(c));
         },
         (error) => console.error(error)
-      )
+      );
   }
 
+  newClaim() {
+    console.log('Create new claim');
+  }
 }
