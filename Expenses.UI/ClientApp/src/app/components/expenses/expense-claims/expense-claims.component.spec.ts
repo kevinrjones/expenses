@@ -78,12 +78,12 @@ describe('ExpenseClaimsComponent', () => {
   });
 
   it('should contain a the correct list of claims', () => {
-    const des = fixture.debugElement.queryAll(By.css('li'));
+    const des = fixture.debugElement.queryAll(By.css('a'));
     expect(des.length).toBe(2);
   });
 
   it('should contain a the correct list of claims', () => {
-    const de = fixture.debugElement.query(By.css('li'));
+    const de = fixture.debugElement.query(By.css('a'));
     const el = de.nativeElement;
     expect(el.textContent).toBe('A Description');
   });
