@@ -21,22 +21,20 @@ namespace Expenses.API.Controllers
                 {
                     Id = 1,
                     Description = "Kevin Expenses 1",
-                    ExpenseItems = new List<Expense>
-                    {
-                        new Expense {Id = 1, Description = "Hotel", Total = 343.21m},
-                        new Expense {Id = 1, Description = "Travel", Total = 134.00m}
-                    }
+                    Total = 100.0m,
+                    DueDate = new DateTime(2017,1,2).ToUniversalTime().ToShortDateString(),
+                    Paid = true,
+                    Currency = "£"
                 },
                 new ExpenseClaim()
                 {
-                Id = 1,
-                Description = "Kevin Expenses 2",
-                ExpenseItems = new List<Expense>
-                {
-                    new Expense {Id = 1, Description = "Hotel", Total = 343.21m},
-                    new Expense {Id = 1, Description = "Travel", Total = 134.00m}
+                    Id = 2,
+                    Description = "Kevin Expenses 2",
+                    Total = 100.0m,
+                    DueDate = new DateTime(2017,2,3).ToUniversalTime().ToShortDateString(),
+                    Paid = true,
+                    Currency = "$"
                 }
-            }
             };
         }
     }

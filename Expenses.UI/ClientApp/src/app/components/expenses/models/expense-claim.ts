@@ -1,18 +1,7 @@
-export class ExpenseItem {
-    constructor(item?: Partial<ExpenseItem>) {
-        Object.assign(this, item);
-    }
-    public id: number;
-    public description: string;
+import * as moment from 'moment';
+import Moment = moment.Moment;
+import { ExpenseItem } from './expense-item';
 
-    get Id(): number {
-        return this.id;
-    }
-
-    get Description(): string {
-        return this.description;
-    }
-}
 
 export class ExpenseClaim {
 
@@ -22,7 +11,11 @@ export class ExpenseClaim {
 
     public id: number;
     public description: string;
-    public expenseItems: Array<ExpenseItem>;
+    public dueDateUtc: string;
+    public total: number;
+    public currency: string;
+    public paid: boolean;
+
 
     get Id(): number {
         return this.id;
@@ -32,7 +25,23 @@ export class ExpenseClaim {
         return this.description;
     }
 
-    get ExpenseItems(): Array<ExpenseItem> {
-        return this.expenseItems;
+    get DueDate(): Moment {
+        return moment(this.dueDateUtc);
+    }
+
+    get DisplayDate(): string {
+        return moment(this.dueDateUtc).format('MMM DD YYYY');
+    }
+
+    get Total(): number {
+        return this.total;
+    }
+
+    get Paid(): boolean {
+        return this.paid;
+    }
+
+    get Currency(): string {
+        return this.currency;
     }
 }

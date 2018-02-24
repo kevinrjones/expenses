@@ -4,11 +4,11 @@ export class ExpenseItem {
     public description: string;
 
     constructor(item?: Partial<ExpenseItem>) {
-        Object.assign(this, item)
+        Object.assign(this, item);
     }
 
     get Id(): number {
-        return this.id
+        return this.id;
     }
 
     get Description(): string {

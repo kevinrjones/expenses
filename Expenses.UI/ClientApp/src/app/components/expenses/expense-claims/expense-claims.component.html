@@ -12,12 +12,12 @@
       </thead>
       <tbody>
         <tr *ngFor='let claim of claims'>
-          <td></td>
+          <td>{{claim.DisplayDate}}</td>
           <td>
             <a href='#' routerLink="/expenses/{{claim.Id}}">{{claim.Description}}</a>
           </td>
-          <td></td>
-          <td></td>
+          <td>{{claim.Total}}</td>
+          <td><input type='checkbox' [checked]='claim.Paid' disabled/></td>
         </tr>
       </tbody>
     </table>

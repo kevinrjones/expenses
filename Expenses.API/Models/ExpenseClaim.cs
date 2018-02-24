@@ -6,7 +6,10 @@ namespace Expenses.API.Models
     public class ExpenseClaim
     {
         public int Id { get; set; }
-        public IEnumerable<Expense> ExpenseItems { get; set; }
         public string Description { get; set; }
+        public decimal Total { get; set; }
+        public string DueDate { get; set; }
+        public bool Paid { get; set; }
+        public string Currency { get; set; }
     }
 }
