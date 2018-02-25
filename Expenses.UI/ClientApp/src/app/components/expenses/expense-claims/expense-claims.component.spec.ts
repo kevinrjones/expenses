@@ -28,7 +28,7 @@ describe('ExpenseClaimsComponent', () => {
     new ExpenseClaim({description: 'A Description', id : 1}),
     new ExpenseClaim());
 
-    const summary = new ExpensesSummary({totalClaimed: 100, totalPaid: 100, claims: claims});
+    const summary = new ExpensesSummary({totalClaimed: 200, totalPaid: 100, claims: claims, currency: '$'});
 
   beforeEach(async(() => {
     const expenseClaimsServiceStub = {
@@ -97,6 +97,18 @@ describe('ExpenseClaimsComponent', () => {
     const de = fixture.debugElement.query(By.css('a'));
     const el = de.nativeElement.getAttribute('href');
     expect(el).toEqual('/expenses/1');
+  });
+
+  it('should set the summary total claimed', () => {
+    const de = fixture.debugElement.query(By.css('#totalClaimed'));
+    const el = de.nativeElement;
+    expect(el.textContent).toContain('200');
+  });
+
+  it('should set the summary total paid', () => {
+    const de = fixture.debugElement.query(By.css('#totalPaid'));
+    const el = de.nativeElement;
+    expect(el.textContent).toContain('100');
   });
 
   it('should call the service when initialised', () => {

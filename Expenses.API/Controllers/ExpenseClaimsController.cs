@@ -17,6 +17,9 @@ namespace Expenses.API.Controllers
         {
             return new ExpensesSummary
             {
+                TotalClaimed = 200,
+                TotalPaid = 100,
+                Currency = "£",
                 Claims = new List<ExpenseClaim>
                     {
                         new ExpenseClaim()

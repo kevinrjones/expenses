@@ -16,14 +16,24 @@
           <td>
             <a href='#' routerLink="/expenses/{{claim.Id}}">{{claim.Description}}</a>
           </td>
-          <td>{{claim.Total}}</td>
-          <td><input type='checkbox' [checked]='claim.Paid' disabled/></td>
+          <td>{{claim.Currency}} {{claim.Total}}</td>
+          <td>
+            <input type='checkbox' [checked]='claim.Paid' disabled/>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class='col-md-4'>
-    Summary
+    <h4>Summary</h4>
+    <div id='totalClaimed'>
+      Total Claimed:
+      <span>{{summary.currency}} {{summary.totalClaimed}}</span>
+    </div>
+    <div id='totalPaid'>
+      Total Paid:
+      <span>{{summary.currency}} {{summary.totalPaid}}</span>
+    </div>
   </div>
 </div>
 <div class="claimActions">

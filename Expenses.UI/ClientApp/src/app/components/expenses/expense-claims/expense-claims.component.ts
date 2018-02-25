@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { ExpenseClaim } from '../models/expense-claim';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { ExpensesSummary } from '../models/expenses-summary';
 
 @Component({
@@ -14,7 +14,9 @@ export class ExpenseClaimsComponent implements OnInit {
   summary: ExpensesSummary;
 
   // todo: add logger
-  constructor(private expensesService: ExpenseClaimsService) { }
+  constructor(private expensesService: ExpenseClaimsService) {
+    this.summary = new ExpensesSummary();
+  }
 
   // todo: add toast
   ngOnInit() {

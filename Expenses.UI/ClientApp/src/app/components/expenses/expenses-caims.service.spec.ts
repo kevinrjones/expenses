@@ -6,6 +6,7 @@ import { ResponseOptions } from '@angular/http';
 import { HttpRequest, HttpParams } from '@angular/common/http';
 import { AppConfig } from '../../shared/projectConfigShared';
 import { ExpenseClaim } from './models/expense-claim';
+import { ExpensesSummary } from './models/expenses-summary';
 
 describe('ExpenseClaimsService', () => {
   beforeEach(() => {
@@ -68,15 +69,16 @@ describe('ExpenseClaimsService', () => {
 
   it('should return the correct data', async(
     inject([ExpenseClaimsService, HttpTestingController], (expenseClaimsService: ExpenseClaimsService, backend: HttpTestingController) => {
-      const data = [
+
+      const data = {claims: [
         { description: 'Title1' },
         { description: 'Title2' },
         { description: 'Title3' },
         { description: 'Title4' }
-      ];
+      ]};
 
-      expenseClaimsService.claims().subscribe((claims: Array<ExpenseClaim>) => {
-        expect(claims.length).toBe(4);
+      expenseClaimsService.claims().subscribe((summary: ExpensesSummary) => {
+        expect(summary.claims.length).toBe(4);
       });
 
       backend.expectOne({
@@ -85,8 +87,5 @@ describe('ExpenseClaimsService', () => {
       }).flush(data);
 
     })
-
   ));
-
-
 });
