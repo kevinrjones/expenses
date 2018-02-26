@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -54,7 +56,8 @@ describe('ExpenseClaimsComponent', () => {
         ExpenseDetailsComponent],
       imports: [
         RouterTestingModule.withRoutes(appRoutes),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        NgbModule.forRoot()
       ]
     })
       .compileComponents();

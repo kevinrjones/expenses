@@ -1,0 +1,22 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title">Create A New Expense Claim</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="newExpenseForm" novalidate>
+    <div class='modal-body'>
+      <div class='form-group'>
+        <input class='form-control' type='text' placeholder='Description' formControlName='description'/>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">    
+    <button type="submit" class="btn btn-primary" (click)="addNew()" (keyup.enter)="addNew()" [disabled]="isInvalidOrWaiting()">Create</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close({'Save': false})" [disabled]="isWaiting">Cancel</button>
+  </div>
+  <div [hidden]="!isError" class="alert alert-danger">
+    {{message}}
+  </div>
+</div>

@@ -71,10 +71,10 @@ describe('ExpenseClaimsService', () => {
     inject([ExpenseClaimsService, HttpTestingController], (expenseClaimsService: ExpenseClaimsService, backend: HttpTestingController) => {
 
       const data = {claims: [
-        { description: 'Title1' },
-        { description: 'Title2' },
-        { description: 'Title3' },
-        { description: 'Title4' }
+        { description: 'Desctiption1' },
+        { description: 'Desctiption2' },
+        { description: 'Desctiption3' },
+        { description: 'Desctiption4' }
       ]};
 
       expenseClaimsService.claims().subscribe((summary: ExpensesSummary) => {

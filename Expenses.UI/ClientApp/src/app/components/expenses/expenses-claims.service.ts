@@ -21,4 +21,8 @@ export class ExpenseClaimsService {
   public claims(): Observable<ExpensesSummary> {
     return this._http.get<ExpensesSummary>(this.url, {});
   }
+
+  public newClaim(): Observable<ExpenseClaim> {
+    return this._http.post<ExpenseClaim>(this.url, {});
+  }
 }
