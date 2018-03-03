@@ -20,11 +20,11 @@
       <div class='form-group'>
         <div class='input-group'>
           <input type="text" id="expenses_start_date" class="form-control" formControlName="expenses_start_date" ngbDatepicker #startDateDatepicker="ngbDatepicker"
-            placeholder="yyyy-mm-dd" readonly/>
+            placeholder="yyyy-mm-dd" (click)="startDateDatepicker.toggle()" readonly/>
 
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" (click)="startDateDatepicker.toggle()" type="button">
-              <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+              <i class="fa fa-calendar"></i>
             </button>
           </div>
         </div>
@@ -41,5 +41,5 @@
   </div>
 </div>
 
-<p>Form value: {{ newExpenseForm.value | json }}</p>
-<p>Form status: {{ newExpenseForm.status | json }}</p>
+<!-- <p>Form value: {{ newExpenseForm.value | json }}</p>
+<p>Form status: {{ newExpenseForm.status | json }}</p> -->
