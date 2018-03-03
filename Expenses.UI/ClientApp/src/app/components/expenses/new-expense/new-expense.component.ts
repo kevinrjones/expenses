@@ -43,7 +43,8 @@ export class NewExpenseComponent implements OnInit {
 
     this.newExpenseForm = this.formBuilder.group({
       description: ['', Validators.required],
-      company: ['', Validators.required]
+      company: ['', Validators.required],
+      expenses_start_date: [null, Validators.required]
     });
   }
 

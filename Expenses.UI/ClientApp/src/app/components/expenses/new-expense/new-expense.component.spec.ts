@@ -47,26 +47,27 @@ describe('NewExpenseComponent', () => {
   });
 
   it('should be invalid if no values are set', () => {
-    component.newExpenseForm.controls.description.setValue('');
-    component.newExpenseForm.controls.company.setValue('');
+    component.newExpenseForm.setValue({description: '', company: '', expenses_start_date: null});
     expect(component.newExpenseForm.valid).not.toBeTruthy();
   });
 
   it('should be invalid if the description is not set', () => {
-    component.newExpenseForm.controls.description.setValue('');
-    component.newExpenseForm.controls.company.setValue('ff');
+    component.newExpenseForm.setValue({description: '', company: 'ff', expenses_start_date: {year: 2017, month: 5, day: 13}});
     expect(component.newExpenseForm.valid).not.toBeTruthy();
   });
 
   it('should be invalid if the company is not set', () => {
-    component.newExpenseForm.controls.description.setValue('ff');
-    component.newExpenseForm.controls.company.setValue('');
+    component.newExpenseForm.setValue({description: 'ff', company: '', expenses_start_date: {year: 2017, month: 5, day: 13}});
+    expect(component.newExpenseForm.valid).not.toBeTruthy();
+  });
+
+  it('should be invalid if the date is not set', () => {
+    component.newExpenseForm.setValue({description: 'ff', company: 'dd', expenses_start_date: null});
     expect(component.newExpenseForm.valid).not.toBeTruthy();
   });
 
   it('should be valid if all values set', () => {
-    component.newExpenseForm.controls.description.setValue('ff');
-    component.newExpenseForm.controls.company.setValue('dd');
+    component.newExpenseForm.setValue({description: 'ff', company: 'dd', expenses_start_date: {year: 2017, month: 5, day: 13}});
     expect(component.newExpenseForm.valid).toBeTruthy();
   });
 

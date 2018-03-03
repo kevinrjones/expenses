@@ -2,7 +2,7 @@
   <div class="modal-header">
     <h4 class="modal-title">Create A New Expense Claim</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
-        <span aria-hidden="true">&times;</span>
+      <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <form [formGroup]="newExpenseForm" novalidate>
@@ -10,16 +10,29 @@
       <div class="form-group">
         <label class="center-block">For:
           <select class="form-control" formControlName="company">
-              <option *ngFor="let company of companies" [value]="company">{{company}}</option>
+            <option *ngFor="let company of companies" [value]="company">{{company}}</option>
           </select>
         </label>
       </div>
       <div class='form-group'>
-        <input class='form-control' type='text' placeholder='Description' formControlName='description'/>
+        <input class='form-control' type='text' placeholder='Description' formControlName='description' />
+      </div>
+      <div class='form-group'>
+        <div class='input-group'>
+          <input type="text" id="expenses_start_date" class="form-control" formControlName="expenses_start_date" ngbDatepicker #startDateDatepicker="ngbDatepicker"
+            placeholder="yyyy-mm-dd" readonly/>
+
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="startDateDatepicker.toggle()" type="button">
+              <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+
   </form>
-  <div class="modal-footer">    
+  <div class="modal-footer">
     <button type="submit" class="btn btn-primary" (click)="addNew()" (keyup.enter)="addNew()" [disabled]="isInvalidOrWaiting()">Create</button>
     <button type="button" class="btn btn-secondary" (click)="activeModal.close({'Save': false})" [disabled]="isWaiting">Cancel</button>
   </div>
@@ -28,6 +41,5 @@
   </div>
 </div>
 
-<!-- <p>Form value: {{ newExpenseForm.value | json }}</p>
-<p>Form status: {{ newExpenseForm.status | json }}</p> -->
-
+<p>Form value: {{ newExpenseForm.value | json }}</p>
+<p>Form status: {{ newExpenseForm.status | json }}</p>
