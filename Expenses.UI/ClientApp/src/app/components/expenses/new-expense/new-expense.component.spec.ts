@@ -45,4 +45,29 @@ describe('NewExpenseComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be invalid if no values are set', () => {
+    component.newExpenseForm.controls.description.setValue('');
+    component.newExpenseForm.controls.company.setValue('');
+    expect(component.newExpenseForm.valid).not.toBeTruthy();
+  });
+
+  it('should be invalid if the description is not set', () => {
+    component.newExpenseForm.controls.description.setValue('');
+    component.newExpenseForm.controls.company.setValue('ff');
+    expect(component.newExpenseForm.valid).not.toBeTruthy();
+  });
+
+  it('should be invalid if the company is not set', () => {
+    component.newExpenseForm.controls.description.setValue('ff');
+    component.newExpenseForm.controls.company.setValue('');
+    expect(component.newExpenseForm.valid).not.toBeTruthy();
+  });
+
+  it('should be valid if all values set', () => {
+    component.newExpenseForm.controls.description.setValue('ff');
+    component.newExpenseForm.controls.company.setValue('dd');
+    expect(component.newExpenseForm.valid).toBeTruthy();
+  });
+
 });
