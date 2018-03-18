@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import { ExpensesSummary } from '../models/expenses-summary';
 import { NewExpenseComponent } from '../new-expense/new-expense.component';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-expense-claims',
@@ -17,7 +18,8 @@ export class ExpenseClaimsComponent implements OnInit {
   // todo: add logger
   constructor(
     private expensesService: ExpenseClaimsService,
-    private _modalService: NgbModal
+    private modalService: NgbModal,
+    public toastr: ToastsManager
   ) {
     this.summary = new ExpensesSummary();
   }
@@ -28,13 +30,12 @@ export class ExpenseClaimsComponent implements OnInit {
       (claims: ExpensesSummary) => {
         this.summary = new ExpensesSummary(claims);
       },
-      error => console.error(error)
+      error => this.toastr.error('Unable to get expense claims', 'Error')
     );
   }
 
   newClaim() {
-    console.log('Create new claim');
-    const modalRef: NgbModalRef = this._modalService.open(NewExpenseComponent, {
+    const modalRef: NgbModalRef = this.modalService.open(NewExpenseComponent, {
       windowClass: 'expense-detaiks'
     });
     modalRef.result.then(

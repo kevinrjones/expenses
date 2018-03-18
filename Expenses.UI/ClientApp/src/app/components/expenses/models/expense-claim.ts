@@ -11,7 +11,9 @@ export class ExpenseClaim {
 
     public id: number;
     public description: string;
+    public company: string;
     public dueDateUtc: string;
+    public claimDateUtc: string;
     public total: number;
     public currency: string;
     public paid: boolean;
@@ -25,8 +27,15 @@ export class ExpenseClaim {
         return this.description;
     }
 
+    get Company(): string {
+        return this.company;
+    }
+
     get DueDate(): Moment {
         return moment(this.dueDateUtc);
+    }
+    get ClaimDate(): Moment {
+        return moment(this.claimDateUtc);
     }
 
     get DisplayDate(): string {
