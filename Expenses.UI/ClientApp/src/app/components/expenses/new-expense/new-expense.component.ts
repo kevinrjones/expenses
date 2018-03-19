@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,7 +10,6 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { ExpenseClaim } from '../models/expense-claim';
 
 @Component({
@@ -35,8 +34,7 @@ export class NewExpenseComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private expensesClaimService: ExpenseClaimsService,
-    private formBuilder: FormBuilder,
-    public toastr: ToastsManager
+    private formBuilder: FormBuilder
   ) {
     this.companies = ['Google', 'Microsoft'];
   }
@@ -67,13 +65,11 @@ export class NewExpenseComponent implements OnInit {
         result => {
           this.activeModal.close({ Save: true });
           this.isWaiting = false;
-          this.toastr.success('Expense creation succeeded', 'Success');
         },
         error => {
           this.message = 'Unable to create new expense claim';
           this.isError = true;
           this.isWaiting = false;
-          this.toastr.error('Expense creation failed', 'Error');
         }
       );
   }

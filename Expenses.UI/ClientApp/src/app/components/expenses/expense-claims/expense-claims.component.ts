@@ -16,11 +16,7 @@ export class ExpenseClaimsComponent implements OnInit {
   summary: ExpensesSummary;
 
   // todo: add logger
-  constructor(
-    private expensesService: ExpenseClaimsService,
-    private modalService: NgbModal,
-    public toastr: ToastsManager
-  ) {
+  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal, public toastr: ToastsManager) {
     this.summary = new ExpensesSummary();
   }
 
@@ -40,7 +36,7 @@ export class ExpenseClaimsComponent implements OnInit {
     });
     modalRef.result.then(
       res => {
-        console.log(res);
+        this.toastr.success('Created a new claim', 'Success');
       },
       () => {}
     ); // empty 'reject' function - workaround for https://github.com/shlomiassaf/angular2-modal/issues/188

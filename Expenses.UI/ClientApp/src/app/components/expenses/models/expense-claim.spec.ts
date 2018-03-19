@@ -7,8 +7,8 @@ describe('Expense Claim', () => {
   beforeEach(() => {
     expenseClaim = new ExpenseClaim({
       company: 'CompanyName',
-      dueDateUtc: '2017/01/01',
-      claimDateUtc: '2018/01/01'
+      dueDateUtc: '2017-01-01',
+      claimDateUtc: '2018-01-01'
     });
   });
 
@@ -16,10 +16,10 @@ describe('Expense Claim', () => {
     expect(expenseClaim.Company).toBe('CompanyName');
   });
   it('should return the DueDate', () => {
-    expect(expenseClaim.DueDate).toEqual(moment('2017/01/01'));
+    expect(expenseClaim.DueDate).toEqual(moment('2017-01-01'));
   });
   it('should return the ClaimDate', () => {
-    expect(expenseClaim.ClaimDate).toEqual(moment('2018/01/01'));
+    expect(expenseClaim.ClaimDate).toEqual(moment('2018-01-01'));
   });
   it('should return the DisplayDate', () => {
     expect(expenseClaim.DisplayDate).toBe('Jan 01 2017');

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -14,6 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule, ToastsManager } from 'ng2-toastr';
 import { StoreHelper } from '../../../shared/store/store-helper';
 import { InjectableStoreDecorator, Store } from '../../../shared/store/store';
+import { ViewContainerRef } from '@angular/core';
 
 describe('NewExpenseComponent', () => {
   let component: NewExpenseComponent;
@@ -36,9 +38,11 @@ describe('NewExpenseComponent', () => {
         {
           provide: AppConfig,
           useValue: {}
-        }
+        },
+        ViewContainerRef
       ],
       imports: [
+        BrowserAnimationsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
         NgbModule.forRoot(),
@@ -98,26 +102,5 @@ describe('NewExpenseComponent', () => {
     spyOn(activeModal, 'close');
     component.addNew();
     expect(activeModal.close).toHaveBeenCalled();
-  });
-
-  it('should how a succesful toast when a new claim is sucesfully added', () => {
-    spyOn(expenseClaimsService, 'newClaim').and.returnValue(Observable.of({}));
-    spyOn(toastrService, 'success');
-    component.addNew();
-    expect(toastrService.success).toHaveBeenCalled();
-  });
-
-  it('should not add close the active modal when a new claim is unsucesfully added', () => {
-    spyOn(expenseClaimsService, 'newClaim').and.returnValue(Observable.throw({}));
-    spyOn(activeModal, 'close');
-    component.addNew();
-    expect(activeModal.close).not.toHaveBeenCalled();
-  });
-
-  it('should how a succesful toast when a new claim is sucesfully added', () => {
-    spyOn(expenseClaimsService, 'newClaim').and.returnValue(Observable.throw({}));
-    spyOn(toastrService, 'error');
-    component.addNew();
-    expect(toastrService.error).toHaveBeenCalled();
   });
 });

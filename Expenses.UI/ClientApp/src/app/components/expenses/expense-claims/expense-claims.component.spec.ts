@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule, NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -203,6 +203,7 @@ describe('ExpenseClaimsComponent', () => {
 
   describe('Creating a new claim', () => {
     let modalService;
+    let toastrService;
 
     beforeEach(
       async(() => {
@@ -233,6 +234,7 @@ describe('ExpenseClaimsComponent', () => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
 
       modalService = fixture.debugElement.injector.get(NgbModal);
+      toastrService = fixture.debugElement.injector.get(ToastsManager);
 
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -243,5 +245,20 @@ describe('ExpenseClaimsComponent', () => {
       component.newClaim();
       expect(modalService.open).toHaveBeenCalled();
     });
+
+    // fit('should show the toast when the expense claim is added - fails - async', () => {
+    //   spyOn(toastrService, 'success');
+    //   spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({}) });
+    //   component.newClaim();
+    //   expect(toastrService.success).toHaveBeenCalled();
+    // });
+
+    it('should show the toast when the expense claim is added', fakeAsync(() => {
+      spyOn(toastrService, 'success');
+      spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({}) });
+      component.newClaim();
+      tick();
+      expect(toastrService.success).toHaveBeenCalled();
+    }));
   });
 });
