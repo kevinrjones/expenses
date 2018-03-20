@@ -8,11 +8,7 @@
   <form [formGroup]="newExpenseForm" novalidate>
     <div class='modal-body'>
       <div class="form-group">
-        <label class="center-block">For:
-          <select class="form-control" formControlName="company">
-            <option *ngFor="let company of companies" [value]="company">{{company}}</option>
-          </select>
-        </label>
+        <input placeholder="For" type="text" formControlName="company" class="form-control" />
       </div>
       <div class='form-group'>
         <input class='form-control' type='text' placeholder='Description' formControlName='description' />
@@ -40,6 +36,6 @@
     {{message}}
   </div>
 </div>
-
-<!-- <p>Form value: {{ newExpenseForm.value | json }}</p>
-<p>Form status: {{ newExpenseForm.status | json }}</p> -->
+<!-- 
+<p>Form value: {{ newExpenseForm.value | json }}</p>
+<p>Form status: {{ newExpenseForm.status | json }}</p>  -->

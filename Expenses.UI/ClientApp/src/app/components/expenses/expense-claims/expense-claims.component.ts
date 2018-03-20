@@ -36,7 +36,9 @@ export class ExpenseClaimsComponent implements OnInit {
     });
     modalRef.result.then(
       res => {
-        this.toastr.success('Created a new claim', 'Success');
+        if (res.save) {
+          this.toastr.success('Created a new claim', 'Success');
+        }
       },
       () => {}
     ); // empty 'reject' function - workaround for https://github.com/shlomiassaf/angular2-modal/issues/188

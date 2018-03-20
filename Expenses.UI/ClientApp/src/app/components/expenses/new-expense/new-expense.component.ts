@@ -1,12 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-  ValidatorFn
-} from '@angular/forms/';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms/';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +15,6 @@ export class NewExpenseComponent implements OnInit {
   public isWaiting: boolean;
   public isError: boolean;
   public message: string;
-  public companies: Array<String>;
 
   description = new FormControl('', [Validators.required]);
   expenses_start_date = new FormControl('', [Validators.required]);
@@ -30,13 +22,7 @@ export class NewExpenseComponent implements OnInit {
 
   newExpenseForm: FormGroup;
 
-  // todo: userservice to get the companies the user claims for
-  constructor(
-    public activeModal: NgbActiveModal,
-    private expensesClaimService: ExpenseClaimsService,
-    private formBuilder: FormBuilder
-  ) {
-    this.companies = ['Google', 'Microsoft'];
+  constructor(public activeModal: NgbActiveModal, private expensesClaimService: ExpenseClaimsService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {

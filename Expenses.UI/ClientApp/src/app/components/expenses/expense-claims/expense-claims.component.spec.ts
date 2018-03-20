@@ -355,14 +355,26 @@ describe('ExpenseClaimsComponent', () => {
     // });
 
     it(
-      'should show the toast when the expense claim is added',
+      'should show the toast when the user creates the claim',
       fakeAsync(() => {
         spyOn(toastrService, 'success');
-        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({}) });
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({save: true}) });
         component.newClaim();
         tick();
         expect(toastrService.success).toHaveBeenCalled();
       })
     );
+
+    it(
+      'should not show the toast when the user cancels creating the claim',
+      fakeAsync(() => {
+        spyOn(toastrService, 'success');
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({save: false}) });
+        component.newClaim();
+        tick();
+        expect(toastrService.success).not.toHaveBeenCalled();
+      })
+    );
+
   });
 });

@@ -43,5 +43,11 @@ namespace Expenses.API.Controllers
                     }
             };
         }
+        [HttpPost]
+        public bool Post()
+        {
+            // add new claim and return id
+            return true;
+        }
     }
 }
