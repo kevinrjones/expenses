@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { ExpenseClaim } from '../models/expense-claim';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +18,8 @@ export class ExpenseClaimsComponent implements OnInit {
   summary: ExpensesSummary;
 
   // todo: add logger
-  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal, public toastr: ToastsManager) {
+  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal, 
+    public toastr: ToastsManager, public router: Router) {
     this.summary = new ExpensesSummary();
   }
 
@@ -38,6 +41,8 @@ export class ExpenseClaimsComponent implements OnInit {
       res => {
         if (res.save) {
           this.toastr.success('Created a new claim', 'Success');
+          // 3 == id - get this when creating the new claim
+          this.router.navigate(['/expenses', res.id]);
         }
       },
       () => {}

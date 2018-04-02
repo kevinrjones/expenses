@@ -49,7 +49,7 @@ export class NewExpenseComponent implements OnInit {
       )
       .subscribe(
         result => {
-          this.activeModal.close({ Save: true });
+          this.activeModal.close({ save: true, id: result.id });
           this.isWaiting = false;
         },
         error => {

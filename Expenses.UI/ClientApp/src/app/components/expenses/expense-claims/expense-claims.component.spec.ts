@@ -22,6 +22,7 @@ import { StoreHelper } from '../../../shared/store/store-helper';
 import { Store, InjectableStoreDecorator } from '../../../shared/store/store';
 import { ToastModule, Toast, ToastsManager } from 'ng2-toastr';
 import { asyncError, asyncData } from '../../../testing/helpers';
+import { Router } from '@angular/router';
 
 describe('ExpenseClaimsComponent', () => {
   let component: ExpenseClaimsComponent;
@@ -305,6 +306,7 @@ describe('ExpenseClaimsComponent', () => {
   describe('Creating a new claim', () => {
     let modalService;
     let toastrService;
+    let routeService;
 
     beforeEach(
       async(() => {
@@ -336,6 +338,7 @@ describe('ExpenseClaimsComponent', () => {
 
       modalService = fixture.debugElement.injector.get(NgbModal);
       toastrService = fixture.debugElement.injector.get(ToastsManager);
+      routeService = fixture.debugElement.injector.get(Router);
 
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -347,21 +350,33 @@ describe('ExpenseClaimsComponent', () => {
       expect(modalService.open).toHaveBeenCalled();
     });
 
-    // fit('should show the toast when the expense claim is added - fails - async', () => {
-    //   spyOn(toastrService, 'success');
-    //   spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({}) });
-    //   component.newClaim();
-    //   expect(toastrService.success).toHaveBeenCalled();
-    // });
+    xit('should show the toast when the expense claim is added - fails - async', () => {
+      spyOn(toastrService, 'success');
+      spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({}) });
+      component.newClaim();
+      expect(toastrService.success).toHaveBeenCalled();
+    });
 
     it(
       'should show the toast when the user creates the claim',
       fakeAsync(() => {
         spyOn(toastrService, 'success');
-        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({save: true}) });
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({Save: true}) });
         component.newClaim();
         tick();
         expect(toastrService.success).toHaveBeenCalled();
+      })
+    );
+
+    it(
+      'should follow the route when the user creates the claim',
+      fakeAsync(() => {
+        spyOn(toastrService, 'success');
+        spyOn(routeService, 'navigate');
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({save: true, id: 3}) });
+        component.newClaim();
+        tick();
+        expect(routeService.navigate).toHaveBeenCalledWith(['/expenses', 3]);
       })
     );
 
