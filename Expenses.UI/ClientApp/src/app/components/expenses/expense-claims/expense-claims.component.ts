@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { ExpenseClaim } from '../models/expense-claim';
@@ -18,7 +18,8 @@ export class ExpenseClaimsComponent implements OnInit {
   summary: ExpensesSummary;
 
   // todo: add logger
-  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal, public toastr: ToastsManager, public locationService: Location) {
+  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal, 
+    public toastr: ToastsManager, public router: Router) {
     this.summary = new ExpensesSummary();
   }
 
@@ -38,10 +39,10 @@ export class ExpenseClaimsComponent implements OnInit {
     });
     modalRef.result.then(
       res => {
-        if (res.Save) {
+        if (res.save) {
           this.toastr.success('Created a new claim', 'Success');
           // 3 == id - get this when creating the new claim
-          this.locationService.go('expenses/3');
+          this.router.navigate(['/expenses', res.id]);
         }
       },
       () => {}
