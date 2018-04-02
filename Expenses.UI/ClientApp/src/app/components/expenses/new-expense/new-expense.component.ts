@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExpenseClaim } from '../models/expense-claim';
+import * as moment from 'moment';
+import { NewExpenseClaim } from '../models/new-expense-claim';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -39,11 +41,12 @@ export class NewExpenseComponent implements OnInit {
 
   addNew() {
     console.log('new expense');
+    console.log(moment(this.expenses_start_date.value).utc().format());
     this.expensesClaimService
       .newClaim(
-        new ExpenseClaim({
+        new NewExpenseClaim({
           description: this.description.value,
-          claimDateUtc: this.expenses_start_date.value,
+          claimDate: moment(this.expenses_start_date.value).utc().format(),
           company: this.company.value
         })
       )

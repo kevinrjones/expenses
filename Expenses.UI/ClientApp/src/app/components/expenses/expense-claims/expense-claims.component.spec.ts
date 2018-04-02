@@ -113,61 +113,79 @@ describe('ExpenseClaimsComponent', () => {
       component = fixture.componentInstance;
     });
 
-    it('should set the correct header', fakeAsync(() => {
-      const de = fixture.debugElement.query(By.css('h2'));
-      const el = de.nativeElement;
+    it(
+      'should set the correct header',
+      fakeAsync(() => {
+        const de = fixture.debugElement.query(By.css('h2'));
+        const el = de.nativeElement;
 
-      expect(el.textContent).toBe('All Your Claims');
-    }));
+        expect(el.textContent).toBe('All Your Claims');
+      })
+    );
 
-    it('should contain a the correct list of claims', fakeAsync(() => {
-      expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-      const des = fixture.debugElement.queryAll(By.css('a'));
-      expect(des.length).toBe(2);
-    }));
+    it(
+      'should contain a the correct list of claims',
+      fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const des = fixture.debugElement.queryAll(By.css('a'));
+        expect(des.length).toBe(2);
+      })
+    );
 
-    it('should contain a the correct list of claims', fakeAsync(() => {
-      expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-      const de = fixture.debugElement.query(By.css('a'));
-      const el = de.nativeElement;
-      expect(el.textContent).toBe('A Description');
-    }));
+    it(
+      'should contain a the correct list of claims',
+      fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const de = fixture.debugElement.query(By.css('a'));
+        const el = de.nativeElement;
+        expect(el.textContent).toBe('A Description');
+      })
+    );
 
-    it('should set the correct urls', fakeAsync(() => {
-      expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-      const de = fixture.debugElement.query(By.css('a'));
-      const el = de.nativeElement.getAttribute('href');
-      expect(el).toEqual('/expenses/1');
-    }));
+    it(
+      'should set the correct urls',
+      fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const de = fixture.debugElement.query(By.css('a'));
+        const el = de.nativeElement.getAttribute('href');
+        expect(el).toEqual('/expenses/1');
+      })
+    );
 
-    it('should set the summary total claimed', fakeAsync(() => {
-      expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-      const de = fixture.debugElement.query(By.css('#totalClaimed'));
-      const el = de.nativeElement;
-      expect(el.textContent).toContain('200');
-    }));
+    it(
+      'should set the summary total claimed',
+      fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const de = fixture.debugElement.query(By.css('#totalClaimed'));
+        const el = de.nativeElement;
+        expect(el.textContent).toContain('200');
+      })
+    );
 
-    it('should set the summary total paid', fakeAsync(() => {
-      expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-      const de = fixture.debugElement.query(By.css('#totalPaid'));
-      const el = de.nativeElement;
-      expect(el.textContent).toContain('100');
-    }));
+    it(
+      'should set the summary total paid',
+      fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const de = fixture.debugElement.query(By.css('#totalPaid'));
+        const el = de.nativeElement;
+        expect(el.textContent).toContain('100');
+      })
+    );
   });
 
   describe('Sync UI', () => {
@@ -293,14 +311,17 @@ describe('ExpenseClaimsComponent', () => {
       expect(toastrService.error).toHaveBeenCalledWith('Unable to get expense claims', 'Error');
     });
 
-    it('should log an error when the service fails', fakeAsync(() => {
-      //      spyOn(expenseClaimsService, 'claims').and.returnValue(Observable.throw({ status: 404 }));
-      spyOn(expenseClaimsService, 'claims').and.returnValue(asyncError({ status: 404 }));
-      spyOn(toastrService, 'error');
-      fixture.detectChanges();
-      tick();
-      expect(toastrService.error).toHaveBeenCalledWith('Unable to get expense claims', 'Error');
-    }));
+    it(
+      'should log an error when the service fails',
+      fakeAsync(() => {
+        //      spyOn(expenseClaimsService, 'claims').and.returnValue(Observable.throw({ status: 404 }));
+        spyOn(expenseClaimsService, 'claims').and.returnValue(asyncError({ status: 404 }));
+        spyOn(toastrService, 'error');
+        fixture.detectChanges();
+        tick();
+        expect(toastrService.error).toHaveBeenCalledWith('Unable to get expense claims', 'Error');
+      })
+    );
   });
 
   describe('Creating a new claim', () => {
@@ -361,7 +382,7 @@ describe('ExpenseClaimsComponent', () => {
       'should show the toast when the user creates the claim',
       fakeAsync(() => {
         spyOn(toastrService, 'success');
-        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({Save: true}) });
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({ save: true, id: 3 }) });
         component.newClaim();
         tick();
         expect(toastrService.success).toHaveBeenCalled();
@@ -373,7 +394,7 @@ describe('ExpenseClaimsComponent', () => {
       fakeAsync(() => {
         spyOn(toastrService, 'success');
         spyOn(routeService, 'navigate');
-        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({save: true, id: 3}) });
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({ save: true, id: 3 }) });
         component.newClaim();
         tick();
         expect(routeService.navigate).toHaveBeenCalledWith(['/expenses', 3]);
@@ -384,12 +405,11 @@ describe('ExpenseClaimsComponent', () => {
       'should not show the toast when the user cancels creating the claim',
       fakeAsync(() => {
         spyOn(toastrService, 'success');
-        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({save: false}) });
+        spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({ save: false }) });
         component.newClaim();
         tick();
         expect(toastrService.success).not.toHaveBeenCalled();
       })
     );
-
   });
 });

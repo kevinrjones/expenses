@@ -26,8 +26,9 @@ namespace Expenses.API.Controllers
                         {
                             Id = 1,
                             Description = "Kevin Expenses 1",
+                            Company = "ICSA",
                             Total = 100.0m,
-                            DueDate = new DateTime(2017,1,2).ToUniversalTime().ToShortDateString(),
+                            ClaimDate = new DateTime(2017,1,2).ToUniversalTime().ToShortDateString(),
                             Paid = true,
                             Currency = "£"
                         },
@@ -35,8 +36,10 @@ namespace Expenses.API.Controllers
                         {
                             Id = 2,
                             Description = "Kevin Expenses 2",
+                            Company = "Google",
                             Total = 100.0m,
                             DueDate = new DateTime(2017,2,3).ToUniversalTime().ToShortDateString(),
+                            ClaimDate = new DateTime(2017,2,3).ToUniversalTime().ToShortDateString(),
                             Paid = true,
                             Currency = "$"
                         }
@@ -44,10 +47,17 @@ namespace Expenses.API.Controllers
             };
         }
         [HttpPost]
-        public bool Post()
+        public ExpenseClaim Post([FromBody] ExpenseClaim claim)
         {
             // add new claim and return id
-            return true;
+            var claimDate = DateTime.Parse(claim.ClaimDate);
+            return new ExpenseClaim
+            {
+                Description = claim.Description,
+                Company = claim.Company,
+                Id = new Random().Next(10),
+                ClaimDate = claim.ClaimDate
+            };
         }
     }
 }

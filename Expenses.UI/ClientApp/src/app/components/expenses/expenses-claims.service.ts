@@ -9,6 +9,7 @@ import { AppConfig } from '../../shared/projectConfigShared';
 import { ProjectConfig } from '../../shared/projectConfig';
 import { ExpensesSummary } from './models/expenses-summary';
 import { StoreHelper } from '../../shared/store/store-helper';
+import { NewExpenseClaim } from './models/new-expense-claim';
 
 
 
@@ -31,7 +32,7 @@ export class ExpenseClaimsService {
         }); // .error?
   }
 
-  public newClaim(claim: ExpenseClaim): Observable<ExpenseClaim> {
-    return this._http.post<ExpenseClaim>(this.url, {});
+  public newClaim(claim: NewExpenseClaim): Observable<ExpenseClaim> {
+    return this._http.post<ExpenseClaim>(this.url, claim);
   }
 }
