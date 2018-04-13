@@ -7,7 +7,8 @@ import { HomeComponent } from './home.component';
 import { appRoutes } from '../../app.routes'
 import { AppConfig } from '../../shared/projectConfigShared';
 import { ExpenseClaimsComponent } from '../expenses/expense-claims/expense-claims.component';
-import { ExpenseDetailsComponent } from '../expenses/expense-details/expense-details.component';
+import { AddExpenseDetailsComponent } from '../expenses/add-expense-details/add-expense-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 describe('HomeComponent', () => {
@@ -19,8 +20,8 @@ describe('HomeComponent', () => {
       declarations: [HomeComponent,
         PageNotFoundComponent,
         ExpenseClaimsComponent,
-        ExpenseDetailsComponent],
-      imports: [RouterTestingModule.withRoutes(appRoutes)
+        AddExpenseDetailsComponent],
+      imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes)
       ]
     })
       .compileComponents();

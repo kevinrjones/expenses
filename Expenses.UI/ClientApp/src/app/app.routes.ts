@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ExpenseDetailsComponent } from './components/expenses/expense-details/expense-details.component';
 import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
+import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
 
 export const appRoutes: Routes = [
   {
@@ -10,7 +10,7 @@ export const appRoutes: Routes = [
     component: HomeComponent,
     children: [
       { path: '', component: ExpenseClaimsComponent },
-      { path: 'expenses/:id', component: ExpenseDetailsComponent }
+      { path: 'expenses/:id', component: AddExpenseDetailsComponent }
     ]
   },
   {

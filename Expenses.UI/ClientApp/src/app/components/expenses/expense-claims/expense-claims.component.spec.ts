@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule, NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -10,7 +11,7 @@ import 'rxjs/add/observable/throw';
 import { ExpenseClaimsComponent } from './expense-claims.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
+import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
 import { ExpenseClaim } from '../models/expense-claim';
 import { ExpenseClaimsService } from '../expenses-claims.service';
 import { HomeComponent } from '../../home/home.component';
@@ -54,8 +55,8 @@ describe('ExpenseClaimsComponent', () => {
               useValue: {}
             }
           ],
-          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, ExpenseDetailsComponent],
-          imports: [RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
+          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
         }).compileComponents();
       })
     );
@@ -99,8 +100,8 @@ describe('ExpenseClaimsComponent', () => {
               useValue: {}
             }
           ],
-          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, ExpenseDetailsComponent],
-          imports: [RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
+          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
         }).compileComponents();
       })
     );
@@ -208,8 +209,8 @@ describe('ExpenseClaimsComponent', () => {
               useValue: {}
             }
           ],
-          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, ExpenseDetailsComponent],
-          imports: [RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
+          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
         }).compileComponents();
       })
     );
@@ -289,8 +290,8 @@ describe('ExpenseClaimsComponent', () => {
               useValue: {}
             }
           ],
-          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, ExpenseDetailsComponent],
-          imports: [RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
+          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
         }).compileComponents();
       })
     );
@@ -348,8 +349,8 @@ describe('ExpenseClaimsComponent', () => {
               useValue: {}
             }
           ],
-          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, ExpenseDetailsComponent],
-          imports: [RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
+          declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot()]
         }).compileComponents();
       })
     );

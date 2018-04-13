@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { appRoutes } from './app.routes';
 import { AppConfig, PROJECT_CONFIG } from './shared/projectConfigShared';
 import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
-import { ExpenseDetailsComponent } from './components/expenses/expense-details/expense-details.component';
+import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
 import { ExpenseClaimsService } from './components/expenses/expenses-claims.service';
 import { NewExpenseComponent } from './components/expenses/new-expense/new-expense.component';
 import { Store, InjectableStoreDecorator } from './shared/store/store';
@@ -26,8 +26,9 @@ import { StoreHelper } from './shared/store/store-helper';
     HomeComponent,
     PageNotFoundComponent,
     ExpenseClaimsComponent,
-    ExpenseDetailsComponent,
-    NewExpenseComponent
+    AddExpenseDetailsComponent,
+    NewExpenseComponent,
+    AddExpenseDetailsComponent
   ],
   imports: [
     ReactiveFormsModule,

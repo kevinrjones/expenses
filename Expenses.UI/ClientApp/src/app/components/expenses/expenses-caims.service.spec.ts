@@ -5,7 +5,7 @@ import { ExpenseClaimsService } from './expenses-claims.service';
 import { ResponseOptions } from '@angular/http';
 import { HttpRequest, HttpParams } from '@angular/common/http';
 import { AppConfig } from '../../shared/projectConfigShared';
-import { ExpenseClaim } from './models/expense-claim';
+import { NewExpenseClaim } from './models/new-expense-claim';
 import { ExpensesSummary } from './models/expenses-summary';
 import { StoreHelper } from '../../shared/store/store-helper';
 import { Store, InjectableStoreDecorator } from '../../shared/store/store';
@@ -104,7 +104,7 @@ describe('ExpenseClaimsService', () => {
   });
 
   it('should call the http service to create a new claim', () => {
-    service.newClaim(new ExpenseClaim()).subscribe();
+    service.newClaim(new NewExpenseClaim()).subscribe();
     backend.expectOne(
       {
         url: '/api/expenses',
