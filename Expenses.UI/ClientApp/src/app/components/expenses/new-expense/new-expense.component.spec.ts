@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { ToastModule, ToastsManager } from 'ng2-toastr';
 import { StoreHelper } from '../../../shared/store/store-helper';
 import { InjectableStoreDecorator, Store } from '../../../shared/store/store';
 import { ViewContainerRef } from '@angular/core';
+import { asyncData } from '../../../testing/helpers';
 
 describe('NewExpenseComponent', () => {
   let component: NewExpenseComponent;
@@ -58,8 +59,8 @@ describe('NewExpenseComponent', () => {
     fixture.detectChanges();
 
     expenseClaimsService = fixture.debugElement.injector.get(ExpenseClaimsService);
-    activeModal = fixture.debugElement.injector.get(NgbActiveModal);
-    toastrService = fixture.debugElement.injector.get(ToastsManager);
+    activeModal = TestBed.get(NgbActiveModal);
+    toastrService = TestBed.get(ToastsManager);
   });
 
   it('should create', () => {
@@ -91,16 +92,20 @@ describe('NewExpenseComponent', () => {
     expect(component.newExpenseForm.valid).toBeTruthy();
   });
 
-  it('should add the new claim when asked', () => {
-    spyOn(expenseClaimsService, 'newClaim').and.returnValue(Observable.of({}));
+  it('should add the new claim when asked', fakeAsync(() => {
+    spyOn(expenseClaimsService, 'newClaim').and
+        .returnValue(
+          asyncData({})
+        );
     component.addNew();
     expect(expenseClaimsService.newClaim).toHaveBeenCalled();
-  });
+  }));
 
-  it('should add close the active modal when a new claim is sucesfully added', () => {
-    spyOn(expenseClaimsService, 'newClaim').and.returnValue(Observable.of({}));
+  it('should add close the active modal when a new claim is sucesfully added', fakeAsync(() => {
+    spyOn(expenseClaimsService, 'newClaim').and.returnValue(asyncData({}));
     spyOn(activeModal, 'close');
     component.addNew();
+    tick();
     expect(activeModal.close).toHaveBeenCalled();
-  });
+  }));
 });

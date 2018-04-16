@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { ExpenseClaimsComponent } from './expense-claims.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, detectChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
 import { ExpenseClaim } from '../models/expense-claim';
@@ -31,7 +31,7 @@ describe('ExpenseClaimsComponent', () => {
   let expenseClaimsService;
   let expenseServiceSpy: jasmine.Spy;
 
-  const claims = new Array<ExpenseClaim>(new ExpenseClaim({ description: 'A Description', id: 1 }), new ExpenseClaim());
+  const claims = new Array<ExpenseClaim>(new ExpenseClaim({ description: 'A Description', id: 1,  dueDateUtc: '20180417' }), new ExpenseClaim());
 
   const summary = new ExpensesSummary({ totalClaimed: 200, totalPaid: 100, claims: claims, currency: '$' });
 
@@ -40,7 +40,7 @@ describe('ExpenseClaimsComponent', () => {
       async(() => {
         const expenseClaimsServiceStub = {
           claims(): Observable<ExpensesSummary> {
-            return Observable.of(summary);
+            return asyncData(summary);
           }
         };
 
@@ -109,7 +109,7 @@ describe('ExpenseClaimsComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
 
-      expenseClaimsService = fixture.debugElement.injector.get(ExpenseClaimsService);
+      expenseClaimsService = TestBed.get(ExpenseClaimsService);
 
       component = fixture.componentInstance;
     });
@@ -155,7 +155,7 @@ describe('ExpenseClaimsComponent', () => {
         expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
         fixture.detectChanges();
         tick();
-        fixture.detectChanges();
+        fixture.detectChanges();        
         const de = fixture.debugElement.query(By.css('a'));
         const el = de.nativeElement.getAttribute('href');
         expect(el).toEqual('/expenses/1');
@@ -172,6 +172,19 @@ describe('ExpenseClaimsComponent', () => {
         const de = fixture.debugElement.query(By.css('#totalClaimed'));
         const el = de.nativeElement;
         expect(el.textContent).toContain('200');
+      })
+    );
+
+    it(
+      'should set the corect claim date',
+      fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        // const de = fixture.debugElement.query(By.css('tbody tr td'));
+        const el = fixture.nativeElement.querySelector('tbody tr td');
+        expect(el.textContent).toContain('Apr 17 2018');
       })
     );
 
@@ -194,7 +207,7 @@ describe('ExpenseClaimsComponent', () => {
       async(() => {
         const expenseClaimsServiceStub = {
           claims(): Observable<ExpensesSummary> {
-            return Observable.of(summary);
+            return asyncData(summary);
           }
         };
 
@@ -221,49 +234,63 @@ describe('ExpenseClaimsComponent', () => {
       expenseClaimsService = fixture.debugElement.injector.get(ExpenseClaimsService);
 
       component = fixture.componentInstance;
-      fixture.detectChanges();
     });
 
-    it('should set the correct header', () => {
+    it('should set the correct header', fakeAsync(() => {
       const de = fixture.debugElement.query(By.css('h2'));
       const el = de.nativeElement;
 
       expect(el.textContent).toBe('All Your Claims');
-    });
+    }));
 
-    it('should contain a the correct list of claims', () => {
+    it('should contain a the correct list of claims', fakeAsync(() => {
       expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
       const des = fixture.debugElement.queryAll(By.css('a'));
       expect(des.length).toBe(2);
-    });
+    }));
 
-    it('should contain a the correct list of claims', () => {
+    it('should contain a the correct list of claims', fakeAsync(() => {
       expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('a'));
       const el = de.nativeElement;
       expect(el.textContent).toBe('A Description');
-    });
+    }));
 
-    it('should set the correct urls', () => {
+    it('should set the correct urls', fakeAsync(() => {
       expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('a'));
       const el = de.nativeElement.getAttribute('href');
       expect(el).toEqual('/expenses/1');
-    });
+    }));
 
-    it('should set the summary total claimed', () => {
+    it('should set the summary total claimed', fakeAsync(() => {
       expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('#totalClaimed'));
       const el = de.nativeElement;
       expect(el.textContent).toContain('200');
-    });
+    }));
 
-    it('should set the summary total paid', () => {
+    it('should set the summary total paid', fakeAsync(() => {
       expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('#totalPaid'));
       const el = de.nativeElement;
       expect(el.textContent).toContain('100');
-    });
+    }));
   });
 
   describe('Failing to connect to service on Initialisation', () => {
@@ -334,7 +361,7 @@ describe('ExpenseClaimsComponent', () => {
       async(() => {
         const expenseClaimsServiceStub = {
           claims(): Observable<ExpensesSummary> {
-            return Observable.of(summary);
+            return asyncData(summary);
           }
         };
 
