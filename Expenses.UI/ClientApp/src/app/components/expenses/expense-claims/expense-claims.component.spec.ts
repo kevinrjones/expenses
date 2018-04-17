@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { ExpenseClaimsComponent } from './expense-claims.component';
-import { DebugElement, detectChanges } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
 import { ExpenseClaim } from '../models/expense-claim';

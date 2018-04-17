@@ -40,8 +40,6 @@ export class NewExpenseComponent implements OnInit {
   }
 
   addNew() {
-    console.log('new expense');
-    console.log(moment(this.expenses_start_date.value).utc().format());
     this.expensesClaimService
       .newClaim(
         new NewExpenseClaim({

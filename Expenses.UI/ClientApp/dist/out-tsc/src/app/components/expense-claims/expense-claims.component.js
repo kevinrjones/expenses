@@ -32,8 +32,7 @@ var ExpenseClaimsComponent = /** @class */ (function () {
         var d = this.expensesService.claims()
             .subscribe(function (claims) {
             _this.claims = claims.map(function (c) { return new expense_claim_1.ExpenseClaim(c); });
-        }, function (error) { return console.error(error); });
-        console.log(d);
+        }, function (error) { return console.error(error); });        
     };
     ExpenseClaimsComponent = __decorate([
         core_1.Component({

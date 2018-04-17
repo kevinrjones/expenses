@@ -27,7 +27,7 @@ export class ExpenseClaimsService {
 
   public claims() {
     return this._http.get<ExpensesSummary>(this.url, {})
-        .do(data => {
+        .do((data: ExpensesSummary) => {
           this.storeHelper.update('summary', data);
         }); // .error?
   }
