@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { ExpenseClaimsService } from '../expenses-claims.service';
+import { ExpenseClaimsService } from '../expense-claims.service';
 
 @Component({
   selector: 'app-expense-details',

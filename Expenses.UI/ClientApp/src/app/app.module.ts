@@ -15,7 +15,7 @@ import { appRoutes } from './app.routes';
 import { AppConfig, PROJECT_CONFIG } from './shared/projectConfigShared';
 import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
 import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
-import { ExpenseClaimsService } from './components/expenses/expenses-claims.service';
+import { ExpenseClaimsService } from './components/expenses/expense-claims.service';
 import { NewExpenseComponent } from './components/expenses/new-expense/new-expense.component';
 import { Store, InjectableStoreDecorator } from './shared/store/store';
 import { StoreHelper } from './shared/store/store-helper';

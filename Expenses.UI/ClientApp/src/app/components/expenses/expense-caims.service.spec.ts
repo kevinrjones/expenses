@@ -1,6 +1,6 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ExpenseClaimsService } from './expenses-claims.service';
+import { ExpenseClaimsService } from './expense-claims.service';
 
 import { ResponseOptions } from '@angular/http';
 import { HttpRequest, HttpParams } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { ExpensesSummary } from './models/expenses-summary';
 import { StoreHelper } from '../../shared/store/store-helper';
 import { Store, InjectableStoreDecorator } from '../../shared/store/store';
 
-describe('ExpenseClaimsService', () => {
+describe('ExpensesClaimsService', () => {
   let service: ExpenseClaimsService;
   let backend: HttpTestingController;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ExpenseClaimsService } from '../expenses-claims.service';
+import { ExpenseClaimsService } from '../expense-claims.service';
 import { ExpenseClaim } from '../models/expense-claim';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';

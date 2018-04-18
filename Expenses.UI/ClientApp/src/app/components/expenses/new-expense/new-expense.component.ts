@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms/';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ExpenseClaimsService } from '../expenses-claims.service';
+import { ExpenseClaimsService } from '../expense-claims.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExpenseClaim } from '../models/expense-claim';
 import * as moment from 'moment';

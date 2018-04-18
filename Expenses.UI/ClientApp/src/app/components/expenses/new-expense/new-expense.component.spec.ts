@@ -9,7 +9,7 @@ import 'rxjs/add/observable/throw';
 
 import { NewExpenseComponent } from './new-expense.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ExpenseClaimsService } from '../expenses-claims.service';
+import { ExpenseClaimsService } from '../expense-claims.service';
 import { AppConfig } from '../../../shared/projectConfigShared';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule, ToastsManager } from 'ng2-toastr';

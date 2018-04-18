@@ -13,7 +13,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
 import { ExpenseClaim } from '../models/expense-claim';
-import { ExpenseClaimsService } from '../expenses-claims.service';
+import { ExpenseClaimsService } from '../expense-claims.service';
 import { HomeComponent } from '../../home/home.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { appRoutes } from '../../../app.routes';
