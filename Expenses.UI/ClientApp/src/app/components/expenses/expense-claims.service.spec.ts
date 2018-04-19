@@ -3,16 +3,18 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ExpenseClaimsService } from './expense-claims.service';
 
 import { ResponseOptions } from '@angular/http';
-import { HttpRequest, HttpParams } from '@angular/common/http';
+import { HttpRequest, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { AppConfig } from '../../shared/projectConfigShared';
 import { NewExpenseClaim } from './models/new-expense-claim';
 import { ExpensesSummary } from './models/expenses-summary';
 import { StoreHelper } from '../../shared/store/store-helper';
 import { Store, InjectableStoreDecorator } from '../../shared/store/store';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 describe('ExpensesClaimsService', () => {
   let service: ExpenseClaimsService;
   let backend: HttpTestingController;
+  let store: StoreHelper;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,6 +36,7 @@ describe('ExpensesClaimsService', () => {
       imports: [HttpClientTestingModule]
     });
 
+    store = TestBed.get(StoreHelper);
     service = TestBed.get(ExpenseClaimsService);
     backend = TestBed.get(HttpTestingController);
   });
@@ -103,6 +106,24 @@ describe('ExpensesClaimsService', () => {
       .flush(data);
   });
 
+  it('should call return an error when the HTTP call fails', () => {
+    service.claims().subscribe(
+      () => {
+        fail('should have failed with the 404 error');
+      },
+      (error: String) => {
+          expect(error).toBe('There was an error. Please report this to technical support.');
+      }
+    );
+
+    backend
+      .expectOne({
+        url: '/api/expenses',
+        method: 'GET'
+      })
+      .flush('Invalid', { status: 404, statusText: 'Not Found' });
+  });
+
   it('should call the http service to create a new claim', () => {
     service.newClaim(new NewExpenseClaim()).subscribe();
     backend.expectOne(
@@ -113,4 +134,23 @@ describe('ExpensesClaimsService', () => {
       `Create Claim`
     );
   });
+
+  fit('should store the new claim', () => {
+    const data = {
+      claims: [{ description: 'Desctiption1' }, { description: 'Desctiption2' }, { description: 'Desctiption3' }, { description: 'Desctiption4' }]
+    };
+
+    spyOn(store, 'update');
+    service.claims().subscribe(d => {
+      expect(store.update).toHaveBeenCalled();
+    });
+    backend.expectOne(
+      {
+        url: '/api/expenses',
+        method: 'GET'
+      }).flush(data);
+
+  });
+
+
 });
