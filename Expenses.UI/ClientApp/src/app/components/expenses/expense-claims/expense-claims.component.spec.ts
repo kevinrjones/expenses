@@ -53,6 +53,10 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
+            },
+            {
+              provide: Store,
+              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
@@ -98,6 +102,10 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
+            },
+            {
+              provide: Store,
+              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
@@ -220,6 +228,10 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
+            },
+            {
+              provide: Store,
+              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
@@ -374,6 +386,10 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
+            },
+            {
+              provide: Store,
+              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],

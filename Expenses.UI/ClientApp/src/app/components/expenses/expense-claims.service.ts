@@ -25,10 +25,14 @@ export class ExpenseClaimsService {
     this.url = `${config.rootUrl}${config.expensesUrl}`;
   }
 
+  /** Returns the data (do I need to do this?) and updates the store
+   * Or returns an error
+   */
   public claims(): Observable<ExpensesSummary | ErrorObservable> {
     return this._http.get<ExpensesSummary>(this.url, {})
-        .do((data: ExpensesSummary) => {
+        .map((data: ExpensesSummary) => {
           this.storeHelper.update('summary', data);
+          return data;
         })
         .pipe(catchError(this.handleError));
   }
@@ -54,4 +58,3 @@ export class ExpenseClaimsService {
       'There was an error. Please report this to technical support.');
   }
 }
-§

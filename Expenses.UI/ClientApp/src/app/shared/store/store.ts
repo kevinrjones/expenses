@@ -28,9 +28,13 @@ const __store = new BehaviorSubject<State>(defaultState);
 @Injectable()
 export class InjectableStoreDecorator {
   private store: Store;
+  public changes: Observable<State>;
+
   constructor() {
     this.store = new Store();
+    this.changes = this.store.changes;
   }
+
 
   setState(state: State) {
     this.store.setState(state);

@@ -135,7 +135,7 @@ describe('ExpensesClaimsService', () => {
     );
   });
 
-  fit('should store the new claim', () => {
+  it('should store the new claim', () => {
     const data = {
       claims: [{ description: 'Desctiption1' }, { description: 'Desctiption2' }, { description: 'Desctiption3' }, { description: 'Desctiption4' }]
     };

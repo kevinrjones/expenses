@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import { ExpensesSummary } from '../models/expenses-summary';
 import { NewExpenseComponent } from '../new-expense/new-expense.component';
 import { ToastsManager } from 'ng2-toastr';
+import { Store } from '../../../shared/store/store';
 
 @Component({
   selector: 'app-expense-claims',
@@ -18,13 +19,16 @@ export class ExpenseClaimsComponent implements OnInit {
   summary: ExpensesSummary;
 
   // todo: add logger
-  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal, 
+  // todo: inject store helper, should not be accessing claims directly from the service
+  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal,
+    private store: Store,
     public toastr: ToastsManager, public router: Router) {
     this.summary = new ExpensesSummary();
   }
 
   // todo: add toast
   ngOnInit() {
+    this.store.changes.subscribe(d => console.log(d));
     this.expensesService.claims().subscribe(
       (claims: ExpensesSummary) => {
         this.summary = new ExpensesSummary(claims);
