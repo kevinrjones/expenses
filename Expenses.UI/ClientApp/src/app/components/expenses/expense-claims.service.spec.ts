@@ -7,24 +7,16 @@ import { HttpRequest, HttpParams, HttpErrorResponse } from '@angular/common/http
 import { AppConfig } from '../../shared/projectConfigShared';
 import { NewExpenseClaim } from './models/new-expense-claim';
 import { ExpensesSummary } from './models/expenses-summary';
-import { StoreHelper } from '../../shared/store/store-helper';
-import { Store, InjectableStoreDecorator } from '../../shared/store/store';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 describe('ExpensesClaimsService', () => {
   let service: ExpenseClaimsService;
   let backend: HttpTestingController;
-  let store: StoreHelper;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         ExpenseClaimsService,
-        {
-          provide: Store,
-          useClass: InjectableStoreDecorator
-        },
-        StoreHelper,
         {
           provide: AppConfig,
           useValue: {
@@ -36,7 +28,6 @@ describe('ExpensesClaimsService', () => {
       imports: [HttpClientTestingModule]
     });
 
-    store = TestBed.get(StoreHelper);
     service = TestBed.get(ExpenseClaimsService);
     backend = TestBed.get(HttpTestingController);
   });
@@ -134,23 +125,5 @@ describe('ExpensesClaimsService', () => {
       `Create Claim`
     );
   });
-
-  it('should store the new claim', () => {
-    const data = {
-      claims: [{ description: 'Desctiption1' }, { description: 'Desctiption2' }, { description: 'Desctiption3' }, { description: 'Desctiption4' }]
-    };
-
-    spyOn(store, 'update');
-    service.claims().subscribe(d => {
-      expect(store.update).toHaveBeenCalled();
-    });
-    backend.expectOne(
-      {
-        url: '/api/expenses',
-        method: 'GET'
-      }).flush(data);
-
-  });
-
-
+  
 });

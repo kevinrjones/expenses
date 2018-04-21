@@ -3,8 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddExpenseDetailsComponent } from './add-expense-details.component';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { ExpenseClaimsService } from '../expense-claims.service';
-import { Store, InjectableStoreDecorator } from '../../../shared/store/store';
-import { StoreHelper } from '../../../shared/store/store-helper';
 import { AppConfig } from '../../../shared/projectConfigShared';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -17,11 +15,6 @@ describe('AddExpenseDetailsComponent', () => {
       TestBed.configureTestingModule({
         providers: [
           ExpenseClaimsService,
-          {
-            provide: Store,
-            useClass: InjectableStoreDecorator
-          },
-          StoreHelper,
           {
             provide: AppConfig,
             useValue: {}

@@ -13,8 +13,6 @@ import { ExpenseClaimsService } from '../expense-claims.service';
 import { AppConfig } from '../../../shared/projectConfigShared';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule, ToastsManager } from 'ng2-toastr';
-import { StoreHelper } from '../../../shared/store/store-helper';
-import { InjectableStoreDecorator, Store } from '../../../shared/store/store';
 import { ViewContainerRef } from '@angular/core';
 import { asyncData } from '../../../testing/helpers';
 
@@ -31,11 +29,6 @@ describe('NewExpenseComponent', () => {
       providers: [
         NgbActiveModal,
         ExpenseClaimsService,
-        {
-          provide: Store,
-          useClass: InjectableStoreDecorator
-        },
-        StoreHelper,
         {
           provide: AppConfig,
           useValue: {}

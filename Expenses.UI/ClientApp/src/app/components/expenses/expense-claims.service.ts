@@ -8,7 +8,6 @@ import { ExpenseClaim } from './models/expense-claim';
 import { AppConfig } from '../../shared/projectConfigShared';
 import { ProjectConfig } from '../../shared/projectConfig';
 import { ExpensesSummary } from './models/expenses-summary';
-import { StoreHelper } from '../../shared/store/store-helper';
 import { NewExpenseClaim } from './models/new-expense-claim';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
@@ -18,7 +17,6 @@ export class ExpenseClaimsService {
   url: string;
 
   constructor(
-    private storeHelper: StoreHelper,
     private _http: HttpClient,
     @Inject(AppConfig) config: ProjectConfig
   ) {
@@ -31,7 +29,6 @@ export class ExpenseClaimsService {
   public claims(): Observable<ExpensesSummary | ErrorObservable> {
     return this._http.get<ExpensesSummary>(this.url, {})
         .map((data: ExpensesSummary) => {
-          this.storeHelper.update('summary', data);
           return data;
         })
         .pipe(catchError(this.handleError));

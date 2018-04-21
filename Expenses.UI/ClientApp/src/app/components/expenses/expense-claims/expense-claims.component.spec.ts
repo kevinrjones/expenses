@@ -19,8 +19,6 @@ import { PageNotFoundComponent } from '../../page-not-found/page-not-found.compo
 import { appRoutes } from '../../../app.routes';
 import { AppConfig } from '../../../shared/projectConfigShared';
 import { ExpensesSummary } from '../models/expenses-summary';
-import { StoreHelper } from '../../../shared/store/store-helper';
-import { Store, InjectableStoreDecorator } from '../../../shared/store/store';
 import { ToastModule, Toast, ToastsManager } from 'ng2-toastr';
 import { asyncError, asyncData } from '../../../testing/helpers';
 import { Router } from '@angular/router';
@@ -53,10 +51,6 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
-            },
-            {
-              provide: Store,
-              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
@@ -102,10 +96,6 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
-            },
-            {
-              provide: Store,
-              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
@@ -163,7 +153,7 @@ describe('ExpenseClaimsComponent', () => {
         expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
         fixture.detectChanges();
         tick();
-        fixture.detectChanges();        
+        fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('a'));
         const el = de.nativeElement.getAttribute('href');
         expect(el).toEqual('/expenses/1');
@@ -228,10 +218,6 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
-            },
-            {
-              provide: Store,
-              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
@@ -319,11 +305,6 @@ describe('ExpenseClaimsComponent', () => {
         TestBed.configureTestingModule({
           providers: [
             ExpenseClaimsService,
-            StoreHelper,
-            {
-              provide: Store,
-              useClass: InjectableStoreDecorator
-            },
             {
               provide: AppConfig,
               useValue: {}
@@ -386,10 +367,6 @@ describe('ExpenseClaimsComponent', () => {
             {
               provide: AppConfig,
               useValue: {}
-            },
-            {
-              provide: Store,
-              useClass: InjectableStoreDecorator
             }
           ],
           declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],

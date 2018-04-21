@@ -17,8 +17,6 @@ import { ExpenseClaimsComponent } from './components/expenses/expense-claims/exp
 import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
 import { ExpenseClaimsService } from './components/expenses/expense-claims.service';
 import { NewExpenseComponent } from './components/expenses/new-expense/new-expense.component';
-import { Store, InjectableStoreDecorator } from './shared/store/store';
-import { StoreHelper } from './shared/store/store-helper';
 
 @NgModule({
   declarations: [
@@ -44,11 +42,6 @@ import { StoreHelper } from './shared/store/store-helper';
   ],
   providers: [
     ExpenseClaimsService,
-    {
-      provide: Store,
-      useClass: InjectableStoreDecorator
-    },
-    StoreHelper,
     {
       provide: AppConfig,
       useValue: PROJECT_CONFIG

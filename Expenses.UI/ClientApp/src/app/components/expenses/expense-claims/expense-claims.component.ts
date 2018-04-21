@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { ExpensesSummary } from '../models/expenses-summary';
 import { NewExpenseComponent } from '../new-expense/new-expense.component';
 import { ToastsManager } from 'ng2-toastr';
-import { Store } from '../../../shared/store/store';
+import {expenseSummaryStore } from '../../../store/store';
 
 @Component({
   selector: 'app-expense-claims',
@@ -21,20 +21,27 @@ export class ExpenseClaimsComponent implements OnInit {
   // todo: add logger
   // todo: inject store helper, should not be accessing claims directly from the service
   constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal,
-    private store: Store,
     public toastr: ToastsManager, public router: Router) {
     this.summary = new ExpensesSummary();
   }
 
   // todo: add toast
   ngOnInit() {
-    this.store.changes.subscribe(d => console.log(d));
-    this.expensesService.claims().subscribe(
-      (claims: ExpensesSummary) => {
-        this.summary = new ExpensesSummary(claims);
-      },
-      error => this.toastr.error('Unable to get expense claims', 'Error')
-    );
+    this.updateFromState();
+    expenseSummaryStore.subscribe(() => {
+      this.updateFromState();
+    });
+    // this.expensesService.claims().subscribe(
+    //   (claims: ExpensesSummary) => {
+    //     this.summary = new ExpensesSummary(claims);
+    //   },
+    //   error => this.toastr.error('Unable to get expense claims', 'Error')
+    // );
+  }
+
+  updateFromState() {
+    const allState = expenseSummaryStore.getState();
+    this.summary = allState.filteredExpenseClaims; // ready for when we filter
   }
 
   newClaim() {
