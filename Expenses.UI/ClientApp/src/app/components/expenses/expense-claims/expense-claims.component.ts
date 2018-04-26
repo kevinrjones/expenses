@@ -8,7 +8,10 @@ import 'rxjs/add/operator/map';
 import { ExpensesSummary } from '../models/expenses-summary';
 import { NewExpenseComponent } from '../new-expense/new-expense.component';
 import { ToastsManager } from 'ng2-toastr';
-import {expenseSummaryStore } from '../../../store/store';
+import { IAppState } from '../../../store';
+import { Observable } from 'rxjs/Observable';
+import { ExpenseActions } from '../expense.actions';
+import { select, NgRedux } from '@angular-redux/store';
 
 @Component({
   selector: 'app-expense-claims',
@@ -16,32 +19,26 @@ import {expenseSummaryStore } from '../../../store/store';
   styleUrls: ['./expense-claims.component.scss']
 })
 export class ExpenseClaimsComponent implements OnInit {
+  @select('expenseClaims') store: Observable<ExpensesSummary>;
   summary: ExpensesSummary;
 
   // todo: add logger
   // todo: inject store helper, should not be accessing claims directly from the service
-  constructor(private expensesService: ExpenseClaimsService, private modalService: NgbModal,
-    public toastr: ToastsManager, public router: Router) {
-    this.summary = new ExpensesSummary();
-  }
+  constructor(private ngRedux: NgRedux<IAppState>, private expenseActions: ExpenseActions, private modalService: NgbModal, public toastr: ToastsManager, public router: Router) {}
 
   // todo: add toast
   ngOnInit() {
-    this.updateFromState();
-    expenseSummaryStore.subscribe(() => {
-      this.updateFromState();
-    });
-    // this.expensesService.claims().subscribe(
-    //   (claims: ExpensesSummary) => {
-    //     this.summary = new ExpensesSummary(claims);
-    //   },
-    //   error => this.toastr.error('Unable to get expense claims', 'Error')
-    // );
-  }
 
-  updateFromState() {
-    const allState = expenseSummaryStore.getState();
-    this.summary = allState.filteredExpenseClaims; // ready for when we filter
+    this.store.subscribe(
+      (claims: ExpensesSummary) => {
+        this.summary = new ExpensesSummary(claims);
+      },
+      error => this.toastr.error('Unable to get expense claims', 'Error')
+    );
+
+    this.expenseActions.getExpenseSummary();
+    // todo: is this best way to do this and handle errors
+    // or simply use | async in the HTML?
   }
 
   newClaim() {

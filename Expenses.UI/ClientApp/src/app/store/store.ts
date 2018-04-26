@@ -1,10 +1,10 @@
-import { createStore,applyMiddleware, compose, StoreEnhancer } from 'redux';
-import { reducer } from './reducer';
-import { IExpensesSummaryState } from './IExpenseClaimState';
+import { createStore,applyMiddleware, compose, GenericStoreEnhancer } from 'redux';
+import { rootReducer } from './reducer';
+import { IAppState } from './IAppState';
 
 declare var window: any;
 
-const devToolsExtension: StoreEnhancer = (window.devToolsExtension)
+const devToolsExtension: GenericStoreEnhancer = (window.devToolsExtension)
     ? window.devToolsExtension() : (f) => f;
 
-export const expenseSummaryStore = createStore<IExpensesSummaryState, any, {}, {}>(reducer, compose(devToolsExtension));
+export const expenseSummaryStore = createStore<IAppState>(rootReducer, compose(devToolsExtension));

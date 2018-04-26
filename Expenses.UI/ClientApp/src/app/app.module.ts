@@ -17,17 +17,12 @@ import { ExpenseClaimsComponent } from './components/expenses/expense-claims/exp
 import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
 import { ExpenseClaimsService } from './components/expenses/expense-claims.service';
 import { NewExpenseComponent } from './components/expenses/new-expense/new-expense.component';
+import { IAppState, expenseSummaryStore } from '../app/store';
+import { ExpenseActions } from '../app/components/expenses/expense.actions';
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-    ExpenseClaimsComponent,
-    AddExpenseDetailsComponent,
-    NewExpenseComponent,
-    AddExpenseDetailsComponent
-  ],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, ExpenseClaimsComponent, AddExpenseDetailsComponent, NewExpenseComponent, AddExpenseDetailsComponent],
   imports: [
     ReactiveFormsModule,
     HttpClientModule,
@@ -38,17 +33,22 @@ import { NewExpenseComponent } from './components/expenses/new-expense/new-expen
       { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgReduxModule
   ],
   providers: [
     ExpenseClaimsService,
     {
       provide: AppConfig,
       useValue: PROJECT_CONFIG
-    }],
-    entryComponents: [ NewExpenseComponent ],
+    },
+    ExpenseActions
+  ],
+  entryComponents: [NewExpenseComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
-
-
+export class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>) {
+    ngRedux.provideStore(expenseSummaryStore);
+  }
+}
