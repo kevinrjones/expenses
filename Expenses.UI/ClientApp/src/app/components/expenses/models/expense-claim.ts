@@ -2,55 +2,52 @@ import * as moment from 'moment';
 import Moment = moment.Moment;
 import { ExpenseItem } from './expense-item';
 
-
 export class ExpenseClaim {
+  constructor(item?: Partial<ExpenseClaim>) {
+    Object.assign(this, item);
+  }
 
-    constructor(item?: Partial<ExpenseClaim>) {
-        Object.assign(this, item);
-    }
+  id: number;
+  description: string;
+  company: string;
+  dueDateUtc: string;
+  claimDateUtc: string;
+  total: number;
+  currency: string;
+  paid: boolean;
 
-    public id: number;
-    public description: string;
-    public company: string;
-    public dueDateUtc: string;
-    public claimDateUtc: string;
-    public total: number;
-    public currency: string;
-    public paid: boolean;
+  get Id(): number {
+    return this.id;
+  }
 
+  get Description(): string {
+    return this.description;
+  }
 
-    get Id(): number {
-        return this.id;
-    }
+  get Company(): string {
+    return this.company;
+  }
 
-    get Description(): string {
-        return this.description;
-    }
+  get DueDate(): Moment {
+    return moment(this.dueDateUtc);
+  }
+  get ClaimDate(): Moment {
+    return moment(this.claimDateUtc);
+  }
 
-    get Company(): string {
-        return this.company;
-    }
+  get DisplayDate(): string {
+    return moment(this.dueDateUtc).format('MMM DD YYYY');
+  }
 
-    get DueDate(): Moment {
-        return moment(this.dueDateUtc);
-    }
-    get ClaimDate(): Moment {
-        return moment(this.claimDateUtc);
-    }
+  get Total(): number {
+    return this.total;
+  }
 
-    get DisplayDate(): string {
-        return moment(this.dueDateUtc).format('MMM DD YYYY');
-    }
+  get Paid(): boolean {
+    return this.paid;
+  }
 
-    get Total(): number {
-        return this.total;
-    }
-
-    get Paid(): boolean {
-        return this.paid;
-    }
-
-    get Currency(): string {
-        return this.currency;
-    }
+  get Currency(): string {
+    return this.currency;
+  }
 }
