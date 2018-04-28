@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HomeComponent } from './components/home/home.component';
 import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
 import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
+import { ExpenseClaimFormComponent } from './components/expenses/expense-claim-form/expense-claim-form.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,6 +19,7 @@ describe('AppComponent', () => {
         ToastModule.forRoot()
       ],
       declarations: [
+        ExpenseClaimFormComponent,
         AppComponent,
         PageNotFoundComponent,
         HomeComponent,

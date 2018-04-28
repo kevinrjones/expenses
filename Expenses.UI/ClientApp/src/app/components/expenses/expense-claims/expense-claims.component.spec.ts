@@ -28,6 +28,7 @@ import { ExpenseActions } from '../expense.actions';
 import { IAppState } from '../../../store';
 import { Subject } from 'rxjs/Subject';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { ExpenseClaimFormComponent } from '../expense-claim-form/expense-claim-form.component';
 
 describe('ExpenseClaimsComponent', () => {
   let component: ExpenseClaimsComponent;
@@ -41,30 +42,32 @@ describe('ExpenseClaimsComponent', () => {
 
   describe('On Initialisation', () => {
     MockNgRedux.reset();
-    beforeEach(async(() => {
-      MockNgRedux.reset();
-      const expenseClaimsServiceStub = {
-        claims(): Observable<ExpensesSummary> {
-          return asyncData(summary);
-        }
-      };
+    beforeEach(
+      async(() => {
+        MockNgRedux.reset();
+        const expenseClaimsServiceStub = {
+          claims(): Observable<ExpensesSummary> {
+            return asyncData(summary);
+          }
+        };
 
-      TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ExpenseClaimsService,
-            useValue: expenseClaimsServiceStub
-          },
-          {
-            provide: AppConfig,
-            useValue: {}
-          },
-          ExpenseActions
-        ],
-        declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-        imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-      }).compileComponents();
-    }));
+        TestBed.configureTestingModule({
+          providers: [
+            {
+              provide: ExpenseClaimsService,
+              useValue: expenseClaimsServiceStub
+            },
+            {
+              provide: AppConfig,
+              useValue: {}
+            },
+            ExpenseActions
+          ],
+          declarations: [ExpenseClaimFormComponent, HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
+        }).compileComponents();
+      })
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -88,31 +91,33 @@ describe('ExpenseClaimsComponent', () => {
   describe('UI', () => {
     let storeStub: Subject<ExpensesSummary>;
 
-    beforeEach(async(() => {
-      MockNgRedux.reset();
+    beforeEach(
+      async(() => {
+        MockNgRedux.reset();
 
-      const expenseClaimsServiceStub = {
-        claims(): Observable<ExpensesSummary> {
-          return asyncData(summary);
-        }
-      };
+        const expenseClaimsServiceStub = {
+          claims(): Observable<ExpensesSummary> {
+            return asyncData(summary);
+          }
+        };
 
-      TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ExpenseClaimsService,
-            useValue: expenseClaimsServiceStub
-          },
-          {
-            provide: AppConfig,
-            useValue: {}
-          },
-          ExpenseActions
-        ],
-        declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-        imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-      }).compileComponents();
-    }));
+        TestBed.configureTestingModule({
+          providers: [
+            {
+              provide: ExpenseClaimsService,
+              useValue: expenseClaimsServiceStub
+            },
+            {
+              provide: AppConfig,
+              useValue: {}
+            },
+            ExpenseActions
+          ],
+          declarations: [ExpenseClaimFormComponent, HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
+        }).compileComponents();
+      })
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -218,30 +223,32 @@ describe('ExpenseClaimsComponent', () => {
   describe('Sync UI', () => {
     let storeStub: Subject<ExpensesSummary>;
 
-    beforeEach(async(() => {
-      MockNgRedux.reset();
-      const expenseClaimsServiceStub = {
-        claims(): Observable<ExpensesSummary> {
-          return asyncData(summary);
-        }
-      };
+    beforeEach(
+      async(() => {
+        MockNgRedux.reset();
+        const expenseClaimsServiceStub = {
+          claims(): Observable<ExpensesSummary> {
+            return asyncData(summary);
+          }
+        };
 
-      TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ExpenseClaimsService,
-            useValue: expenseClaimsServiceStub
-          },
-          {
-            provide: AppConfig,
-            useValue: {}
-          },
-          ExpenseActions
-        ],
-        declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-        imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-      }).compileComponents();
-    }));
+        TestBed.configureTestingModule({
+          providers: [
+            {
+              provide: ExpenseClaimsService,
+              useValue: expenseClaimsServiceStub
+            },
+            {
+              provide: AppConfig,
+              useValue: {}
+            },
+            ExpenseActions
+          ],
+          declarations: [ExpenseClaimFormComponent,HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
+        }).compileComponents();
+      })
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -334,27 +341,29 @@ describe('ExpenseClaimsComponent', () => {
     let toastrService;
 
     let storeStub: Subject<ExpensesSummary>;
-    beforeEach(async(() => {
-      MockNgRedux.reset();
-      const expenseClaimsServiceStub = {
-        claims(): Observable<ExpensesSummary> {
-          throw new Error('error');
-        }
-      };
+    beforeEach(
+      async(() => {
+        MockNgRedux.reset();
+        const expenseClaimsServiceStub = {
+          claims(): Observable<ExpensesSummary> {
+            throw new Error('error');
+          }
+        };
 
-      TestBed.configureTestingModule({
-        providers: [
-          ExpenseClaimsService,
-          {
-            provide: AppConfig,
-            useValue: {}
-          },
-          ExpenseActions
-        ],
-        declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-        imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-      }).compileComponents();
-    }));
+        TestBed.configureTestingModule({
+          providers: [
+            ExpenseClaimsService,
+            {
+              provide: AppConfig,
+              useValue: {}
+            },
+            ExpenseActions
+          ],
+          declarations: [ExpenseClaimFormComponent,HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
+        }).compileComponents();
+      })
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -393,29 +402,31 @@ describe('ExpenseClaimsComponent', () => {
     let routeService;
 
     MockNgRedux.reset();
-    beforeEach(async(() => {
-      const expenseClaimsServiceStub = {
-        claims(): Observable<ExpensesSummary> {
-          return asyncData(summary);
-        }
-      };
+    beforeEach(
+      async(() => {
+        const expenseClaimsServiceStub = {
+          claims(): Observable<ExpensesSummary> {
+            return asyncData(summary);
+          }
+        };
 
-      TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ExpenseClaimsService,
-            useValue: expenseClaimsServiceStub
-          },
-          {
-            provide: AppConfig,
-            useValue: {}
-          },
-          ExpenseActions
-        ],
-        declarations: [HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-        imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-      }).compileComponents();
-    }));
+        TestBed.configureTestingModule({
+          providers: [
+            {
+              provide: ExpenseClaimsService,
+              useValue: expenseClaimsServiceStub
+            },
+            {
+              provide: AppConfig,
+              useValue: {}
+            },
+            ExpenseActions
+          ],
+          declarations: [ExpenseClaimFormComponent,HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
+          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
+        }).compileComponents();
+      })
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
