@@ -28,17 +28,16 @@ export class ExpenseClaimsComponent implements OnInit {
 
   // todo: add toast
   ngOnInit() {
+    this.expenseActions.getExpenseSummary();
 
+    // todo: is this best way to do this and handle errors
+    // or simply use | async in the HTML?
     this.store.subscribe(
       (claims: ExpensesSummary) => {
         this.summary = new ExpensesSummary(claims);
       },
       error => this.toastr.error('Unable to get expense claims', 'Error')
     );
-
-    this.expenseActions.getExpenseSummary();
-    // todo: is this best way to do this and handle errors
-    // or simply use | async in the HTML?
   }
 
   newClaim() {

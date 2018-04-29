@@ -1,0 +1,41 @@
+<h2>All Your Claims</h2>
+
+<div class='row'>
+  <div class='col-md-8 col-sm-12'>
+    <table class='table bordered-table table-striped'>
+
+      <thead class='thead-dark'>
+        <th scope='col'>Date</th>
+        <th scope='col'>Description</th>
+        <th scope='col'>Amount</th>
+        <th scope='col'>Paid</th>
+      </thead>
+      <tbody>
+        <tr *ngFor='let claim of summary?.claims'>
+          <td>{{claim.DisplayDate}}</td>
+          <td>
+            <a href='#' routerLink="/expenses/{{claim?.Id}}">{{claim.Description}}</a>
+          </td>
+          <td>{{claim.Currency}} {{claim.Total}}</td>
+          <td>
+            <input type='checkbox' [checked]='claim?.Paid' disabled/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='col-md-4'>
+    <h4>Summary</h4>
+    <div id='totalClaimed'>
+      Total Claimed:
+      <span>{{summary?.currency}} {{summary?.totalClaimed}}</span>
+    </div>
+    <div id='totalPaid'>
+      Total Paid:
+      <span>{{summary?.currency}} {{summary?.totalPaid}}</span>
+    </div>
+  </div>
+</div>
+<div class="claimActions">
+  <button class="btn btn-outline-primary" (click)=newClaim()>New Claim</button>
+</div>

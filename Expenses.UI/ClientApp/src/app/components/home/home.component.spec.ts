@@ -9,6 +9,7 @@ import { AppConfig } from '../../shared/projectConfigShared';
 import { ExpenseClaimsComponent } from '../expenses/expense-claims/expense-claims.component';
 import { AddExpenseDetailsComponent } from '../expenses/add-expense-details/add-expense-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ExpenseClaimFormComponent } from '../expenses/expense-claim-form/expense-claim-form.component';
 
 
 describe('HomeComponent', () => {
@@ -20,7 +21,8 @@ describe('HomeComponent', () => {
       declarations: [HomeComponent,
         PageNotFoundComponent,
         ExpenseClaimsComponent,
-        AddExpenseDetailsComponent],
+        AddExpenseDetailsComponent,
+        ExpenseClaimFormComponent],
       imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes)
       ]
     })

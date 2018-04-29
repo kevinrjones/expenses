@@ -20,9 +20,11 @@ import { NewExpenseComponent } from './components/expenses/new-expense/new-expen
 import { IAppState, expenseSummaryStore } from '../app/store';
 import { ExpenseActions } from '../app/components/expenses/expense.actions';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { ExpenseClaimFormComponent } from './components/expenses/expense-claim-form/expense-claim-form.component';
+import { NewExpenseFormComponent } from './components/expenses/new-expense-form/new-expense-form.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, ExpenseClaimsComponent, AddExpenseDetailsComponent, NewExpenseComponent, AddExpenseDetailsComponent],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, ExpenseClaimsComponent, AddExpenseDetailsComponent, NewExpenseComponent, AddExpenseDetailsComponent, ExpenseClaimFormComponent, NewExpenseFormComponent],
   imports: [
     ReactiveFormsModule,
     HttpClientModule,
@@ -44,7 +46,7 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
     },
     ExpenseActions
   ],
-  entryComponents: [NewExpenseComponent],
+  entryComponents: [NewExpenseComponent, NewExpenseFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
