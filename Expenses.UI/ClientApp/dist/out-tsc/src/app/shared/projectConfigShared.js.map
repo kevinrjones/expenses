@@ -1,1 +1,0 @@
-{"version":3,"file":"projectConfigShared.js","sourceRoot":"","sources":["../../../../../src/app/shared/projectConfigShared.ts"],"names":[],"mappings":";;AAAA,sCAA+C;AAE/C,8DAA6D;AAElD,QAAA,SAAS,GAAG,IAAI,qBAAc,CAAgB,YAAY,CAAC,CAAC;AAE1D,QAAA,cAAc,GAAkB;IACzC,WAAW,EAAE,yBAAW,CAAC,WAAW;IACpC,OAAO,EAAE,yBAAW,CAAC,OAAO;CAC/B,CAAC"}

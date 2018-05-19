@@ -1,7 +1,7 @@
 <form [formGroup]="addExpenseForm" class="form-inline" novalidate>
   <div formArrayName="itemRows">
     <!-- Check the correct way to iterate your form array -->
-    <div *ngFor="let itemrow of addExpenseForm.controls.itemRows.controls; let i=index" [formGroupName]="i">      
+    <div *ngFor="let itemrow of addExpenseForm?.controls.itemRows['controls']; let i=index" [formGroupName]="i">      
       <div class="form-group">        
         <input formControlName="description" placeholder="Description" class="form-control">
         <input formControlName="amount" placeholder="Amount" class="form-control" type="number" (blur)='updateRow(i)'>
@@ -20,5 +20,5 @@
   <!-- <button type="button" (click)="addNewRow()" class="btn btn-primary">Add new Row</button> -->
 </form>
 
-<p>Form value: {{ addExpenseForm.value | json }}</p>
-<p>Form status: {{ addExpenseForm.status | json }}</p> 
+<!-- <p>Form value: {{ addExpenseForm.value | json }}</p>
+<p>Form status: {{ addExpenseForm.status | json }}</p> -->

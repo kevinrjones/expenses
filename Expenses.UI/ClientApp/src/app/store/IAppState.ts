@@ -1,6 +1,7 @@
 import { ExpensesSummary } from '../components/expenses/models/expenses-summary';
+import { ErrorState } from '../shared/ErrorState';
 
 export interface IAppState {
     expenseClaims: ExpensesSummary;
-    filteredExpenseClaims: ExpensesSummary;
+    error: ErrorState;
 }

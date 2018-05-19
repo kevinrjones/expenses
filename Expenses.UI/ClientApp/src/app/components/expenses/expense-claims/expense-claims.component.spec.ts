@@ -1,34 +1,31 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { MockNgRedux, NgReduxTestingModule } from '@angular-redux/store/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule, NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { NgReduxTestingModule, MockNgRedux } from '@angular-redux/store/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastModule, ToastsManager } from 'ng2-toastr';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
-
-import { ExpenseClaimsComponent } from './expense-claims.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
-import { ExpenseClaim } from '../models/expense-claim';
-import { ExpenseClaimsService } from '../expense-claims.service';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { appRoutes } from '../../../app.routes';
+import { ErrorState } from '../../../shared/ErrorState';
+import { AppConfig } from '../../../shared/projectConfigShared';
+import { IAppState } from '../../../store';
+import { asyncData } from '../../../testing/helpers';
 import { HomeComponent } from '../../home/home.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
-import { appRoutes } from '../../../app.routes';
-import { AppConfig } from '../../../shared/projectConfigShared';
-import { ExpensesSummary } from '../models/expenses-summary';
-import { ToastModule, Toast, ToastsManager } from 'ng2-toastr';
-import { asyncError, asyncData } from '../../../testing/helpers';
-import { Router } from '@angular/router';
-
+import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
+import { ExpenseClaimsService } from '../expense-claims.service';
 import { ExpenseActions } from '../expense.actions';
-import { IAppState } from '../../../store';
-import { Subject } from 'rxjs/Subject';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { ExpenseClaimFormComponent } from '../expense-claim-form/expense-claim-form.component';
+import { ExpenseClaim } from '../models/expense-claim';
+import { ExpensesSummary } from '../models/expenses-summary';
+import { ShowExpenseDetailsComponent } from '../show-expense-details/show-expense-details.component';
+import { ExpenseClaimsComponent } from './expense-claims.component';
 
 describe('ExpenseClaimsComponent', () => {
   let component: ExpenseClaimsComponent;
@@ -36,38 +33,51 @@ describe('ExpenseClaimsComponent', () => {
   let expenseClaimsService;
   let expenseServiceSpy: jasmine.Spy;
 
-  const claims = new Array<ExpenseClaim>(new ExpenseClaim({ description: 'A Description', id: 1, dueDateUtc: '20180417' }), new ExpenseClaim());
+  const claims = new Array<ExpenseClaim>(
+    new ExpenseClaim({ description: 'A Description', id: 1, dueDateUtc: '20180417' }),
+    new ExpenseClaim()
+  );
 
   const summary = new ExpensesSummary({ totalClaimed: 200, totalPaid: 100, claims: claims, currency: '$' });
 
   describe('On Initialisation', () => {
-    MockNgRedux.reset();
-    beforeEach(
-      async(() => {
-        MockNgRedux.reset();
-        const expenseClaimsServiceStub = {
-          claims(): Observable<ExpensesSummary> {
-            return asyncData(summary);
-          }
-        };
+    beforeEach(async(() => {
+      MockNgRedux.reset();
+      const expenseClaimsServiceStub = {
+        claims(): Observable<ExpensesSummary> {
+          return asyncData(summary);
+        }
+      };
 
-        TestBed.configureTestingModule({
-          providers: [
-            {
-              provide: ExpenseClaimsService,
-              useValue: expenseClaimsServiceStub
-            },
-            {
-              provide: AppConfig,
-              useValue: {}
-            },
-            ExpenseActions
-          ],
-          declarations: [ExpenseClaimFormComponent, HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-        }).compileComponents();
-      })
-    );
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: ExpenseClaimsService,
+            useValue: expenseClaimsServiceStub
+          },
+          {
+            provide: AppConfig,
+            useValue: {}
+          },
+          ExpenseActions
+        ],
+        declarations: [
+          ShowExpenseDetailsComponent,
+          HomeComponent,
+          ExpenseClaimsComponent,
+          PageNotFoundComponent,
+          AddExpenseDetailsComponent
+        ],
+        imports: [
+          ReactiveFormsModule,
+          RouterTestingModule.withRoutes(appRoutes),
+          HttpClientTestingModule,
+          NgbModule.forRoot(),
+          ToastModule.forRoot(),
+          NgReduxTestingModule
+        ]
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -91,33 +101,44 @@ describe('ExpenseClaimsComponent', () => {
   describe('UI', () => {
     let storeStub: Subject<ExpensesSummary>;
 
-    beforeEach(
-      async(() => {
-        MockNgRedux.reset();
+    beforeEach(async(() => {
+      MockNgRedux.reset();
 
-        const expenseClaimsServiceStub = {
-          claims(): Observable<ExpensesSummary> {
-            return asyncData(summary);
-          }
-        };
+      const expenseClaimsServiceStub = {
+        claims(): Observable<ExpensesSummary> {
+          return asyncData(summary);
+        }
+      };
 
-        TestBed.configureTestingModule({
-          providers: [
-            {
-              provide: ExpenseClaimsService,
-              useValue: expenseClaimsServiceStub
-            },
-            {
-              provide: AppConfig,
-              useValue: {}
-            },
-            ExpenseActions
-          ],
-          declarations: [ExpenseClaimFormComponent, HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-        }).compileComponents();
-      })
-    );
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: ExpenseClaimsService,
+            useValue: expenseClaimsServiceStub
+          },
+          {
+            provide: AppConfig,
+            useValue: {}
+          },
+          ExpenseActions
+        ],
+        declarations: [
+          ShowExpenseDetailsComponent,
+          HomeComponent,
+          ExpenseClaimsComponent,
+          PageNotFoundComponent,
+          AddExpenseDetailsComponent
+        ],
+        imports: [
+          ReactiveFormsModule,
+          RouterTestingModule.withRoutes(appRoutes),
+          HttpClientTestingModule,
+          NgbModule.forRoot(),
+          ToastModule.forRoot(),
+          NgReduxTestingModule
+        ]
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -127,13 +148,10 @@ describe('ExpenseClaimsComponent', () => {
       component = fixture.componentInstance;
 
       storeStub = MockNgRedux.getSelectorStub<IAppState, ExpensesSummary>('expenseClaims');
-      storeStub.next(summary);
-      storeStub.subscribe();
     });
 
-    it(
-      'should set the correct header',
-      fakeAsync(() => {
+    // prettier-ignore
+    it('should set the correct header', fakeAsync(() => {
         const de = fixture.debugElement.query(By.css('h2'));
         const el = de.nativeElement;
 
@@ -141,25 +159,24 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should contain the correct list of claims',
-      fakeAsync(() => {
-        //        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should contain the correct list of claims', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const des = fixture.debugElement.queryAll(By.css('a'));
         expect(des.length).toBe(2);
       })
     );
 
-    it(
-      'should contain the correct title in the claim',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should contain the correct title in the claim', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('a'));
         const el = de.nativeElement;
@@ -167,12 +184,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the correct urls',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the correct urls', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('a'));
         const el = de.nativeElement.getAttribute('href');
@@ -180,12 +197,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the summary total claimed',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the summary total claimed', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('#totalClaimed'));
         const el = de.nativeElement;
@@ -193,12 +210,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the corect claim date',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the corect claim date', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         // const de = fixture.debugElement.query(By.css('tbody tr td'));
         const el = fixture.nativeElement.querySelector('tbody tr td');
@@ -206,12 +223,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the summary total paid',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the summary total paid', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('#totalPaid'));
         const el = de.nativeElement;
@@ -223,32 +240,43 @@ describe('ExpenseClaimsComponent', () => {
   describe('Sync UI', () => {
     let storeStub: Subject<ExpensesSummary>;
 
-    beforeEach(
-      async(() => {
-        MockNgRedux.reset();
-        const expenseClaimsServiceStub = {
-          claims(): Observable<ExpensesSummary> {
-            return asyncData(summary);
-          }
-        };
+    beforeEach(async(() => {
+      MockNgRedux.reset();
+      const expenseClaimsServiceStub = {
+        claims(): Observable<ExpensesSummary> {
+          return asyncData(summary);
+        }
+      };
 
-        TestBed.configureTestingModule({
-          providers: [
-            {
-              provide: ExpenseClaimsService,
-              useValue: expenseClaimsServiceStub
-            },
-            {
-              provide: AppConfig,
-              useValue: {}
-            },
-            ExpenseActions
-          ],
-          declarations: [ExpenseClaimFormComponent,HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-        }).compileComponents();
-      })
-    );
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: ExpenseClaimsService,
+            useValue: expenseClaimsServiceStub
+          },
+          {
+            provide: AppConfig,
+            useValue: {}
+          },
+          ExpenseActions
+        ],
+        declarations: [
+          ShowExpenseDetailsComponent,
+          HomeComponent,
+          ExpenseClaimsComponent,
+          PageNotFoundComponent,
+          AddExpenseDetailsComponent
+        ],
+        imports: [
+          ReactiveFormsModule,
+          RouterTestingModule.withRoutes(appRoutes),
+          HttpClientTestingModule,
+          NgbModule.forRoot(),
+          ToastModule.forRoot(),
+          NgReduxTestingModule
+        ]
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -258,13 +286,10 @@ describe('ExpenseClaimsComponent', () => {
       component = fixture.componentInstance;
 
       storeStub = MockNgRedux.getSelectorStub<IAppState, ExpensesSummary>('expenseClaims');
-      storeStub.next(summary);
-      storeStub.subscribe();
     });
 
-    it(
-      'should set the correct header',
-      fakeAsync(() => {
+    // prettier-ignore
+    it('should set the correct header', fakeAsync(() => {
         const de = fixture.debugElement.query(By.css('h2'));
         const el = de.nativeElement;
 
@@ -272,24 +297,24 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should contain a the correct list of claims',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should contain a the correct list of claims', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const des = fixture.debugElement.queryAll(By.css('a'));
         expect(des.length).toBe(2);
       })
     );
 
-    it(
-      'should contain a the correct list of claims',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should contain a the correct list of claims', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('a'));
         const el = de.nativeElement;
@@ -297,12 +322,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the correct urls',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the correct urls', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('a'));
         const el = de.nativeElement.getAttribute('href');
@@ -310,12 +335,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the summary total claimed',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the summary total claimed', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('#totalClaimed'));
         const el = de.nativeElement;
@@ -323,12 +348,12 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should set the summary total paid',
-      fakeAsync(() => {
-        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callThrough();
-        fixture.detectChanges();
-        tick();
+    // prettier-ignore
+    it('should set the summary total paid', fakeAsync(() => {
+        expenseServiceSpy = spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(summary);
+          return asyncData(summary);
+        });
         fixture.detectChanges();
         const de = fixture.debugElement.query(By.css('#totalPaid'));
         const el = de.nativeElement;
@@ -337,33 +362,39 @@ describe('ExpenseClaimsComponent', () => {
     );
   });
 
-  xdescribe('Failing to connect to service on Initialisation', () => {
+  describe('Failing to connect to service on Initialisation', () => {
     let toastrService;
 
-    let storeStub: Subject<ExpensesSummary>;
-    beforeEach(
-      async(() => {
-        MockNgRedux.reset();
-        const expenseClaimsServiceStub = {
-          claims(): Observable<ExpensesSummary> {
-            throw new Error('error');
-          }
-        };
+    let storeStub: Subject<ErrorState>;
+    beforeEach(async(() => {
+      MockNgRedux.reset();
 
-        TestBed.configureTestingModule({
-          providers: [
-            ExpenseClaimsService,
-            {
-              provide: AppConfig,
-              useValue: {}
-            },
-            ExpenseActions
-          ],
-          declarations: [ExpenseClaimFormComponent,HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-        }).compileComponents();
-      })
-    );
+      TestBed.configureTestingModule({
+        providers: [
+          ExpenseClaimsService,
+          {
+            provide: AppConfig,
+            useValue: {}
+          },
+          ExpenseActions
+        ],
+        declarations: [
+          ShowExpenseDetailsComponent,
+          HomeComponent,
+          ExpenseClaimsComponent,
+          PageNotFoundComponent,
+          AddExpenseDetailsComponent
+        ],
+        imports: [
+          ReactiveFormsModule,
+          RouterTestingModule.withRoutes(appRoutes),
+          HttpClientTestingModule,
+          NgbModule.forRoot(),
+          ToastModule.forRoot(),
+          NgReduxTestingModule
+        ]
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -372,21 +403,26 @@ describe('ExpenseClaimsComponent', () => {
       toastrService = fixture.debugElement.injector.get(ToastsManager);
 
       component = fixture.componentInstance;
-      storeStub = MockNgRedux.getSelectorStub<IAppState, ExpensesSummary>('expenseClaims');
-      storeStub.next(summary);
-      storeStub.subscribe();
+      storeStub = MockNgRedux.getSelectorStub<IAppState, ErrorState>('error');
     });
 
     it('should log an error when the service fails (sync)', () => {
-      spyOn(expenseClaimsService, 'claims').and.returnValue(new ErrorObservable('An error'));
+      spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+        storeStub.next(new ErrorState({message: 'Unable to get expense claims'}));
+        return new ErrorObservable('An error');
+      });
       spyOn(toastrService, 'error');
+      fixture.detectChanges();
       fixture.detectChanges();
       expect(toastrService.error).toHaveBeenCalledWith('Unable to get expense claims', 'Error');
     });
 
     // prettier-ignore
-    it('should log an error when the service fails',fakeAsync(() => {
-        spyOn(expenseClaimsService, 'claims').and.returnValue(new ErrorObservable('An error'));
+    it('should log an error when the service fails', fakeAsync(() => {
+        spyOn(expenseClaimsService, 'claims').and.callFake(() => {
+          storeStub.next(new ErrorState({message: 'Unable to get expense claims'}));
+          return new ErrorObservable('An error');
+        });
         spyOn(toastrService, 'error');
         fixture.detectChanges();
         tick();
@@ -400,32 +436,43 @@ describe('ExpenseClaimsComponent', () => {
     let toastrService;
     let routeService;
 
-    MockNgRedux.reset();
-    beforeEach(
-      async(() => {
-        const expenseClaimsServiceStub = {
-          claims(): Observable<ExpensesSummary> {
-            return asyncData(summary);
-          }
-        };
+    beforeEach(async(() => {
+      MockNgRedux.reset();
+      const expenseClaimsServiceStub = {
+        claims(): Observable<ExpensesSummary> {
+          return asyncData(summary);
+        }
+      };
 
-        TestBed.configureTestingModule({
-          providers: [
-            {
-              provide: ExpenseClaimsService,
-              useValue: expenseClaimsServiceStub
-            },
-            {
-              provide: AppConfig,
-              useValue: {}
-            },
-            ExpenseActions
-          ],
-          declarations: [ExpenseClaimFormComponent,HomeComponent, ExpenseClaimsComponent, PageNotFoundComponent, AddExpenseDetailsComponent],
-          imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes), HttpClientTestingModule, NgbModule.forRoot(), ToastModule.forRoot(), NgReduxTestingModule]
-        }).compileComponents();
-      })
-    );
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: ExpenseClaimsService,
+            useValue: expenseClaimsServiceStub
+          },
+          {
+            provide: AppConfig,
+            useValue: {}
+          },
+          ExpenseActions
+        ],
+        declarations: [
+          ShowExpenseDetailsComponent,
+          HomeComponent,
+          ExpenseClaimsComponent,
+          PageNotFoundComponent,
+          AddExpenseDetailsComponent
+        ],
+        imports: [
+          ReactiveFormsModule,
+          RouterTestingModule.withRoutes(appRoutes),
+          HttpClientTestingModule,
+          NgbModule.forRoot(),
+          ToastModule.forRoot(),
+          NgReduxTestingModule
+        ]
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
@@ -451,9 +498,8 @@ describe('ExpenseClaimsComponent', () => {
       expect(toastrService.success).toHaveBeenCalled();
     });
 
-    it(
-      'should show the toast when the user creates the claim',
-      fakeAsync(() => {
+    // prettier-ignore
+    it('should show the toast when the user creates the claim', fakeAsync(() => {
         spyOn(toastrService, 'success');
         spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({ save: true, id: 3 }) });
         component.newClaim();
@@ -462,9 +508,8 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should follow the route when the user creates the claim',
-      fakeAsync(() => {
+    // prettier-ignore
+    it('should follow the route when the user creates the claim', fakeAsync(() => {
         spyOn(toastrService, 'success');
         spyOn(routeService, 'navigate');
         spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({ save: true, id: 3 }) });
@@ -474,9 +519,8 @@ describe('ExpenseClaimsComponent', () => {
       })
     );
 
-    it(
-      'should not show the toast when the user cancels creating the claim',
-      fakeAsync(() => {
+    // prettier-ignore
+    it('should not show the toast when the user cancels creating the claim', fakeAsync(() => {
         spyOn(toastrService, 'success');
         spyOn(modalService, 'open').and.returnValue({ result: Promise.resolve({ save: false }) });
         component.newClaim();

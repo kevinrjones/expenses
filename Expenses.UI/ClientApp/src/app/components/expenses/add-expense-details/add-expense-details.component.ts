@@ -1,14 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ExpenseClaimsService } from '../expense-claims.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
-import { IAppState } from '../../../store';
-import { NgRedux, select } from '@angular-redux/store';
-import { ExpenseClaim } from '../models/expense-claim';
-import { ExpensesSummary } from '../models/expenses-summary';
-import { ExpenseActions } from '../expense.actions';
 
 @Component({
   selector: 'app-expense-details',
@@ -17,24 +9,10 @@ import { ExpenseActions } from '../expense.actions';
 })
 export class AddExpenseDetailsComponent implements OnInit {
   addExpenseForm: FormGroup;
-  claim: ExpenseClaim;
-  id = -1;
-  @select('expenseClaims') store: Observable<ExpensesSummary>;
 
-  constructor(private ngRedux: NgRedux<IAppState>, private expenseActions: ExpenseActions, private formBuilder: FormBuilder, private route: ActivatedRoute) {}
+  constructor(private expensesClaimService: ExpenseClaimsService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.store.subscribe((summary: ExpensesSummary) => {
-      if (this.id !== -1) {
-        this.claim = summary.claims[this.id - 1];
-      }
-    });
-
-    this.route.paramMap.subscribe(map => {
-      this.id = +map.get('id');
-      this.expenseActions.getExpenseSummary();
-    });
-
     this.addExpenseForm = this.formBuilder.group({
       itemRows: this.formBuilder.array([this.initItemRows()])
     });

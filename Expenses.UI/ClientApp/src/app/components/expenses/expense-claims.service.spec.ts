@@ -1,13 +1,11 @@
-import { TestBed, inject, async } from '@angular/core/testing';
+import { HttpRequest } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ExpenseClaimsService } from './expense-claims.service';
-
-import { ResponseOptions } from '@angular/http';
-import { HttpRequest, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { TestBed, inject } from '@angular/core/testing';
 import { AppConfig } from '../../shared/projectConfigShared';
-import { NewExpenseClaim } from './models/new-expense-claim';
+import { ExpenseClaimsService } from './expense-claims.service';
 import { ExpensesSummary } from './models/expenses-summary';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { NewExpenseClaim } from './models/new-expense-claim';
+
 
 describe('ExpensesClaimsService', () => {
   let service: ExpenseClaimsService;
@@ -52,12 +50,11 @@ describe('ExpensesClaimsService', () => {
     })
   );
 
-  // prettier-ignore
-  it('should call the http service to get the data (sync)',    () => {
-      service.claims().subscribe();
-      backend.expectOne((req: HttpRequest<any>) => {
-        return req.url === '/api/expenses' && req.method === 'GET';
-      }, `GET Claims`);
+  it('should call the http service to get the data (sync)', () => {
+    service.claims().subscribe();
+    backend.expectOne((req: HttpRequest<any>) => {
+      return req.url === '/api/expenses' && req.method === 'GET';
+    }, `GET Claims`);
   });
 
   it('should call the http service 1', () => {
@@ -103,7 +100,7 @@ describe('ExpensesClaimsService', () => {
         fail('should have failed with the 404 error');
       },
       (error: String) => {
-          expect(error).toBe('There was an error. Please report this to technical support.');
+        expect(error).toBe('There was an error. Please report this to technical support.');
       }
     );
 
@@ -125,5 +122,4 @@ describe('ExpensesClaimsService', () => {
       `Create Claim`
     );
   });
-  
 });

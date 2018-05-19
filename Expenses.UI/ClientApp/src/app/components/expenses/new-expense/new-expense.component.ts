@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms/';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ExpenseClaimsService } from '../expense-claims.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms/';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ExpenseClaim } from '../models/expense-claim';
 import * as moment from 'moment';
+import { ExpenseClaimsService } from '../expense-claims.service';
 import { NewExpenseClaim } from '../models/new-expense-claim';
 
 @Component({
@@ -24,8 +22,7 @@ export class NewExpenseComponent implements OnInit {
 
   newExpenseForm: FormGroup;
 
-  constructor(public activeModal: NgbActiveModal, private expensesClaimService: ExpenseClaimsService, private formBuilder: FormBuilder) {
-  }
+  constructor(public activeModal: NgbActiveModal, private expensesClaimService: ExpenseClaimsService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.isError = false;
@@ -44,13 +41,15 @@ export class NewExpenseComponent implements OnInit {
       .newClaim(
         new NewExpenseClaim({
           description: this.description.value,
-          claimDate: moment(this.expenses_start_date.value).utc().format(),
+          claimDate: moment(this.expenses_start_date.value)
+            .utc()
+            .format(),
           company: this.company.value
         })
       )
       .subscribe(
         result => {
-          this.activeModal.close({ save: true, id: result.id });
+          this.activeModal.close({ save: true, id: result.Id });
           this.isWaiting = false;
         },
         error => {

@@ -1,9 +1,8 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
+import { ShowExpenseDetailsComponent } from './components/expenses/show-expense-details/show-expense-details.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
-import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
-import { ExpenseClaimFormComponent } from './components/expenses/expense-claim-form/expense-claim-form.component';
 
 export const appRoutes: Routes = [
   {
@@ -11,8 +10,7 @@ export const appRoutes: Routes = [
     component: HomeComponent,
     children: [
       { path: '', component: ExpenseClaimsComponent },
-      { path: 'expenseform', component: ExpenseClaimFormComponent },
-      { path: 'expenses/:id', component: AddExpenseDetailsComponent }
+      { path: 'expenses/:id', component: ShowExpenseDetailsComponent }
     ]
   },
   {

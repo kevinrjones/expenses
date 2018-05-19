@@ -1,14 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule } from 'ng2-toastr';
-import { ReactiveFormsModule } from '@angular/forms';
-import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { HomeComponent } from './components/home/home.component';
-import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
+import { appRoutes } from './app.routes';
 import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
-import { ExpenseClaimFormComponent } from './components/expenses/expense-claim-form/expense-claim-form.component';
+import { ExpenseClaimsComponent } from './components/expenses/expense-claims/expense-claims.component';
+import { ShowExpenseDetailsComponent } from './components/expenses/show-expense-details/show-expense-details.component';
+import { HomeComponent } from './components/home/home.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
         ToastModule.forRoot()
       ],
       declarations: [
-        ExpenseClaimFormComponent,
+        ShowExpenseDetailsComponent,
         AppComponent,
         PageNotFoundComponent,
         HomeComponent,

@@ -1,20 +1,28 @@
 import * as moment from 'moment';
-import Moment = moment.Moment;
 import { ExpenseItem } from './expense-item';
+import Moment = moment.Moment;
 
 export class ExpenseClaim {
   constructor(item?: Partial<ExpenseClaim>) {
     Object.assign(this, item);
+    this.expenseItems = [];
+    if (item && item['expenseItems']) {
+      item['expenseItems'].forEach(element => {
+        const ei = new ExpenseItem(element);
+        this.expenseItems.push(ei);
+      });
+    }
   }
 
-  id: number;
-  description: string;
-  company: string;
-  dueDateUtc: string;
-  claimDateUtc: string;
-  total: number;
-  currency: string;
-  paid: boolean;
+   id: number;
+   description: string;
+   company: string;
+   dueDateUtc: string;
+   claimDateUtc: string;
+   total: number;
+   currency: string;
+   paid: boolean;
+   expenseItems: Array<ExpenseItem>;
 
   get Id(): number {
     return this.id;
@@ -49,5 +57,9 @@ export class ExpenseClaim {
 
   get Currency(): string {
     return this.currency;
+  }
+
+  get ExpenseItems(): Array<ExpenseItem> {
+    return this.expenseItems;
   }
 }

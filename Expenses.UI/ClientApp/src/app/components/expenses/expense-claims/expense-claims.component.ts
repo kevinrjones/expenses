@@ -1,17 +1,15 @@
+import { NgRedux, select } from '@angular-redux/store';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { ExpenseClaimsService } from '../expense-claims.service';
-import { ExpenseClaim } from '../models/expense-claim';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ToastsManager } from 'ng2-toastr';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { ErrorState } from '../../../shared/ErrorState';
+import { IAppState } from '../../../store';
+import { ExpenseActions } from '../expense.actions';
 import { ExpensesSummary } from '../models/expenses-summary';
 import { NewExpenseComponent } from '../new-expense/new-expense.component';
-import { ToastsManager } from 'ng2-toastr';
-import { IAppState } from '../../../store';
-import { Observable } from 'rxjs/Observable';
-import { ExpenseActions } from '../expense.actions';
-import { select, NgRedux } from '@angular-redux/store';
 
 @Component({
   selector: 'app-expense-claims',
@@ -20,29 +18,36 @@ import { select, NgRedux } from '@angular-redux/store';
 })
 export class ExpenseClaimsComponent implements OnInit {
   @select('expenseClaims') store: Observable<ExpensesSummary>;
+  @select('error') error: Observable<ErrorState>;
   summary: ExpensesSummary;
 
   // todo: add logger
   // todo: inject store helper, should not be accessing claims directly from the service
-  constructor(private ngRedux: NgRedux<IAppState>, private expenseActions: ExpenseActions, private modalService: NgbModal, public toastr: ToastsManager, public router: Router) {}
+  constructor(
+    private ngRedux: NgRedux<IAppState>,
+    private expenseActions: ExpenseActions,
+    private modalService: NgbModal,
+    public toastr: ToastsManager,
+    public router: Router
+  ) {}
 
   // todo: add toast
   ngOnInit() {
     this.expenseActions.getExpenseSummary();
 
-    // todo: is this best way to do this and handle errors
-    // or simply use | async in the HTML?
-    this.store.subscribe(
-      (claims: ExpensesSummary) => {
-        this.summary = new ExpensesSummary(claims);
-      },
-      error => this.toastr.error('Unable to get expense claims', 'Error')
-    );
+    this.store.subscribe((claims: ExpensesSummary) => {
+      this.summary = new ExpensesSummary(claims);
+    });
+    this.error.subscribe((errorState: ErrorState) => {
+      if (errorState.message !== undefined) {
+        this.toastr.error(errorState.message, 'Error');
+      }
+    });
   }
 
   newClaim() {
     const modalRef: NgbModalRef = this.modalService.open(NewExpenseComponent, {
-      windowClass: 'expense-detaiks'
+      windowClass: 'expense-details'
     });
     modalRef.result.then(
       res => {

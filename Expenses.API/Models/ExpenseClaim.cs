@@ -13,5 +13,6 @@ namespace Expenses.API.Models
         public string ClaimDate { get; set; }
         public bool Paid { get; set; }
         public string Currency { get; set; }
+        public List<Expense> ExpenseItems {get; set;}
     }
 }

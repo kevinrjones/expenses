@@ -1,15 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { appRoutes } from '../../app.routes';
 import { PageNotFoundComponent } from '../../components/page-not-found/page-not-found.component';
+import { AddExpenseDetailsComponent } from '../expenses/add-expense-details/add-expense-details.component';
+import { ExpenseClaimsComponent } from '../expenses/expense-claims/expense-claims.component';
+import { ShowExpenseDetailsComponent } from '../expenses/show-expense-details/show-expense-details.component';
 import { HomeComponent } from './home.component';
 
-import { appRoutes } from '../../app.routes'
-import { AppConfig } from '../../shared/projectConfigShared';
-import { ExpenseClaimsComponent } from '../expenses/expense-claims/expense-claims.component';
-import { AddExpenseDetailsComponent } from '../expenses/add-expense-details/add-expense-details.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ExpenseClaimFormComponent } from '../expenses/expense-claim-form/expense-claim-form.component';
+
 
 
 describe('HomeComponent', () => {
@@ -19,10 +18,10 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent,
+        ShowExpenseDetailsComponent,
         PageNotFoundComponent,
         ExpenseClaimsComponent,
-        AddExpenseDetailsComponent,
-        ExpenseClaimFormComponent],
+        AddExpenseDetailsComponent],
       imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes)
       ]
     })
