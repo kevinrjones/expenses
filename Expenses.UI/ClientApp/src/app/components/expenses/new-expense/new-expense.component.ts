@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms/
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { ExpenseClaimsService } from '../expense-claims.service';
+import { ExpenseClaim } from '../models/expense-claim';
 import { NewExpenseClaim } from '../models/new-expense-claim';
 
 @Component({
@@ -49,7 +50,7 @@ export class NewExpenseComponent implements OnInit {
       )
       .subscribe(
         result => {
-          this.activeModal.close({ save: true, id: result.Id });
+          this.activeModal.close({ save: true, id: (result as ExpenseClaim).Id });
           this.isWaiting = false;
         },
         error => {

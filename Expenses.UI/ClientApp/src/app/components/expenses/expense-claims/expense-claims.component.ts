@@ -2,7 +2,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { ErrorState } from '../../../shared/ErrorState';
@@ -27,7 +27,7 @@ export class ExpenseClaimsComponent implements OnInit {
     private ngRedux: NgRedux<IAppState>,
     private expenseActions: ExpenseActions,
     private modalService: NgbModal,
-    public toastr: ToastsManager,
+    public toastr: ToastrService,
     public router: Router
   ) {}
 

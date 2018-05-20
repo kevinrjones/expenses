@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ToastModule } from 'ng2-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { AddExpenseDetailsComponent } from './components/expenses/add-expense-details/add-expense-details.component';
@@ -16,7 +16,7 @@ describe('AppComponent', () => {
       imports: [
         ReactiveFormsModule,
         RouterTestingModule.withRoutes(appRoutes),
-        ToastModule.forRoot()
+        ToastrModule.forRoot()
       ],
       declarations: [
         ShowExpenseDetailsComponent,

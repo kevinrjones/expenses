@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastModule, ToastsManager } from 'ng2-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
@@ -73,7 +73,7 @@ describe('ExpenseClaimsComponent', () => {
           RouterTestingModule.withRoutes(appRoutes),
           HttpClientTestingModule,
           NgbModule.forRoot(),
-          ToastModule.forRoot(),
+          ToastrModule.forRoot(),
           NgReduxTestingModule
         ]
       }).compileComponents();
@@ -134,7 +134,7 @@ describe('ExpenseClaimsComponent', () => {
           RouterTestingModule.withRoutes(appRoutes),
           HttpClientTestingModule,
           NgbModule.forRoot(),
-          ToastModule.forRoot(),
+          ToastrModule.forRoot(),
           NgReduxTestingModule
         ]
       }).compileComponents();
@@ -272,7 +272,7 @@ describe('ExpenseClaimsComponent', () => {
           RouterTestingModule.withRoutes(appRoutes),
           HttpClientTestingModule,
           NgbModule.forRoot(),
-          ToastModule.forRoot(),
+          ToastrModule.forRoot(),
           NgReduxTestingModule
         ]
       }).compileComponents();
@@ -390,7 +390,7 @@ describe('ExpenseClaimsComponent', () => {
           RouterTestingModule.withRoutes(appRoutes),
           HttpClientTestingModule,
           NgbModule.forRoot(),
-          ToastModule.forRoot(),
+          ToastrModule.forRoot(),
           NgReduxTestingModule
         ]
       }).compileComponents();
@@ -400,7 +400,7 @@ describe('ExpenseClaimsComponent', () => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
 
       expenseClaimsService = fixture.debugElement.injector.get(ExpenseClaimsService);
-      toastrService = fixture.debugElement.injector.get(ToastsManager);
+      toastrService = fixture.debugElement.injector.get(ToastrService);
 
       component = fixture.componentInstance;
       storeStub = MockNgRedux.getSelectorStub<IAppState, ErrorState>('error');
@@ -409,7 +409,7 @@ describe('ExpenseClaimsComponent', () => {
     it('should log an error when the service fails (sync)', () => {
       spyOn(expenseClaimsService, 'claims').and.callFake(() => {
         storeStub.next(new ErrorState({message: 'Unable to get expense claims'}));
-        return new ErrorObservable('An error');
+        return ErrorObservable.create('An error');
       });
       spyOn(toastrService, 'error');
       fixture.detectChanges();
@@ -421,7 +421,7 @@ describe('ExpenseClaimsComponent', () => {
     it('should log an error when the service fails', fakeAsync(() => {
         spyOn(expenseClaimsService, 'claims').and.callFake(() => {
           storeStub.next(new ErrorState({message: 'Unable to get expense claims'}));
-          return new ErrorObservable('An error');
+          return ErrorObservable.create('An error');
         });
         spyOn(toastrService, 'error');
         fixture.detectChanges();
@@ -468,7 +468,7 @@ describe('ExpenseClaimsComponent', () => {
           RouterTestingModule.withRoutes(appRoutes),
           HttpClientTestingModule,
           NgbModule.forRoot(),
-          ToastModule.forRoot(),
+          ToastrModule.forRoot(),
           NgReduxTestingModule
         ]
       }).compileComponents();
@@ -478,7 +478,7 @@ describe('ExpenseClaimsComponent', () => {
       fixture = TestBed.createComponent(ExpenseClaimsComponent);
 
       modalService = fixture.debugElement.injector.get(NgbModal);
-      toastrService = fixture.debugElement.injector.get(ToastsManager);
+      toastrService = fixture.debugElement.injector.get(ToastrService);
       routeService = fixture.debugElement.injector.get(Router);
 
       component = fixture.componentInstance;

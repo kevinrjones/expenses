@@ -10,8 +10,6 @@ import { ExpenseClaim } from './models/expense-claim';
 import { ExpensesSummary } from './models/expenses-summary';
 import { NewExpenseClaim } from './models/new-expense-claim';
 
-
-
 @Injectable()
 export class ExpenseClaimsService {
   url: string;
@@ -23,7 +21,7 @@ export class ExpenseClaimsService {
   /** Returns the data (do I need to do this?) and updates the store
    * Or returns an error
    */
-  public claims(): Observable<ExpensesSummary> {
+  public claims(): Observable<ExpensesSummary | string> {
     return this._http
       .get<ExpensesSummary>(this.url, {})
       .map((data: ExpensesSummary) => {
@@ -32,7 +30,7 @@ export class ExpenseClaimsService {
       .pipe(catchError(this.handleError));
   }
 
-  public claim(id: number): Observable<ExpenseClaim> {
+  public claim(id: number): Observable<ExpenseClaim | string> {
     return this._http
       .get<ExpenseClaim>(`${this.url}/${id}`, {})
       .map((data: ExpenseClaim) => {
@@ -41,11 +39,11 @@ export class ExpenseClaimsService {
       .pipe(catchError(this.handleError));
   }
 
-  public newClaim(claim: NewExpenseClaim): Observable<ExpenseClaim> {
+  public newClaim(claim: NewExpenseClaim): Observable<ExpenseClaim | string> {
     return this._http.post<ExpenseClaim>(this.url, claim).pipe(catchError(this.handleError));
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): ErrorObservable<string> {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -55,6 +53,6 @@ export class ExpenseClaimsService {
       console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable('There was an error. Please report this to technical support.');
+    return ErrorObservable.create('There was an error. Please report this to technical support.');
   }
 }

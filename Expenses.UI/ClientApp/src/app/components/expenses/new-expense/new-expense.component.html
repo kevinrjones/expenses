@@ -7,13 +7,22 @@
   </div>
   <form [formGroup]="newExpenseForm" novalidate>
     <div class='modal-body'>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{
+        'invalid': company.invalid && company.dirty,
+        'valid': company.valid && company.dirty
+      }">
         <input placeholder="For" type="text" formControlName="company" class="form-control" />
       </div>
-      <div class='form-group'>
+      <div class='form-group' [ngClass]="{
+        'invalid': description.invalid && description.dirty,
+        'valid': description.valid && description.dirty
+      }">
         <input class='form-control' type='text' placeholder='Description' formControlName='description' />
       </div>
-      <div class='form-group'>
+      <div class='form-group' [ngClass]="{
+        'invalid': expenses_start_date.invalid && expenses_start_date.dirty,
+        'valid': expenses_start_date.valid && expenses_start_date.dirty
+      }">
         <div class='input-group'>
           <input type="text" id="expenses_start_date" class="form-control" formControlName="expenses_start_date" ngbDatepicker #startDateDatepicker="ngbDatepicker"
             placeholder="yyyy-mm-dd" (click)="startDateDatepicker.toggle()" readonly/>

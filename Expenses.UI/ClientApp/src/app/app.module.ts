@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { ExpenseActions } from '../app/components/expenses/expense.actions';
 import { IAppState, expenseSummaryStore } from '../app/store';
 import { AppComponent } from './app.component';
@@ -30,7 +30,7 @@ import { AppConfig, PROJECT_CONFIG } from './shared/projectConfigShared';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    ToastModule.forRoot(),
+    ToastrModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
