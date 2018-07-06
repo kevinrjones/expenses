@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.API", "Expenses.API\Expenses.API.csproj", "{1AAB5BF4-35D2-441D-AD29-A895272DDD50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.API", "Expenses.API\Expenses.API.csproj", "{BA77BEE2-B214-43B0-B6A9-12786FBCD53E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.UI", "Expenses.UI\Expenses.UI.csproj", "{C6465F3E-F3F6-45A5-A63F-0E1D25FCAA93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.Identity.Shared", "Expenses.Identity.Shared\Expenses.Identity.Shared.csproj", "{08C1EF5C-012F-4B34-9685-F1AFADE23136}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.Repository", "Expenses.Repository\Expenses.Repository.csproj", "{6F5BB555-7655-46AC-8BF6-D895B08D94A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.Repository.Interfaces", "Expenses.Repository.Interfaces\Expenses.Repository.Interfaces.csproj", "{8D42AE56-9DB4-4ECA-9CED-268268CC442C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.UI", "Expenses.UI\Expenses.UI.csproj", "{8BE75D0C-66E9-45BF-986E-1C46804DB5F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +16,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1AAB5BF4-35D2-441D-AD29-A895272DDD50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AAB5BF4-35D2-441D-AD29-A895272DDD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AAB5BF4-35D2-441D-AD29-A895272DDD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AAB5BF4-35D2-441D-AD29-A895272DDD50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6465F3E-F3F6-45A5-A63F-0E1D25FCAA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6465F3E-F3F6-45A5-A63F-0E1D25FCAA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6465F3E-F3F6-45A5-A63F-0E1D25FCAA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6465F3E-F3F6-45A5-A63F-0E1D25FCAA93}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FCCD55CF-9A55-4C6F-AB64-09797DB7A837}
+		{BA77BEE2-B214-43B0-B6A9-12786FBCD53E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA77BEE2-B214-43B0-B6A9-12786FBCD53E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA77BEE2-B214-43B0-B6A9-12786FBCD53E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA77BEE2-B214-43B0-B6A9-12786FBCD53E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C1EF5C-012F-4B34-9685-F1AFADE23136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C1EF5C-012F-4B34-9685-F1AFADE23136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C1EF5C-012F-4B34-9685-F1AFADE23136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C1EF5C-012F-4B34-9685-F1AFADE23136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F5BB555-7655-46AC-8BF6-D895B08D94A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F5BB555-7655-46AC-8BF6-D895B08D94A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F5BB555-7655-46AC-8BF6-D895B08D94A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F5BB555-7655-46AC-8BF6-D895B08D94A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D42AE56-9DB4-4ECA-9CED-268268CC442C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D42AE56-9DB4-4ECA-9CED-268268CC442C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D42AE56-9DB4-4ECA-9CED-268268CC442C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D42AE56-9DB4-4ECA-9CED-268268CC442C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE75D0C-66E9-45BF-986E-1C46804DB5F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE75D0C-66E9-45BF-986E-1C46804DB5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE75D0C-66E9-45BF-986E-1C46804DB5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE75D0C-66E9-45BF-986E-1C46804DB5F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
