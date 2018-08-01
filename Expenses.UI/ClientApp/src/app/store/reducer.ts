@@ -1,9 +1,9 @@
 import { Action } from 'redux';
-import { FILTER_EXPENSES, REQUEST_ERROR, REQUEST_EXPENSE, REQUEST_EXPENSES } from '../components/expenses/expense.actions';
+import { FILTER_EXPENSES, REQUEST_ERROR, REQUEST_EXPENSE, REQUEST_EXPENSES } from '../components/expenses/expense-actions';
 import { ExpensesSummary } from '../components/expenses/models/expenses-summary';
 import { ErrorState } from '../shared/ErrorState';
-import { IAppState } from './IAppState';
 import { FilterAction, RequestExpensesAction, RequestExpensesErrorAction, StoreExpensesAction } from './actions';
+import { IAppState } from './IAppState';
 
 const claims = [];
 

@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
@@ -9,6 +9,7 @@ import { ExpenseClaimsComponent } from './components/expenses/expense-claims/exp
 import { ShowExpenseDetailsComponent } from './components/expenses/show-expense-details/show-expense-details.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthCallbackComponent } from './shared/components/auth-callback/auth-callback.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -24,7 +25,8 @@ describe('AppComponent', () => {
         PageNotFoundComponent,
         HomeComponent,
         ExpenseClaimsComponent,
-        AddExpenseDetailsComponent
+        AddExpenseDetailsComponent,
+        AuthCallbackComponent
       ],
     }).compileComponents();
   }));

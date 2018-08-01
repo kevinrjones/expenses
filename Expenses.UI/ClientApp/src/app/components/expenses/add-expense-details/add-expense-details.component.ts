@@ -1,5 +1,5 @@
-import { OnInit, Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExpenseClaimsService } from '../expense-claims.service';
 
 @Component({
@@ -48,8 +48,8 @@ export class AddExpenseDetailsComponent implements OnInit {
   }
 
   deleteRow(index: number) {
-    const control = <FormArray>this.addExpenseForm.controls['itemRows'];
-    control.removeAt(index);
+    const controls = <FormArray>this.addExpenseForm.controls['itemRows'];
+    controls.removeAt(index);
   }
 
   updateRow(rowIndex: number) {

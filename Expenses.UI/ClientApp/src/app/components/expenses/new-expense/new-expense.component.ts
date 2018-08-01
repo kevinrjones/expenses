@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms/';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { ExpenseClaimsService } from '../expense-claims.service';
@@ -28,7 +28,7 @@ export class NewExpenseComponent implements OnInit {
   ngOnInit() {
     this.isError = false;
     this.isWaiting = false;
-    this.message = 'Unable to create new expense claim';
+    this.message = '';
 
     this.newExpenseForm = this.formBuilder.group({
       description: this.description,
@@ -54,7 +54,7 @@ export class NewExpenseComponent implements OnInit {
           this.isWaiting = false;
         },
         error => {
-          this.message = 'Unable to create new expense claim';
+          this.message = 'Unable to create a new expense claim';
           this.isError = true;
           this.isWaiting = false;
         }

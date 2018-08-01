@@ -24,6 +24,7 @@ namespace Expenses.API
                     .AddJsonFile("hosting.json", optional: true)
                     .AddCommandLine(args)
                     .Build();
+            
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)

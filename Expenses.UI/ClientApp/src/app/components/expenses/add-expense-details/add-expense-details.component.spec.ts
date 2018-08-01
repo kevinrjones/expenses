@@ -1,11 +1,11 @@
-import { NgReduxTestingModule, MockNgRedux } from '@angular-redux/store/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AddExpenseDetailsComponent } from './add-expense-details.component';
-import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { ExpenseClaimsService } from '../expense-claims.service';
-import { AppConfig } from '../../../shared/projectConfigShared';
+import { NgReduxTestingModule } from '@angular-redux/store/lib/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AppConfig } from '../../../shared/projectConfigShared';
+import { ExpenseClaimsService } from '../expense-claims.service';
+import { AddExpenseDetailsComponent } from './add-expense-details.component';
+
 
 describe('AddExpenseDetailsComponent', () => {
   let component: AddExpenseDetailsComponent;
@@ -113,6 +113,13 @@ describe('AddExpenseDetailsComponent', () => {
     const group = component.itemRows.at(0) as FormGroup;
     component.updateRow(0);
     expect(group.controls.total.value).toBe(11);
+  });
+
+  it('should remove a control from the FormGroup when deleting a control', () => {
+    const controls = <FormArray>component.addExpenseForm.controls['itemRows'];
+    expect(controls.length).toBe(1);
+    component.deleteRow(0);
+    expect(controls.length).toBe(0);
   });
 
 });

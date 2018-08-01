@@ -1,27 +1,30 @@
-import { MockNgRedux, NgReduxTestingModule } from '@angular-redux/store/testing';
+import { MockNgRedux, NgReduxTestingModule } from '@angular-redux/store/lib/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
+import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Subject } from 'rxjs/Subject';
 import { appRoutes } from '../../../app.routes';
+import { AuthCallbackComponent } from '../../../shared/components/auth-callback/auth-callback.component';
 import { ErrorState } from '../../../shared/ErrorState';
 import { AppConfig } from '../../../shared/projectConfigShared';
+import { AuthenticationService } from '../../../shared/services/authorization/authentication.service';
+import { LoggingService } from '../../../shared/services/logging.service';
 import { IAppState } from '../../../store';
 import { asyncData } from '../../../testing/helpers';
 import { HomeComponent } from '../../home/home.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { AddExpenseDetailsComponent } from '../add-expense-details/add-expense-details.component';
+import { ExpenseActions } from '../expense-actions';
 import { ExpenseClaimsService } from '../expense-claims.service';
-import { ExpenseActions } from '../expense.actions';
 import { ExpenseClaim } from '../models/expense-claim';
 import { ExpensesSummary } from '../models/expenses-summary';
 import { ShowExpenseDetailsComponent } from '../show-expense-details/show-expense-details.component';
@@ -66,7 +69,8 @@ describe('ExpenseClaimsComponent', () => {
           HomeComponent,
           ExpenseClaimsComponent,
           PageNotFoundComponent,
-          AddExpenseDetailsComponent
+          AddExpenseDetailsComponent,
+          AuthCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -127,7 +131,8 @@ describe('ExpenseClaimsComponent', () => {
           HomeComponent,
           ExpenseClaimsComponent,
           PageNotFoundComponent,
-          AddExpenseDetailsComponent
+          AddExpenseDetailsComponent,
+          AuthCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -265,7 +270,8 @@ describe('ExpenseClaimsComponent', () => {
           HomeComponent,
           ExpenseClaimsComponent,
           PageNotFoundComponent,
-          AddExpenseDetailsComponent
+          AddExpenseDetailsComponent,
+          AuthCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -376,14 +382,19 @@ describe('ExpenseClaimsComponent', () => {
             provide: AppConfig,
             useValue: {}
           },
-          ExpenseActions
+          ExpenseActions,
+          {
+            provide: LoggingService,
+            useValue: jasmine.createSpyObj('logger', ['info', 'error'])
+          }
         ],
         declarations: [
           ShowExpenseDetailsComponent,
           HomeComponent,
           ExpenseClaimsComponent,
           PageNotFoundComponent,
-          AddExpenseDetailsComponent
+          AddExpenseDetailsComponent,
+          AuthCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -408,7 +419,7 @@ describe('ExpenseClaimsComponent', () => {
 
     it('should log an error when the service fails (sync)', () => {
       spyOn(expenseClaimsService, 'claims').and.callFake(() => {
-        storeStub.next(new ErrorState({message: 'Unable to get expense claims'}));
+        storeStub.next(new ErrorState({ message: 'Unable to get expense claims' }));
         return ErrorObservable.create('An error');
       });
       spyOn(toastrService, 'error');
@@ -444,11 +455,21 @@ describe('ExpenseClaimsComponent', () => {
         }
       };
 
+      const authServiceStub = {
+        isLoggedIn(): Observable<boolean> {
+          return asyncData(true);
+        }
+      };
+
       TestBed.configureTestingModule({
         providers: [
           {
             provide: ExpenseClaimsService,
             useValue: expenseClaimsServiceStub
+          },
+          {
+            provide: AuthenticationService,
+            useValue: authServiceStub
           },
           {
             provide: AppConfig,
@@ -461,7 +482,8 @@ describe('ExpenseClaimsComponent', () => {
           HomeComponent,
           ExpenseClaimsComponent,
           PageNotFoundComponent,
-          AddExpenseDetailsComponent
+          AddExpenseDetailsComponent,
+          AuthCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,

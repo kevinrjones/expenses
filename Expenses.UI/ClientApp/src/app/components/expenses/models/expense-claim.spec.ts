@@ -1,5 +1,6 @@
-import { ExpenseClaim } from './expense-claim';
 import * as moment from 'moment';
+import { ExpenseClaim } from './expense-claim';
+import { ExpenseItem } from './expense-item';
 
 describe('Expense Claim', () => {
   let expenseClaim: ExpenseClaim;
@@ -8,7 +9,8 @@ describe('Expense Claim', () => {
     expenseClaim = new ExpenseClaim({
       company: 'CompanyName',
       dueDateUtc: '2017-01-01',
-      claimDateUtc: '2018-01-01'
+      claimDateUtc: '2018-01-01',
+      expenseItems: [new ExpenseItem({ id: 1, description: 'description', net: 23, tax: 4, total: 27 })]
     });
   });
 
@@ -23,5 +25,8 @@ describe('Expense Claim', () => {
   });
   it('should return the DisplayDate', () => {
     expect(expenseClaim.DisplayDate).toBe('Jan 01 2017');
+  });
+  it('should return the ExpenseItems', () => {
+    expect(expenseClaim.ExpenseItems.length).toBe(1);
   });
 });

@@ -1,20 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgReduxTestingModule, MockNgRedux } from '@angular-redux/store/testing';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
-import { ShowExpenseDetailsComponent } from './show-expense-details.component';
-import { AppConfig } from '../../../shared/projectConfigShared';
-import { ExpenseActions } from '../expense.actions';
-import { ExpenseClaimsService } from '../expense-claims.service';
-import { ExpensesSummary } from '../models/expenses-summary';
-import { ExpenseClaim } from '../models/expense-claim';
-import { asyncData } from '../../../testing/helpers';
+import { MockNgRedux, NgReduxTestingModule } from '@angular-redux/store/lib/testing';
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs/Observable';
+import { AppConfig } from '../../../shared/projectConfigShared';
+import { IAppState } from '../../../store';
+import { ActivatedRouteStub } from '../../../testing/activated-route-stub';
+import { asyncData } from '../../../testing/helpers';
+import { ExpenseActions } from '../expense-actions';
+import { ExpenseClaimsService } from '../expense-claims.service';
+import { ExpenseClaim } from '../models/expense-claim';
+import { ExpensesSummary } from '../models/expenses-summary';
+import { ShowExpenseDetailsComponent } from './show-expense-details.component';
+
 
 describe('ShowExpenseDetailsComponent', () => {
   let component: ShowExpenseDetailsComponent;
   let fixture: ComponentFixture<ShowExpenseDetailsComponent>;
+  let activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
+  let expenseActions: ExpenseActions;
+  let storeStub: Subject<ExpensesSummary>;
 
   const claim = new ExpenseClaim();
   const claims = new Array<ExpenseClaim>(new ExpenseClaim({ description: 'A Description', id: 1, dueDateUtc: '20180417' }), new ExpenseClaim());
@@ -35,19 +41,20 @@ describe('ShowExpenseDetailsComponent', () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: {
-            paramMap: Observable.of({ get: (key) => '1' })
-          }
+          useValue: activatedRoute
         },
         {
           provide: ExpenseClaimsService,
           useValue: expenseClaimsServiceStub
         },
         {
+          provide: ExpenseActions,
+          useValue: jasmine.createSpyObj('expenseActions', ['getExpenseClaim'])
+        },
+        {
           provide: AppConfig,
           useValue: {}
-        },
-        ExpenseActions
+        }
       ],
       imports: [NgReduxTestingModule],
       declarations: [ShowExpenseDetailsComponent]
@@ -57,10 +64,27 @@ describe('ShowExpenseDetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ShowExpenseDetailsComponent);
     component = fixture.componentInstance;
+    activatedRoute = TestBed.get(ActivatedRoute);
+    expenseActions = TestBed.get(ExpenseActions);
+    storeStub = MockNgRedux.getSelectorStub<IAppState, ExpensesSummary>('expenseClaim');
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // prettier-ignore
+  it('should call the getExpenseClaim action when the route is activated', fakeAsync(() => {
+    activatedRoute.setParamMap({id: 1});
+    expect(expenseActions.getExpenseClaim).toHaveBeenCalled();
+  }));
+
+  it('should set the claim when the store event fires', fakeAsync(() => {
+    expect(component.claim).toBeUndefined();
+    component.id = 1;
+    storeStub.next(new ExpensesSummary());
+    expect(component.claim).not.toBeUndefined();
+  }));
 });

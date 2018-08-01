@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ViewContainerRef } from '@angular/core';
-import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -8,7 +8,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import { AppConfig } from '../../../shared/projectConfigShared';
-import { asyncData } from '../../../testing/helpers';
+import { asyncData, asyncError } from '../../../testing/helpers';
 import { ExpenseClaimsService } from '../expense-claims.service';
 import { NewExpenseComponent } from './new-expense.component';
 
@@ -98,5 +98,13 @@ describe('NewExpenseComponent', () => {
     component.addNew();
     tick();
     expect(activeModal.close).toHaveBeenCalled();
+  }));
+
+  it('should set the error message when a new claim fails to be added', fakeAsync(() => {
+    spyOn(expenseClaimsService, 'newClaim').and.returnValue(asyncError({}));
+    spyOn(activeModal, 'close');
+    component.addNew();
+    tick();
+    expect(component.message).toBe('Unable to create a new expense claim');
   }));
 });

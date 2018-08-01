@@ -5,6 +5,13 @@
 
 export const environment = {
   production: false,
-  rootUrl: 'http://localhost:53551/',
-  expensesUrl: 'api/expenseclaims'
+  rootUrl: 'http://localhost:53550/',
+  apiUrl: 'http://localhost:53551/',
+  expensesUrl: '/api/expenseclaims',
+  authorityUrl: 'https://ids.knowledgespike.local/',
+  authRedirectUrl: 'https://expenses.knowledgespike.local/auth-callback',
+  logoutRedirectUrl: 'https://expenses.knowledgespike.local',
+  responseType: 'id_token token',
+  scope: 'openid profile expenses_api',
+  clientId: 'expenses'
 };

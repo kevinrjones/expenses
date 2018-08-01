@@ -1,12 +1,10 @@
-import { OnInit, Component } from '@angular/core';
-import { ExpenseClaimsService } from '../expense-claims.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NgRedux, select } from '@angular-redux/store';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { IAppState } from '../../../store';
-import { NgRedux, select } from '@angular-redux/store';
+import { ExpenseActions } from '../expense-actions';
 import { ExpenseClaim } from '../models/expense-claim';
-import { ExpensesSummary } from '../models/expenses-summary';
-import { ExpenseActions } from '../expense.actions';
 
 @Component({
   // tslint:disable-next-line:component-selector
