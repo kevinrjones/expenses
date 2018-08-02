@@ -1,7 +1,7 @@
 import { Action } from 'redux';
-import { ExpenseClaim } from '../components/expenses/models/expense-claim';
-import { ExpensesSummary } from '../components/expenses/models/expenses-summary';
-import { ErrorState } from '../shared/ErrorState';
+import { ExpenseClaim } from '../modules/expenses/models/expense-claim';
+import { ExpensesSummary } from '../modules/expenses/models/expenses-summary';
+import { ErrorState } from '../modules/shared/ErrorState';
 
 export interface FilterAction extends Action {
     filterDate: Date;
