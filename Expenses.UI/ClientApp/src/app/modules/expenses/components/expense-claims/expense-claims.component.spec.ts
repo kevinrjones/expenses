@@ -487,7 +487,16 @@ describe('ExpenseClaimsComponent', () => {
         ],
         imports: [
           ReactiveFormsModule,
-          RouterTestingModule.withRoutes(appRoutes),
+          RouterTestingModule.withRoutes([
+            {
+              path: 'expenses',
+              component: ExpenseClaimsComponent
+            },
+            {
+              path: 'expenses/:id',
+              component: ShowExpenseDetailsComponent
+            }
+          ]),
           HttpClientTestingModule,
           NgbModule.forRoot(),
           ToastrModule.forRoot(),
