@@ -343,6 +343,7 @@ Need to do this for each app you are running
     1. Run ```dotnet [app name].dll``` from ```/User/kevinjones/webapplication/[app name]```
         1. ```dotnet IdentityExpress.Manager.Api.dll```
         1. ```dotnet IdentityExpressUI.dll```
+
 1. Identity Server
     * `cd ~/projects/expenses/application/IdentityServer/IdentityServer`
     * `dotnet publish -c Release`

@@ -365,3 +365,8 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+/IdentityServer/ca.localhost.ext
+/IdentityServer/openssl-ca.conf
+*.pem
+*.cer
+*.csr
