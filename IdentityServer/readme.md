@@ -369,7 +369,7 @@ Need to do this for each app you are running
     * `dotnet IdentityExpressUI.dll`
 
 1. Expenses API
-    * `cd ~/projects/expenses/application/`
+    * `cd ~/projects/expenses/application/expenses/`
     * `dotnet publish -c Release`
     * `cd Expenses.API/bin/Release/netcoreapp2.1/publish`
     * `cp -r * ~/webapplications/expenses.api/`
@@ -377,7 +377,7 @@ Need to do this for each app you are running
     * `dotnet Expenses.API.dll`
 
 1. Expenses UI
-    * `cd ~/projects/expenses/application/`
+    * `cd ~/projects/expenses/application/expenses/`
     * `dotnet publish -c Release`
     * `cd Expenses.UI/bin/Release/netcoreapp2.1/publish/`
     * `cp -r * ~/webapplications/expenses.ui/`
