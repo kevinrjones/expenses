@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { LocalStorageService } from '../local-storage.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { AuthenticationService } from './authentication.service';
 
 // todo: test

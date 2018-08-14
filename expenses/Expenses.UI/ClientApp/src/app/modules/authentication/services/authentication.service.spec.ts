@@ -1,10 +1,11 @@
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { UserManager } from 'oidc-client';
-import { asyncData } from '../../../../testing/helpers';
-import { LocalStorageService } from '../local-storage.service';
-import { LoggingService } from '../logging.service';
-import { WindowsService } from '../windows.service';
+import { asyncData } from '../../../testing/helpers';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { LoggingService } from '../../shared/services/logging.service';
+import { WindowsService } from '../../shared/services/windows.service';
 import { AuthenticationService, getClientSettings } from './authentication.service';
+
 
 describe('AuthenticationService', () => {
   let userManager: UserManager;

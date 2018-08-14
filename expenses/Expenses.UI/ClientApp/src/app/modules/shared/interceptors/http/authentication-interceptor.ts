@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { forwardRef, Inject, Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../../services/authorization/authentication.service';
+import { AuthenticationService } from '../../../authentication/services/authentication.service';
 import { LoggingService } from '../../services/logging.service';
 
 @Injectable()

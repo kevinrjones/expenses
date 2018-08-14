@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { asyncData } from '../../../../testing/helpers';
-import { AuthenticationService } from '../../services/authorization/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { AuthCallbackComponent } from './auth-callback.component';
 
 describe('AuthCallbackComponent', () => {

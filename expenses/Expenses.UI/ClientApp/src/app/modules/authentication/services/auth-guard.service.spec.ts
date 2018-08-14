@@ -1,9 +1,9 @@
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { UserManager } from 'oidc-client';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '../../../../../../node_modules/@angular/router';
-import { asyncData, asyncError } from '../../../../testing/helpers';
 import { AuthGuardService } from './auth-guard.service';
 import { AuthenticationService } from './authentication.service';
+import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { asyncData, asyncError } from '../../../testing/helpers';
 
 describe('AuthGuardService', () => {
   const mockSnapshot: any = jasmine.createSpyObj<RouterStateSnapshot>('RouterStateSnapshot', ['toString']);

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AuthCallbackComponent } from '../shared/components/auth-callback/auth-callback.component';
+import { AuthCallbackComponent } from '../authentication/components/auth-callback/auth-callback.component';
+import { SignoutCallbackComponent } from '../authentication/components/signout-callback/signout-callback.component';
 import { PageNotFoundComponent } from '../shared/components/page-not-found/page-not-found.component';
-import { SignoutCallbackComponent } from '../shared/components/signout-callback/signout-callback.component';
 
 export const appRoutes: Routes = [
   {

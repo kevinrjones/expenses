@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserManager } from 'oidc-client';
 import { asyncData } from '../../../../testing/helpers';
+import { AuthCallbackComponent } from '../../../authentication/components/auth-callback/auth-callback.component';
+import { SignoutCallbackComponent } from '../../../authentication/components/signout-callback/signout-callback.component';
+import { AuthenticationService } from '../../../authentication/services/authentication.service';
 import { appRoutes } from '../../../router/app.routes';
-import { AuthenticationService } from '../../services/authorization/authentication.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { AuthCallbackComponent } from '../auth-callback/auth-callback.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-import { SignoutCallbackComponent } from '../signout-callback/signout-callback.component';
 import { MainNavComponent } from './main-nav.component';
 
 describe('MainNavComponent', () => {

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Log, User, UserManager, UserManagerSettings } from 'oidc-client';
 import { from, Observable, of } from 'rxjs';
-import { environment } from '../../../../../environments/environment';
-import { LocalStorageService } from '../local-storage.service';
-import { LoggingService } from '../logging.service';
-import { WindowsService } from '../windows.service';
+import { environment } from '../../../../environments/environment';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { LoggingService } from '../../shared/services/logging.service';
+import { WindowsService } from '../../shared/services/windows.service';
 
 export function getClientSettings(): UserManagerSettings {
   return {
