@@ -6,7 +6,7 @@ import { appRoutes } from './app.routes';
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- true debugging purposes only
     )
   ],
   exports: [RouterModule]

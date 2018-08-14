@@ -6,7 +6,9 @@ import { ExpenseClaimsComponent } from '../../../expenses/components/expense-cla
 import { ShowExpenseDetailsComponent } from '../../../expenses/components/show-expense-details/show-expense-details.component';
 import { appRoutes } from '../../../router/app.routes';
 import { AuthCallbackComponent } from '../../../shared/components/auth-callback/auth-callback.component';
+import { MainNavComponent } from '../../../shared/components/main-nav/main-nav.component';
 import { PageNotFoundComponent } from '../../../shared/components/page-not-found/page-not-found.component';
+import { SignoutCallbackComponent } from '../../../shared/components/signout-callback/signout-callback.component';
 import { HomeComponent } from './home.component';
 
 
@@ -24,7 +26,9 @@ describe('HomeComponent', () => {
         PageNotFoundComponent,
         ExpenseClaimsComponent,
         AddExpenseDetailsComponent,
-        AuthCallbackComponent
+        AuthCallbackComponent,
+        SignoutCallbackComponent,
+        MainNavComponent
       ],
       imports: [ReactiveFormsModule, RouterTestingModule.withRoutes(appRoutes)
       ]

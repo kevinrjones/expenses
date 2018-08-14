@@ -2,6 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
+import { UserManager } from '../../../node_modules/oidc-client';
 import { AppComponent } from './app.component';
 import { AddExpenseDetailsComponent } from './expenses/components/add-expense-details/add-expense-details.component';
 import { ExpenseClaimsComponent } from './expenses/components/expense-claims/expense-claims.component';
@@ -9,7 +10,9 @@ import { ShowExpenseDetailsComponent } from './expenses/components/show-expense-
 import { HomeComponent } from './home/components/home/home.component';
 import { appRoutes } from './router/app.routes';
 import { AuthCallbackComponent } from './shared/components/auth-callback/auth-callback.component';
+import { MainNavComponent } from './shared/components/main-nav/main-nav.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { SignoutCallbackComponent } from './shared/components/signout-callback/signout-callback.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -19,6 +22,7 @@ describe('AppComponent', () => {
         RouterTestingModule.withRoutes(appRoutes),
         ToastrModule.forRoot()
       ],
+      providers: [UserManager],
       declarations: [
         ShowExpenseDetailsComponent,
         AppComponent,
@@ -26,7 +30,9 @@ describe('AppComponent', () => {
         HomeComponent,
         ExpenseClaimsComponent,
         AddExpenseDetailsComponent,
-        AuthCallbackComponent
+        AuthCallbackComponent,
+        SignoutCallbackComponent,
+        MainNavComponent
       ],
     }).compileComponents();
   }));

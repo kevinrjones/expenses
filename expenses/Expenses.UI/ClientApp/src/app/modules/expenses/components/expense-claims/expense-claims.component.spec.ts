@@ -18,6 +18,7 @@ import { HomeComponent } from '../../../home/components/home/home.component';
 import { appRoutes } from '../../../router/app.routes';
 import { AuthCallbackComponent } from '../../../shared/components/auth-callback/auth-callback.component';
 import { PageNotFoundComponent } from '../../../shared/components/page-not-found/page-not-found.component';
+import { SignoutCallbackComponent } from '../../../shared/components/signout-callback/signout-callback.component';
 import { ErrorState } from '../../../shared/ErrorState';
 import { AppConfig } from '../../../shared/projectConfigShared';
 import { AuthenticationService } from '../../../shared/services/authorization/authentication.service';
@@ -70,7 +71,8 @@ describe('ExpenseClaimsComponent', () => {
           ExpenseClaimsComponent,
           PageNotFoundComponent,
           AddExpenseDetailsComponent,
-          AuthCallbackComponent
+          AuthCallbackComponent,
+          SignoutCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -132,7 +134,8 @@ describe('ExpenseClaimsComponent', () => {
           ExpenseClaimsComponent,
           PageNotFoundComponent,
           AddExpenseDetailsComponent,
-          AuthCallbackComponent
+          AuthCallbackComponent,
+          SignoutCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -271,7 +274,8 @@ describe('ExpenseClaimsComponent', () => {
           ExpenseClaimsComponent,
           PageNotFoundComponent,
           AddExpenseDetailsComponent,
-          AuthCallbackComponent
+          AuthCallbackComponent,
+          SignoutCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -394,7 +398,8 @@ describe('ExpenseClaimsComponent', () => {
           ExpenseClaimsComponent,
           PageNotFoundComponent,
           AddExpenseDetailsComponent,
-          AuthCallbackComponent
+          AuthCallbackComponent,
+          SignoutCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,
@@ -483,7 +488,8 @@ describe('ExpenseClaimsComponent', () => {
           ExpenseClaimsComponent,
           PageNotFoundComponent,
           AddExpenseDetailsComponent,
-          AuthCallbackComponent
+          AuthCallbackComponent,
+          SignoutCallbackComponent
         ],
         imports: [
           ReactiveFormsModule,

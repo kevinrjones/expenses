@@ -50,38 +50,33 @@ describe('AuthenticationService', () => {
     expect(authenticationService).toBeTruthy();
   });
 
-  // prettier-ignore
   it('should return the user profile', fakeAsync(() => {
-      spyOn(userManager, 'getUser').and.returnValue(
-        asyncData({
-          profile: {}
-        })
-      );
-      tick();
-      authenticationService.getClaims().subscribe(claims => {
-        expect(claims).toBeTruthy();
-      });
-      tick();
-    })
-  );
+    spyOn(userManager, 'getUser').and.returnValue(
+      asyncData({
+        profile: {}
+      })
+    );
+    tick();
+    authenticationService.getClaims().subscribe(claims => {
+      expect(claims).toBeTruthy();
+    });
+    tick();
+  }));
 
-  // prettier-ignore
   it('should not be logged in when the user has expired', fakeAsync(() => {
-      spyOn(userManager, 'getUser').and.returnValue(
-        asyncData({
-          profile: {},
-          expired: true
-        })
-      );
-      tick();
-      authenticationService.isLoggedIn().subscribe(isLoggedIn => {
-        expect(isLoggedIn).toBeFalsy();
-      });
-      tick();
-    })
-  );
+    spyOn(userManager, 'getUser').and.returnValue(
+      asyncData({
+        profile: {},
+        expired: true
+      })
+    );
+    tick();
+    authenticationService.isLoggedIn().subscribe(isLoggedIn => {
+      expect(isLoggedIn).toBeFalsy();
+    });
+    tick();
+  }));
 
-  // prettier-ignore
   it('should be logged in when the user has not expired', fakeAsync(() => {
     spyOn(userManager, 'getUser').and.returnValue(
       asyncData({
@@ -94,10 +89,8 @@ describe('AuthenticationService', () => {
       expect(isLoggedIn).toBeTruthy();
     });
     tick();
-  })
-);
+  }));
 
-// prettier-ignore
   it('should return the correct token', fakeAsync(() => {
     spyOn(userManager, 'getUser').and.returnValue(
       asyncData({
@@ -106,12 +99,11 @@ describe('AuthenticationService', () => {
         access_token: 'token'
       })
     );
-    authenticationService.getAuthorizationHeaderValue().subscribe(token =>
-      expect(token).toBe('type token'));
+    authenticationService.getAuthorizationHeaderValue().subscribe(token => expect(token).toBe('type token'));
   }));
 
   describe('startAuthentication', () => {
-    // prettier-ignore
+
     it('should set the href in local storage', fakeAsync(() => {
       spyOn(userManager, 'signinRedirect').and.returnValue(asyncData({}));
       authenticationService.startAuthentication().subscribe(() => expect(localStorage.setItem).toHaveBeenCalled());
@@ -119,7 +111,6 @@ describe('AuthenticationService', () => {
       })
     );
 
-    // prettier-ignore
     it('should call signin redirect on the user manager', fakeAsync(() => {
         spyOn(userManager, 'signinRedirect').and.returnValue(asyncData({}));
         authenticationService.startAuthentication().subscribe(() => expect(userManager.signinRedirect).toHaveBeenCalled());
@@ -128,8 +119,18 @@ describe('AuthenticationService', () => {
     );
   });
 
+  describe('startSignout', () => {
+
+    it('should call signin redirect on the user manager', fakeAsync(() => {
+        spyOn(userManager, 'signoutRedirect').and.returnValue(asyncData({}));
+        authenticationService.startSignout().subscribe(() => expect(userManager.signoutRedirect).toHaveBeenCalled());
+        tick();
+      })
+    );
+  });
+
   describe('completeAuthentication', () => {
-    // prettier-ignore
+
     it('should redirect when finished', fakeAsync(() => {
       spyOn(userManager, 'signinRedirectCallback').and.returnValue(Promise.resolve({}));
       authenticationService.completeAuthentication().subscribe(() => expect(localStorage.getItem).toHaveBeenCalled());
@@ -137,10 +138,18 @@ describe('AuthenticationService', () => {
       })
     );
 
-    // prettier-ignore
     it('should call signin redirect on the user manager', fakeAsync(() => {
         spyOn(userManager, 'signinRedirectCallback').and.returnValue(Promise.resolve({}));
         authenticationService.completeAuthentication().subscribe(() => expect(windowService.redirect).toHaveBeenCalled());
+        tick();
+      })
+    );
+  });
+  describe('completeSignout', () => {
+
+    it('should call signin redirect on the user manager', fakeAsync(() => {
+        spyOn(userManager, 'signoutRedirectCallback').and.returnValue(Promise.resolve({}));
+        authenticationService.completeSignout().subscribe(() => expect(windowService.redirect).toHaveBeenCalled());
         tick();
       })
     );
@@ -151,5 +160,4 @@ describe('AuthenticationService', () => {
       expect(getClientSettings()).toBeTruthy();
     });
   });
-
 });

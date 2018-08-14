@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, UserManager, UserManagerSettings } from 'oidc-client';
+import { Log, User, UserManager, UserManagerSettings } from 'oidc-client';
 import { from, Observable, of } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { LocalStorageService } from '../local-storage.service';
@@ -11,7 +11,7 @@ export function getClientSettings(): UserManagerSettings {
     authority: environment.authorityUrl, // ids
     client_id: environment.clientId, // 'expenses',
     redirect_uri: environment.authRedirectUrl, // client's redirect URI
-    post_logout_redirect_uri: environment.logoutRedirectUrl,
+    post_logout_redirect_uri: environment.postLogoutRedirectUrl,
     response_type: environment.responseType, // 'id_token token',
     scope: environment.scope, // 'openid profile api1', // api1 woukd be the expenses API token
     filterProtocolClaims: true,
@@ -24,12 +24,26 @@ export function getClientSettings(): UserManagerSettings {
 export class AuthenticationService {
   private user: User = null;
 
-  constructor(private manager: UserManager, private windowsService: WindowsService, private localStorageService: LocalStorageService, private logger: LoggingService) {
+  constructor(
+    private manager: UserManager,
+    private windowsService: WindowsService,
+    private localStorageService: LocalStorageService,
+    private logger: LoggingService
+  ) {
     this.getUser().subscribe(u => (this.user = u));
+    Log.logger = {
+      debug: console.log,
+      info: console.log,
+      warn: console.log,
+      error: console.log
+    };
+    Log.level = Log.DEBUG;
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.getUser().map(u => !u.expired);
+    return from(this.manager.getUser()).map(user => {
+      return user != null && !user.expired;
+    });
   }
 
   getClaims(): Observable<any> {
@@ -37,7 +51,7 @@ export class AuthenticationService {
   }
 
   getAuthorizationHeaderValue(): Observable<string> {
-    return this.getUser().map(u =>  `${u.token_type} ${u.access_token}`);
+    return this.getUser().map(u => `${u.token_type} ${u.access_token}`);
   }
 
   startAuthentication(): Observable<void> {
@@ -47,10 +61,25 @@ export class AuthenticationService {
   }
 
   completeAuthentication(): Observable<void> {
-    return from(this.manager.signinRedirectCallback().then(user => {
-      this.user = user;
-      this.windowsService.redirect(this.localStorageService.getItem('path_redirect'));
-    }));
+    return from(
+      this.manager.signinRedirectCallback().then(user => {
+        this.user = user;
+        this.windowsService.redirect(this.localStorageService.getItem('path_redirect'));
+      })
+    );
+  }
+
+  startSignout(): Observable<void> {
+    return from(this.manager.signoutRedirect());
+  }
+
+  completeSignout(): Observable<void> {
+    return from(
+      this.manager.signoutRedirectCallback().then(resp => {
+        this.user = undefined;
+        this.windowsService.redirect('/home');
+      })
+    );
   }
 
   private getUser(): Observable<User> {
