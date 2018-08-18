@@ -1,13 +1,13 @@
-import { NgRedux, NgReduxModule } from '@angular-redux/store';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToastrModule } from 'ngx-toastr';
 import { UserManager } from 'oidc-client';
-import { expenseSummaryStore, IAppState } from '../store';
+import { environment } from '../../environments/environment';
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UserManagerFactory } from './authentication/services/user-manager-factory';
@@ -26,8 +26,13 @@ import { SharedModule } from './shared/shared.module';
     NgbModule.forRoot(),
     ToastrModule.forRoot(),
     StoreModule.forRoot({}),
-    NgReduxModule,
-    AppRoutingModule,
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      name: 'Expenses',
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+      AppRoutingModule,
     AuthenticationModule
   ],
   providers: [
@@ -42,8 +47,4 @@ import { SharedModule } from './shared/shared.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(ngRedux: NgRedux<IAppState>, router: Router) {
-    ngRedux.provideStore(expenseSummaryStore);
-  }
-}
+export class AppModule {}

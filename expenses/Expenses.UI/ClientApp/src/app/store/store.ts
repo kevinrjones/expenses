@@ -1,10 +1,10 @@
-import { StoreEnhancer, compose, createStore } from 'redux';
-import { rootReducer } from './reducer';
+// import { StoreEnhancer, compose, createStore } from 'redux';
+// import { rootReducer } from './reducer';
 
-declare var window: any;
+// declare var window: any;
 
-const devToolsExtension: StoreEnhancer = (window.devToolsExtension)
-    ? window.devToolsExtension() : (f) => f;
+// const devToolsExtension: StoreEnhancer = (window.devToolsExtension)
+//     ? window.devToolsExtension() : (f) => f;
 
-export const expenseSummaryStore = createStore(rootReducer, compose(devToolsExtension));
+// export const expenseSummaryStore = createStore(rootReducer, compose(devToolsExtension));
 

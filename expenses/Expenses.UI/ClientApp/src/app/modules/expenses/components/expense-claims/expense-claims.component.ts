@@ -1,14 +1,13 @@
-import { NgRedux, select } from '@angular-redux/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { select, Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { IAppState } from '../../../../store';
-import { ErrorState } from '../../../shared/ErrorState';
+import { takeWhile } from 'rxjs/operators';
 import { ExpensesSummary } from '../../models/expenses-summary';
-import { ExpenseActions } from '../../store/expense-actions';
+import * as expenseActions from '../../state/expense.actions';
+import * as fromExpenses from '../../state/expenses.reducer';
 import { NewExpenseComponent } from '../new-expense/new-expense.component';
 
 @Component({
@@ -16,16 +15,13 @@ import { NewExpenseComponent } from '../new-expense/new-expense.component';
   templateUrl: './expense-claims.component.html',
   styleUrls: ['./expense-claims.component.scss']
 })
-export class ExpenseClaimsComponent implements OnInit {
-  @select('expenseClaims') store: Observable<ExpensesSummary>;
-  @select('error') error: Observable<ErrorState>;
+export class ExpenseClaimsComponent implements OnInit, OnDestroy {
   summary: ExpensesSummary;
+  componentActive = true;
 
   // todo: add logger
-  // todo: inject store helper, should not be accessing claims directly from the service
   constructor(
-    private ngRedux: NgRedux<IAppState>,
-    private expenseActions: ExpenseActions,
+    private store: Store<fromExpenses.State>,
     private modalService: NgbModal,
     public toastr: ToastrService,
     public router: Router
@@ -33,16 +29,26 @@ export class ExpenseClaimsComponent implements OnInit {
 
   // todo: add toast
   ngOnInit() {
-    this.expenseActions.getExpenseSummary();
+    this.store.dispatch(new expenseActions.RequestAllExpenses());
 
-    this.store.subscribe((claims: ExpensesSummary) => {
-      this.summary = new ExpensesSummary(claims);
-    });
-    this.error.subscribe((errorState: ErrorState) => {
-      if (errorState.message !== undefined) {
-        this.toastr.error(errorState.message, 'Error');
+    this.store
+      .pipe(
+        select(fromExpenses.getExpensesSummary),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(expensesSummary => {
+        this.summary = new ExpensesSummary(expensesSummary);
+      });
+
+    this.store.pipe(select(fromExpenses.getError)).subscribe(message => {
+      if (message !== '') {
+        this.toastr.error(message, 'Error');
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.componentActive = false;
   }
 
   newClaim() {

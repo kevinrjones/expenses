@@ -1,4 +1,3 @@
-import { NgReduxTestingModule } from '@angular-redux/store/lib/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +20,7 @@ describe('AddExpenseDetailsComponent', () => {
             useValue: {}
           }
         ],
-        imports: [HttpClientTestingModule, ReactiveFormsModule, NgReduxTestingModule],
+        imports: [HttpClientTestingModule, ReactiveFormsModule],
         declarations: [AddExpenseDetailsComponent]
       }).compileComponents();
     })

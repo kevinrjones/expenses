@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Log, User, UserManager, UserManagerSettings } from 'oidc-client';
+import { User, UserManager, UserManagerSettings } from 'oidc-client';
 import { from, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { LoggingService } from '../../shared/services/logging.service';
@@ -31,19 +32,14 @@ export class AuthenticationService {
     private logger: LoggingService
   ) {
     this.getUser().subscribe(u => (this.user = u));
-    Log.logger = {
-      debug: console.log,
-      info: console.log,
-      warn: console.log,
-      error: console.log
-    };
-    Log.level = Log.DEBUG;
   }
 
   isLoggedIn(): Observable<boolean> {
-    return from(this.manager.getUser()).map(user => {
-      return user != null && !user.expired;
-    });
+    return this.getUser().pipe(
+      map(user => {
+        return user != null && !user.expired;
+      })
+    );
   }
 
   getClaims(): Observable<any> {

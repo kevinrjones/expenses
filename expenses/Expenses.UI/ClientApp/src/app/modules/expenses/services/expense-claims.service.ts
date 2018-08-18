@@ -27,13 +27,13 @@ export class ExpenseClaimsService {
   /** Returns the data (do I need to do this?) and updates the store
    * Or returns an error
    */
-  public claims(): Observable<ExpensesSummary | string> {
+  public claims(): Observable<ExpensesSummary> {
     return this._http
       .get<ExpensesSummary>(this.url, {})
       .map((data: ExpensesSummary) => {
         return data;
-      })
-      .pipe(catchError(this.handleError.bind(this)));
+      });
+      // .pipe(catchError(this.handleError.bind(this)));
   }
 
   public claim(id: number): Observable<ExpenseClaim | string> {

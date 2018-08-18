@@ -116,26 +116,6 @@ describe('ExpensesClaimsService', () => {
         })
         .flush(data);
     }));
-
-    it('should return an error when the HTTP call fails', fakeAsync(() => {
-      service.claims().subscribe(
-        () => {
-          fail('should have failed with the 404 error');
-        },
-        (error: String) => {
-          expect(error).toBe('There was an error. Please report this to technical support.');
-        }
-      );
-
-      tick();
-
-      backend
-        .expectOne({
-          url: '/api/expenses',
-          method: 'GET'
-        })
-        .flush('Invalid', { status: 404, statusText: 'Not Found' });
-    }));
   });
 
   describe('claim', () => {

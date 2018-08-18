@@ -5,12 +5,8 @@ import { SignoutCallbackComponent } from './components/signout-callback/signout-
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthenticationService } from './services/authentication.service';
 
-
 @NgModule({
-  declarations: [
-      AuthCallbackComponent,
-      SignoutCallbackComponent
-  ],
+  declarations: [AuthCallbackComponent, SignoutCallbackComponent],
   imports: [SharedModule],
   providers: [AuthGuardService, AuthenticationService]
 })
