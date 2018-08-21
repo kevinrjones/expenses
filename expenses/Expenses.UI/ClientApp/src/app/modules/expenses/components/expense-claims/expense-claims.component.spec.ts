@@ -79,11 +79,34 @@ describe('ExpenseClaimsComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should dispatch the RequestAllExpenses action', () => {
+    it('should not dispatch the RequestAllExpenses action if the state is loaded', () => {
+      store.setState({
+        expenses: {
+          expensesSummary: summary,
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
+        }
+      });
+      const dispatchSpy = spyOn(store, 'dispatch');
+      fixture.detectChanges();
+      expect(dispatchSpy).not.toHaveBeenCalled();
+    });
+
+    it('should dispatch the RequestAllExpenses action if the state is not loaded', () => {
+      store.setState({
+        expenses: {
+          expensesSummary: summary,
+          error: '',
+          hasLoaded: false,
+          currentExpenseId: null
+        }
+      });
       const dispatchSpy = spyOn(store, 'dispatch');
       fixture.detectChanges();
       expect(dispatchSpy).toHaveBeenCalled();
     });
+    
   });
 
   describe('UI', () => {
@@ -141,7 +164,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -154,7 +179,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -168,7 +195,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -182,7 +211,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -196,7 +227,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -210,7 +243,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -276,7 +311,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -289,7 +326,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -303,7 +342,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -317,7 +358,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -331,7 +374,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();
@@ -390,7 +435,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: new ExpensesSummary(),
-          error: 'Unable to get expense claims'
+          error: 'Unable to get expense claims',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       spyOn(toastrService, 'error');
@@ -403,7 +450,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: new ExpensesSummary(),
-          error: 'Unable to get expense claims'
+          error: 'Unable to get expense claims',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       spyOn(toastrService, 'error');
@@ -484,7 +533,9 @@ describe('ExpenseClaimsComponent', () => {
       store.setState({
         expenses: {
           expensesSummary: summary,
-          error: ''
+          error: '',
+          hasLoaded: true,
+          currentExpenseId: null
         }
       });
       fixture.detectChanges();

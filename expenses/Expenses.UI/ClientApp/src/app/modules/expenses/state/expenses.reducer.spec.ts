@@ -15,7 +15,9 @@ describe('Expenses reducer', () => {
   beforeEach(() => {
     state = {
       expensesSummary: new ExpensesSummary(),
-      error: 'initial'
+      error: 'initial',
+      hasLoaded: true,
+      currentExpenseId: null
     };
   });
 
