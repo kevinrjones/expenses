@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import { takeWhile } from 'rxjs/operators';
 import { ExpensesSummary } from '../../models/expenses-summary';
@@ -29,7 +30,10 @@ export class ExpenseClaimsComponent implements OnInit, OnDestroy {
 
   // todo: add toast
   ngOnInit() {
-    this.store.dispatch(new expenseActions.RequestAllExpenses());
+    this.store
+      .select(fromExpenses.getHasLoaded)
+      .filter(isLoaded => !isLoaded)
+      .subscribe(_ => this.store.dispatch(new expenseActions.RequestAllExpenses()));
 
     this.store
       .pipe(
