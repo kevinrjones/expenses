@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToastrModule } from 'ngx-toastr';
 import { UserManager } from 'oidc-client';
-import { environment } from '../../environments/environment';
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UserManagerFactory } from './authentication/services/user-manager-factory';
@@ -30,9 +29,9 @@ import { SharedModule } from './shared/shared.module';
     StoreDevtoolsModule.instrument({
       name: 'Expenses',
       maxAge: 25,
-      logOnly: environment.production
+      // logOnly: environment.production
     }),
-      AppRoutingModule,
+    AppRoutingModule,
     AuthenticationModule
   ],
   providers: [

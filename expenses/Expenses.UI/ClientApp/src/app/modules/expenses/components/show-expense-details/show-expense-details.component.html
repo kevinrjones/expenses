@@ -1,7 +1,7 @@
 <h2>Form Detail</h2>
 
 <div>
-  <div>Description: {{claim?.Description}}</div>
+  <div>Description: {{claim.Description}}</div>
   Total:
 </div>
 
@@ -16,7 +16,7 @@
         <th scope='col'>Total</th>
       </thead>
       <tbody>
-        <tr *ngFor='let item of claim?.ExpenseItems'>
+        <tr *ngFor='let item of claim.ExpenseItems'>
             <td>{{item?.description}}</td>
             <td>{{item?.Net}}</td>
             <td>{{item?.Tax}}</td>

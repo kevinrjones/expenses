@@ -2,105 +2,83 @@ import { Action } from '@ngrx/store';
 import { ExpensesSummary } from '../models/expenses-summary';
 
 export enum ExpenseActionTypes {
-  RequestExpenses = '[Expenses] Request Expenses',
-  RequestExpensesSuccess = '[Expenses] Request Expenses Success',
-  RequestExpensesFail = '[Expenses] Request Expenses Fail',
-  RequestExpense = '[Expenses] Request Expense',
-  RequestExpenseSuccess = '[Expenses] Request Expense Success',
-  RequestExpenseFail = '[Expenses] Request Expense Fail'
+  RequestAllExpenses = '[Expenses] Request All Expenses',
+  RequestAllExpensesSuccess = '[Expenses] Request All Expenses Success',
+  RequestAllExpensesFail = '[Expenses] Request All Expenses Fail',
+  RequestSingleExpense = '[Expenses] Request Single Expense',
+  RequestSingleExpenseSuccess = '[Expenses] Request Single Expense Success',
+  RequestSingleExpenseFail = '[Expenses] Request Single Expense Fail',
+  ClearCurrentExpense = '[Expenses] Clear Current Expense',
+  InitializeCurrentExpense = '[Expenses] Initialize Current Expense',
+  // RequestExpenseSuccess = '[Expenses] Request Expense Success',
+  // RequestExpenseFail = '[Expenses] Request Expense Fail',
+  AddExpense = '[Expenses] Add Expense',
+  AddExpenseSuccess = '[Expenses] Add Expense Success',
+  AddExpenseFail = '[Expenses] Add Expense Fail',
+  UpdateExpense = '[Expenses] Update Expense',
+  UpdateExpenseSuccess = '[Expenses] Update Expense Success',
+  UpdateExpenseFail = '[Expenses] Update Expense Fail'
 }
 
 /* istanbul ignore next */
 export class RequestAllExpenses implements Action {
-  readonly type = ExpenseActionTypes.RequestExpenses;
+  readonly type = ExpenseActionTypes.RequestAllExpenses;
 
   constructor() {}
 }
 
 /* istanbul ignore next */
 export class RequestAllExpensesSuccess implements Action {
-  readonly type = ExpenseActionTypes.RequestExpensesSuccess;
+  readonly type = ExpenseActionTypes.RequestAllExpensesSuccess;
 
   constructor(public payload: ExpensesSummary) {}
 }
 
 /* istanbul ignore next */
 export class RequestAllExpensesFailed implements Action {
-  readonly type = ExpenseActionTypes.RequestExpensesFail;
+  readonly type = ExpenseActionTypes.RequestAllExpensesFail;
 
   constructor(public payload: string) {}
 }
 
 /* istanbul ignore next */
-export class RequestExpense implements Action {
-  readonly type = ExpenseActionTypes.RequestExpense;
+export class RequestSingleExpense implements Action {
+  readonly type = ExpenseActionTypes.RequestSingleExpense;
 
   constructor(public payload: number) {}
 }
 
+export class RequestSingleExpenseSuccess implements Action {
+  readonly type = ExpenseActionTypes.RequestSingleExpenseSuccess;
+
+  constructor(public payload: number) {}
+}
+
+export class RequestSingleExpenseFail implements Action {
+  readonly type = ExpenseActionTypes.RequestSingleExpenseFail;
+
+  constructor(public payload: string) {}
+}
+
+export class ClearCurrentExpense implements Action {
+  readonly type = ExpenseActionTypes.ClearCurrentExpense;
+
+  constructor() {}
+}
+
+export class InitializeCurrentExpense implements Action {
+  readonly type = ExpenseActionTypes.InitializeCurrentExpense;
+
+  constructor() {}
+}
+
 /* istanbul ignore next */
-export type ExpenseActions = RequestAllExpenses | RequestAllExpensesSuccess | RequestAllExpensesFailed | RequestExpense;
-
-// import { Injectable } from '@angular/core';
-// import { IAppState } from '../../../store';
-// import { ErrorState } from '../../shared/ErrorState';
-// import { LoggingService } from '../../shared/services/logging.service';
-// import { ExpenseClaimsService } from '../services/expense-claims.service';
-
-// export const FILTER_EXPENSES = 'expenses/FILTER';
-// export const REQUEST_EXPENSES = 'expenses/REQUEST_EXPENSES';
-// export const REQUEST_EXPENSE = 'expenses/REQUEST_EXPENSE';
-// export const REQUEST_ERROR = 'expenses/REQUEST_ERROR';
-
-// @Injectable()
-// export class ExpenseActions {
-//   constructor(private ngRedux: NgRedux<IAppState>, private expensesClaimsService: ExpenseClaimsService, private logger: LoggingService) {}
-
-//   getExpenseSummary() {
-//     this.expensesClaimsService.claims().subscribe(
-//       expenseClaims => {
-//         this.ngRedux.dispatch({
-//           type: REQUEST_EXPENSES,
-//           expenseClaims
-//         });
-//       },
-//       (error: string) => {
-//         this.logger.info('error');
-//         this.ngRedux.dispatch({
-//           type: REQUEST_ERROR,
-//           error: new ErrorState({ message: error })
-//         });
-//       }
-//     );
-//   }
-
-//   @dispatch()
-//   filterExpenses = (filterDate: Date) => ({
-//     type: FILTER_EXPENSES,
-//     filterDate
-//   // tslint:disable-next-line:semicolon
-//   });
-
-//   getExpenseClaim(id: number) {
-//     this.expensesClaimsService.claim(id).subscribe(
-//       expenseClaim => {
-//         this.ngRedux.dispatch({
-//           type: REQUEST_EXPENSE,
-//           id: id,
-//           expenseClaim
-//         });
-//       },
-//       error => {
-//         this.logger.info('error');
-//         // dispatch to error reducer
-//       }
-//     );
-//   }
-// }
-
-// /* , error => {
-//       this.ngRedux.dispatch({
-//         type: 'expenses/REQUEST_EXPENSES_FAIL'
-//       });
-//       throw error;
-//     } */
+export type ExpenseActions =
+  | RequestAllExpenses
+  | RequestAllExpensesSuccess
+  | RequestAllExpensesFailed
+  | RequestSingleExpense
+  | RequestSingleExpenseSuccess
+  | RequestSingleExpenseFail
+  | ClearCurrentExpense
+  | InitializeCurrentExpense;

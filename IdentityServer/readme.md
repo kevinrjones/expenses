@@ -392,7 +392,7 @@ If MySql crashes you can edit the `my.cnf` file in /usr/local/etc and add the `i
 
     * set the force_recovery value to 1,2 or 3 (2 worked for me)
     * restart the server `brew services restart mysql`
-    * Export the database
+    * Export the database (Server..Export)
     * Drop the schema
     * Set the recover mode to 0
     * Restart mysql (check the log, hopefully it works)
