@@ -20,7 +20,7 @@ export class ExpensesEffects {
   ) {}
 
   @Effect()
-  loadExpenseSummary = this.actions.pipe(
+  loadAllExpenses = this.actions.pipe(
     ofType(expenseActions.ExpenseActionTypes.RequestAllExpenses),
     mergeMap((action: RequestAllExpenses) =>
       this.expensesService.claims().pipe(
