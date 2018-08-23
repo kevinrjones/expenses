@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { convertToParamMap, ParamMap, Params } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 

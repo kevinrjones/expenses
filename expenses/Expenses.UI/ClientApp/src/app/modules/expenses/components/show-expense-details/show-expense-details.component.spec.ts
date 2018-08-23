@@ -1,86 +1,84 @@
-// import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-// import { ActivatedRoute } from '@angular/router';
-// import { Subject } from 'rxjs';
-// import 'rxjs/add/observable/of';
-// import { Observable } from 'rxjs/Observable';
-// import { ActivatedRouteStub } from '../../../../testing/activated-route-stub';
-// import { asyncData } from '../../../../testing/helpers';
-// import { AppConfig } from '../../../shared/projectConfigShared';
-// import { ExpenseClaim } from '../../models/expense-claim';
-// import { ExpensesSummary } from '../../models/expenses-summary';
-// import { ExpenseClaimsService } from '../../services/expense-claims.service';
-// import { ShowExpenseDetailsComponent } from './show-expense-details.component';
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Store, StoreModule } from '@ngrx/store';
+import 'rxjs/add/observable/of';
+import { ActivatedRouteStub } from '../../../../testing/activated-route-stub';
+import { MockStore, provideMockStore } from '../../../../testing/helpers';
+import { AppConfig } from '../../../shared/projectConfigShared';
+import { ExpenseClaim } from '../../models/expense-claim';
+import { ExpensesSummary } from '../../models/expenses-summary';
+import { State } from '../../state/expenses.reducer';
+import { ShowExpenseDetailsComponent } from './show-expense-details.component';
 
+describe('ShowExpenseDetailsComponent', () => {
+  let component: ShowExpenseDetailsComponent;
+  let fixture: ComponentFixture<ShowExpenseDetailsComponent>;
+  let activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
-// describe('ShowExpenseDetailsComponent', () => {
-//   let component: ShowExpenseDetailsComponent;
-//   let fixture: ComponentFixture<ShowExpenseDetailsComponent>;
-//   let activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
-//   let storeStub: Subject<ExpensesSummary>;
+  const claim = new ExpenseClaim();
+  const claims = new Array<ExpenseClaim>(
+    new ExpenseClaim({ description: 'A Description', id: 1, dueDateUtc: '20180417' }),
+    new ExpenseClaim()
+  );
 
-//   const claim = new ExpenseClaim();
-//   const claims = new Array<ExpenseClaim>(new ExpenseClaim({ description: 'A Description', id: 1, dueDateUtc: '20180417' }), new ExpenseClaim());
+  const summary = new ExpensesSummary({ totalClaimed: 200, totalPaid: 100, claims: claims, currency: '$' });
+  let store: MockStore<State>;
 
-//   const summary = new ExpensesSummary({ totalClaimed: 200, totalPaid: 100, claims: claims, currency: '$' });
+  beforeEach(async(() => {
 
-//   beforeEach(async(() => {
-//     const expenseClaimsServiceStub = {
-//       claims(): Observable<ExpensesSummary> {
-//         return asyncData(summary);
-//       },
-//       claim(): Observable<ExpenseClaim> {
-//         return asyncData(claim);
-//       }
-//     };
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: activatedRoute
+        },
+        {
+          provide: AppConfig,
+          useValue: {}
+        },
+        provideMockStore()
+      ],
+      imports: [StoreModule.forRoot({})],
+      declarations: [ShowExpenseDetailsComponent]
+    }).compileComponents();
+  }));
 
-//     TestBed.configureTestingModule({
-//       providers: [
-//         {
-//           provide: ActivatedRoute,
-//           useValue: activatedRoute
-//         },
-//         {
-//           provide: ExpenseClaimsService,
-//           useValue: expenseClaimsServiceStub
-//         },
-//         {
-//           provide: ExpenseActions,
-//           useValue: jasmine.createSpyObj('expenseActions', ['getExpenseClaim'])
-//         },
-//         {
-//           provide: AppConfig,
-//           useValue: {}
-//         }
-//       ],
-//       imports: [NgReduxTestingModule],
-//       declarations: [ShowExpenseDetailsComponent]
-//     }).compileComponents();
-//   }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ShowExpenseDetailsComponent);
+    component = fixture.componentInstance;
+    activatedRoute = TestBed.get(ActivatedRoute);
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(ShowExpenseDetailsComponent);
-//     component = fixture.componentInstance;
-//     activatedRoute = TestBed.get(ActivatedRoute);
-//     expenseActions = TestBed.get(ExpenseActions);
-//     storeStub = MockNgRedux.getSelectorStub<IAppState, ExpensesSummary>('expenseClaim');
+    store = TestBed.get(Store);
+  });
 
-//     fixture.detectChanges();
-//   });
+  it('should create', () => {
+    store.setState({
+        expenses: {
+          expensesSummary: summary,
+          error: '',
+          hasLoaded: false,
+          currentExpenseId: null
+        }
+      });
+    expect(component).toBeTruthy();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
+  // prettier-ignore
+  it('should call the dispatch the RequestSingleExpense action when the route is activated', fakeAsync(() => {
 
-//   // prettier-ignore
-//   it('should call the getExpenseClaim action when the route is activated', fakeAsync(() => {
-//     activatedRoute.setParamMap({id: 1});
-//     expect(expenseActions.getExpenseClaim).toHaveBeenCalled();
-//   }));
+    store.setState({
+        expenses: {
+          expensesSummary: summary,
+          error: '',
+          hasLoaded: false,
+          currentExpenseId: null
+        }
+      });
 
-//   it('should set the claim when the store event fires', fakeAsync(() => {
-//     expect(component.claim).toBeUndefined();
-//     component.id = 1;
-//     storeStub.next(new ExpensesSummary());
-//     expect(component.claim).not.toBeUndefined();
-//   }));
-// });
+    fixture.detectChanges();
+    const dispatchSpy = spyOn(store, 'dispatch');
+    activatedRoute.setParamMap({id: 1});
+    expect(store.dispatch).toHaveBeenCalled();
+  }));
+
+});
