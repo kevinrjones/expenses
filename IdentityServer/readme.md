@@ -57,8 +57,9 @@
     1. Import this cert into the KeyChain (not sure that this is necessary)
     1. Make sure that Nginx (or whichever server you are using) references this certificate (see config below)
     1. To convert the cert to 'pfx' use ```openssl pkcs12 -inkey dev.knowledgespike.com.key -in dev.knowledgespike.com.pem -export -out dev.knowledgespike.com.pfx -certfile cacert.pem```
-        1. Copy this file to location where pfx is read from by Kestral
-        1. This is used by 'Kestral' when running the app locally (without Nginx)
+        1. Use 'p4ssw0rd' as the password
+        1. Copy this file to location where pfx is read from by Kestrel
+        1. This is used by 'Kestrel' when running the app locally (without Nginx)
     1. Add it to the keychain and make sure that its CA is trusted
 
 

@@ -1,7 +1,1 @@
-V	210326090533Z		01	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=localhost
-V	210327072202Z		02	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=localhost
-V	210327072440Z		03	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=localhost
-V	210327072705Z		04	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=localhost
-V	210327102602Z		05	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=knowledgespike.local
-V	210327111507Z		06	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=knowledgespike.local
-V	210327112200Z		07	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=knowledgespike.local
+V	210921161448Z		01	unknown	/C=GB/ST=London/L=London/O=KnowledgeSpike/CN=knowledgespike.local
