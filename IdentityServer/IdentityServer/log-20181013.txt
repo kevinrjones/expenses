@@ -1,0 +1,36 @@
+2018-10-13 09:43:55.901 -07:00 [Debug] Using "Identity.Application" as default scheme for authentication
+2018-10-13 09:43:55.981 -07:00 [Debug] Using "Identity.External" as default scheme for sign-in
+2018-10-13 09:43:55.981 -07:00 [Debug] Using "Identity.External" as default scheme for sign-out
+2018-10-13 09:43:55.981 -07:00 [Debug] Using "Identity.Application" as default scheme for challenge
+2018-10-13 09:43:55.981 -07:00 [Debug] Using "Identity.Application" as default scheme for forbid
+2018-10-13 09:43:56.193 -07:00 [Warning] Overriding address(es) '"http://localhost:5000"'. Binding to endpoints defined in "UseKestrel()" instead.
+2018-10-13 09:45:56.153 -07:00 [Debug] Request path "/.well-known/openid-configuration" matched to endpoint type "Discovery"
+2018-10-13 09:45:56.183 -07:00 [Debug] Endpoint enabled: "Discovery", successfully created handler: "IdentityServer4.Endpoints.DiscoveryEndpoint"
+2018-10-13 09:45:56.183 -07:00 [Information] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration"
+2018-10-13 09:45:56.186 -07:00 [Debug] Start discovery request
+2018-10-13 09:45:57.429 -07:00 [Debug] Found ["openid", "profile", "admin_ui_profile", "admin_ui_public", "admin_api", "admin_ui_webhooks", "expenses_api"] as all scopes in database
+2018-10-13 09:50:01.271 -07:00 [Debug] CORS request made for path: "/.well-known/openid-configuration" from origin: "https://127.0.0.1:5445"
+2018-10-13 09:50:01.662 -07:00 [Debug] Origin "https://127.0.0.1:5445" is allowed: False
+2018-10-13 09:50:01.664 -07:00 [Warning] CorsPolicyService did not allow origin: "https://127.0.0.1:5445"
+2018-10-13 09:50:01.665 -07:00 [Debug] Request path "/.well-known/openid-configuration" matched to endpoint type "Discovery"
+2018-10-13 09:50:01.667 -07:00 [Debug] Endpoint enabled: "Discovery", successfully created handler: "IdentityServer4.Endpoints.DiscoveryEndpoint"
+2018-10-13 09:50:01.667 -07:00 [Information] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration"
+2018-10-13 09:50:01.667 -07:00 [Debug] Start discovery request
+2018-10-13 09:50:02.272 -07:00 [Debug] Found ["openid", "profile", "admin_ui_profile", "admin_ui_public", "admin_api", "admin_ui_webhooks", "expenses_api"] as all scopes in database
+2018-10-13 09:50:49.485 -07:00 [Debug] CORS request made for path: "/.well-known/openid-configuration" from origin: "https://adminui.knowledgespike.local:5445"
+2018-10-13 09:50:49.487 -07:00 [Debug] Origin "https://adminui.knowledgespike.local:5445" is allowed: False
+2018-10-13 09:50:49.487 -07:00 [Warning] CorsPolicyService did not allow origin: "https://adminui.knowledgespike.local:5445"
+2018-10-13 09:50:49.488 -07:00 [Debug] Request path "/.well-known/openid-configuration" matched to endpoint type "Discovery"
+2018-10-13 09:50:49.490 -07:00 [Debug] Endpoint enabled: "Discovery", successfully created handler: "IdentityServer4.Endpoints.DiscoveryEndpoint"
+2018-10-13 09:50:49.490 -07:00 [Information] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration"
+2018-10-13 09:50:49.490 -07:00 [Debug] Start discovery request
+2018-10-13 09:50:49.559 -07:00 [Debug] Found ["openid", "profile", "admin_ui_profile", "admin_ui_public", "admin_api", "admin_ui_webhooks", "expenses_api"] as all scopes in database
+2018-10-13 09:57:18.746 -07:00 [Debug] CORS request made for path: "/.well-known/openid-configuration" from origin: "https://adminui.knowledgespike.local:5445"
+2018-10-13 09:57:19.065 -07:00 [Debug] Origin "https://adminui.knowledgespike.local:5445" is allowed: False
+2018-10-13 09:57:19.065 -07:00 [Warning] CorsPolicyService did not allow origin: "https://adminui.knowledgespike.local:5445"
+2018-10-13 09:57:19.066 -07:00 [Debug] Request path "/.well-known/openid-configuration" matched to endpoint type "Discovery"
+2018-10-13 09:57:19.066 -07:00 [Debug] Endpoint enabled: "Discovery", successfully created handler: "IdentityServer4.Endpoints.DiscoveryEndpoint"
+2018-10-13 09:57:19.066 -07:00 [Information] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration"
+2018-10-13 09:57:19.067 -07:00 [Debug] Start discovery request
+2018-10-13 09:57:19.089 -07:00 [Debug] Found ["openid", "profile", "admin_ui_profile", "admin_ui_public", "admin_api", "admin_ui_webhooks", "expenses_api"] as all scopes in database
+2018-10-13 21:58:59.830 -07:00 [Warning] Heartbeat took longer than "00:00:01" at "10/14/2018 04:58:59 +00:00".

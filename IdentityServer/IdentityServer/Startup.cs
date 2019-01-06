@@ -10,17 +10,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace WebApplication1
 {
     public class Startup
     {
-        
+        private IHostingEnvironment Env { get; }
+
         private readonly string _connectionString;
         readonly string _migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
         
         public Startup(IHostingEnvironment env)
         {
+            Env = env;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true)
@@ -29,6 +32,12 @@ namespace WebApplication1
 
             Configuration = builder.Build();
             _connectionString = Configuration.GetConnectionString("Expenses");
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+
             Console.WriteLine($"Connection string is {_connectionString}");
         }
 
@@ -52,7 +61,7 @@ namespace WebApplication1
                         builder.UseMySql(_connectionString, sqlOptions => sqlOptions.MigrationsAssembly(_migrationsAssembly)))
                 .AddAspNetIdentity<IdentityUser>()                     
                 .AddDeveloperSigningCredential();
-                        
+
             services.AddMvc();
         }
 

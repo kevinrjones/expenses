@@ -332,17 +332,12 @@ http {
     * test nginx with `sudo /usr/local/bin/nginx -t` (or `/usr/local/bin/nginx -t`)
     * Logs are at `/usr/local/var/log/nginx`
 
-Need to do this for each app you are running
+## Building and Runnig the Applications for Development
 
-## Building the Applications
+1. Identity Server
+    * `cd ~/projects/expenses/application/IdentityServer/IdentityServer`
 
-1. For each app need to publish and copy to appropriate directory
-    1. ```dotnet publish -f netcoreapp2.1 -c Release```
-1. Choose location for the app
-    1. Copy the app from ```Release\publish```  to ```/User/kevinjones/webapplications/[app name]``` for example
-    1. Run ```dotnet [app name].dll``` from ```/User/kevinjones/webapplication/[app name]```
-        1. ```dotnet IdentityExpress.Manager.Api.dll```
-        1. ```dotnet IdentityExpressUI.dll```
+## Building and Running the Applications for Production
 
 1. Identity Server
     * `cd ~/projects/expenses/application/IdentityServer/IdentityServer`
@@ -351,22 +346,6 @@ Need to do this for each app you are running
     * `cp -r * ~/webapplications/ids.expenses/`
     * `cd ~/webapplications/ids.expenses`
     * `dotnet IdentityServer.dll`
-
-1. Admin UI API
-    * `cd ~/projects/expenses/identity.express/identity-express-manager-api/`
-    * `dotnet publish -c Release`
-    * `cd src/IdentityExpress.Manager.Api/bin/Release/netcoreapp2.1/publish/`
-    * `cp -r . ~/webapplications/adminui.api/`
-    * `cd ~/webapplications/adminui.api`
-    * `dotnet IdentityExpress.Manager.Api.dll`
-
-1. Admin UI UI
-    * `cd ~/projects/expenses/identity.express/identity-express-manager-ui/`
-    * `dotnet publish -c Release`
-    * `cd src/IdentityExpressUI/bin/Release/netcoreapp2.1/publish`
-    * `cp -r * ~/webapplications/adminui.ui/`
-    * `cd ~/webapplications/adminui.ui`
-    * `dotnet IdentityExpressUI.dll`
 
 1. Expenses API
     * `cd ~/projects/expenses/application/expenses/`
@@ -383,8 +362,39 @@ Need to do this for each app you are running
     * `cp -r * ~/webapplications/expenses.ui/`
     * `cd ~/webapplications/expenses.ui`
     * `dotnet Expenses.UI.dll`
+    * [Browse to](https://expenses.knowledgespike.local)
 
-1. My Sql
+1. Admin UI API
+    * `cd ~/projects/expenses/identity.express/identity-express-manager-api/`
+    * `dotnet publish -c Release`
+    * `cd src/IdentityExpress.Manager.Api/bin/Release/netcoreapp2.1/publish/`
+    * `cp -r . ~/webapplications/adminui.api/`
+    * `cd ~/webapplications/adminui.api`
+    * `dotnet IdentityExpress.Manager.Api.dll`
+
+1. Admin UI UI
+    * If you need to rebuild the Angular app then
+       * `cd ~/projects/expenses/identity.express/identity-express-manager-ui/src/IdentityExpressUI`
+       * `npm install`
+       * `npm run build` 
+    * `cd ~/projects/expenses/identity.express/identity-express-manager-ui/`
+    * `dotnet publish -c Release`
+    * `cd src/IdentityExpressUI/bin/Release/netcoreapp2.1/publish`
+    * `cp -r * ~/webapplications/adminui.ui/`
+    * `cd ~/webapplications/adminui.ui`
+    * `dotnet IdentityExpressUI.dll`
+    * [Browse to](https://adminui.knowledgespike.local)
+
+## Development
+
+1. I run IDS in full mode behind NGINX so the URL is ids.knowledgespike.local and the apps are setup to use this
+1. I also run admin UI and the API behind NGINX
+1. Expenses UI is running on 5446
+1. Expenses API is running on 5447
+1. Have to make sure the correct CORS URL (https://expenses.knowledgespike.local:5446) and callback URL (https://expenses.knowledgespike.local:5446/auth-callback) are added to identity server
+1. Run the Angular code in watch mode (TODO)
+
+## MySql
 
 The MySql error file is here `/usr/local/var/mysql/Kevins-MacBook-Pro.local.err`
 
