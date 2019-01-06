@@ -8,6 +8,7 @@ import { AddExpenseDetailsComponent } from './components/add-expense-details/add
 import { ExpenseClaimsComponent } from './components/expense-claims/expense-claims.component';
 import { NewExpenseComponent } from './components/new-expense/new-expense.component';
 import { ShowExpenseDetailsComponent } from './components/show-expense-details/show-expense-details.component';
+import { ExpensesListContainerComponent } from './containers/expenses-list-container/expenses-list-container.component';
 import { expensesRoutes } from './expenses.routes';
 import { ExpenseClaimsService } from './services/expense-claims.service';
 import { ExpensesEffects } from './state/expense.effects';
@@ -16,6 +17,7 @@ import { reducer } from './state/expenses.reducer';
 @NgModule({
   declarations: [
     ExpenseClaimsComponent,
+    ExpensesListContainerComponent,
     AddExpenseDetailsComponent,
     ShowExpenseDetailsComponent,
     NewExpenseComponent,
